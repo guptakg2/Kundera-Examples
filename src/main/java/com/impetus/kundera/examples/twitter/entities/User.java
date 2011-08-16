@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -34,8 +35,8 @@ public class User implements Serializable
     @Embedded
     private PersonalDetail personalDetail;
 
-    // Embedded collection, will persist co-located
-    @Embedded
+    //Element collection, will persist co-located
+    @ElementCollection
     private List<Tweet> tweets;
 
     // One to many, will be persisted separately

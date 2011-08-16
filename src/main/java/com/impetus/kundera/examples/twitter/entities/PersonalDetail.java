@@ -15,6 +15,7 @@
  */
 package com.impetus.kundera.examples.twitter.entities;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 import com.impetus.kundera.examples.twitter.utils.ExampleUtils;
@@ -28,12 +29,16 @@ import com.impetus.kundera.examples.twitter.utils.ExampleUtils;
 @Embeddable
 public class PersonalDetail
 {
+    @Column(name="personal_detail_id")
     private String personalDetailId;
 
+    @Column(name="name")
     private String name;
 
+    @Column(name="password")
     private String password;
 
+    @Column(name="rel_status")
     private String relationshipStatus;
 
     public PersonalDetail()

@@ -15,6 +15,7 @@
  */
 package com.impetus.kundera.examples.twitter.entities;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 import com.impetus.kundera.examples.twitter.utils.ExampleUtils;
@@ -29,10 +30,13 @@ import com.impetus.kundera.examples.twitter.utils.ExampleUtils;
 public class Tweet
 {
 
+    @Column(name="tweet_id")
     private String tweetId;
 
+    @Column(name="tweet_body")
     private String body;
 
+    @Column(name="tweeted_from")
     private String device;
 
 //    private long timestamp;
