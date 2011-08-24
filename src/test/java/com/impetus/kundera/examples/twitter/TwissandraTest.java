@@ -74,9 +74,9 @@ public class TwissandraTest extends CassandraQuerySuite
     @Override
     protected void setUp() throws Exception
     {
-            startCassandraServer();
+            //startCassandraServer();
             setUpInternal("twissandra");
-            initClient();
+            //initClient();
     }
 
     /**
@@ -84,17 +84,17 @@ public class TwissandraTest extends CassandraQuerySuite
      */
     public void testOnExecute() throws Exception
     {
-        loadData();
+        //loadData();
         executeTestSuite();       
     }
    
     /**
      * Test on execute query.
      */
-    public void testOnQuery()
+    /*public void testOnQuery()
     {
         executeQuerySuite();   
-    }
+    }*/
     /*
      * (non-Javadoc)
      * 
@@ -159,29 +159,31 @@ public class TwissandraTest extends CassandraQuerySuite
      * @throws InvalidRequestException
      *             the invalid request exception
      */
-    public void loadData() throws org.apache.cassandra.config.ConfigurationException, TException, NotFoundException,
+    /*public void loadData() throws org.apache.cassandra.config.ConfigurationException, TException, NotFoundException,
             InvalidRequestException
     {
 
         Class<? extends AbstractReplicationStrategy> simple = SimpleStrategy.class;
         Map<String, String> ret = new HashMap<String, String>();
         ret.put("replication_factor", "1");
-        CfDef user_Def = new CfDef("Kundera-Examples", "users");
+        CfDef user_Def = new CfDef("KunderaExamples", "users");
         user_Def.setComparator_type("UTF8Type");
         user_Def.setColumn_type("Super");
         user_Def.setSubcomparator_type("UTF8Type");
         user_Def.setDefault_validation_class("UTF8Type");
-        CfDef preference_Def = new CfDef("Kundera-Examples", "preference");
-        CfDef external_Def = new CfDef("Kundera-Examples", "externalLinks");
+        CfDef preference_Def = new CfDef("KunderaExamples", "preference");
+        CfDef external_Def = new CfDef("KunderaExamples", "externalLinks");
         List<CfDef> cfDefs = new ArrayList<CfDef>();
         cfDefs.add(user_Def);
         cfDefs.add(preference_Def);
         cfDefs.add(external_Def);
 
-        client.send_system_add_keyspace(new KsDef("Examples", simple.getCanonicalName(), 1, cfDefs));
+        client.send_system_add_keyspace(new KsDef("Examples", simple.getCanonicalName(), cfDefs).setReplication_factor(1));
 
-        KSMetaData metadata = new KSMetaData("Kundera-Examples", simple, ret, 1, standardCFMD("Kundera-Examples", "users", ColumnFamilyType.Super),
-                standardCFMD("Kundera-Examples", "preference", ColumnFamilyType.Standard), standardCFMD("Kundera-Examples", "externalLinks",ColumnFamilyType.Standard));
+        KSMetaData metadata = new KSMetaData("KunderaExamples", simple, ret, standardCFMD("KunderaExamples", "users", ColumnFamilyType.Super),
+                standardCFMD("KunderaExamples", "preference", ColumnFamilyType.Standard), standardCFMD("KunderaExamples", "externalLinks",ColumnFamilyType.Standard));
+       
+        
         for (CFMetaData cfm : metadata.cfMetaData().values())
         {
             CFMetaData.map(cfm);
@@ -189,7 +191,7 @@ public class TwissandraTest extends CassandraQuerySuite
 
         DatabaseDescriptor.setTableDefinition(metadata, DatabaseDescriptor.getDefsVersion());
 
-    }
+    }*/
 
     /**
      * Standard cfmd.
@@ -199,14 +201,15 @@ public class TwissandraTest extends CassandraQuerySuite
      * @param columnFamilyType the column family type
      * @return the cF meta data
      */
-    private static CFMetaData standardCFMD(String ksName, String cfName, ColumnFamilyType columnFamilyType)
+    /*private static CFMetaData standardCFMD(String ksName, String cfName, ColumnFamilyType columnFamilyType)
     {
-
+    	
         return new CFMetaData(ksName, cfName, columnFamilyType, UTF8Type.instance, null, "colfamily", Double
                 .valueOf("0"), Double.valueOf("0"), Double.valueOf("0"), 0, UTF8Type.instance, 0, 0, 0, 0, 0, Integer
                 .valueOf(0), Double.valueOf("0"), new HashMap<ByteBuffer, ColumnDefinition>());
-    }
-
+    }*/
+    
+     
     /**
      * Inits the client.
      */

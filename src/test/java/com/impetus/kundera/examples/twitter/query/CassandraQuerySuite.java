@@ -46,7 +46,7 @@ public class CassandraQuerySuite extends TwitterTestSuite
     public void executeQuerySuite()
     {
         getTweetsByBody();
-        getTweetsByDevice();
+        //getTweetsByDevice();
     }
     /**
      * Gets the tweets by body.
