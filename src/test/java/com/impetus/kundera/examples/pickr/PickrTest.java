@@ -39,7 +39,8 @@ public class PickrTest extends TestCase
 
     public void testCreateAlbum()
     {
-        pickr.createAlbum("My Phuket Vacation", "Went Phuket with friends");
+        pickr.createAlbum("a", "My Phuket Vacation", "Went Phuket with friends");
+        pickr.createAlbum("b", "Office Pics", "Annual office party photos");
     }
 
     public void testAddPhotoToAlbum()

@@ -22,7 +22,7 @@ import com.impetus.kundera.examples.pickr.entities.Photographer;
 import com.impetus.kundera.loader.Configuration;
 
 /**
- * <Description of functionality provided by this class>
+ * Implementation class for Pickr functionality
  * 
  * @author amresh.singh
  */
@@ -58,18 +58,18 @@ public class PickrImpl implements Pickr
     }
 
     @Override
-    public void createAlbum(String name, String description)
+    public void createAlbum(String id, String name, String description)
     {
-       Photographer p = em.find(Photographer.class, "1");
+       Photographer p = em.find(Photographer.class, "1");       
        
        Album album = new Album();
+       album.setAlbumId(id);
        album.setAlbumName(name);
        album.setAlbumDescription(description);
        
        p.addAlbum(album);
        
-       em.persist(p);
-       em.close();
+       em.persist(p);       
     }
 
     @Override

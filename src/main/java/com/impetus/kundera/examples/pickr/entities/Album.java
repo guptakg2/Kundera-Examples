@@ -30,18 +30,32 @@ import javax.persistence.Table;
  */
 
 @Entity
-@Table(name="albums", schema="KunderaExamples@picbase")
+@Table(name="albums", schema="KunderaExamples@picongo")
 public class Album
 {
     @Id
+    private String albumId;
+    
+    @Column(name="album_name")
     private String albumName;
     
-    @Column(name="albumDesc")
+    @Column(name="album_desc")
     private String albumDescription;
     
     //One to many, will be persisted separately
     @OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.EAGER)
-    private List<Photo> photos;
+    private List<Photo> photos;    
+    
+
+    public String getAlbumId()
+    {
+        return albumId;
+    }
+
+    public void setAlbumId(String albumId)
+    {
+        this.albumId = albumId;
+    }
 
     /**
      * @return the albumName
