@@ -35,9 +35,9 @@ public class ExampleUtils
         return new Date().getTime();
     }
 
-    public static void main(String[] args)
+    /*public static void main(String[] args)
     {
         System.out.println(getCurrentTimestamp());
-    }
+    }*/
 
 }
