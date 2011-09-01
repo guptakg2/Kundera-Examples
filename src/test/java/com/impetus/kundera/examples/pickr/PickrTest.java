@@ -16,38 +16,49 @@ package com.impetus.kundera.examples.pickr;
 
 import com.impetus.kundera.examples.pickr.dao.Pickr;
 import com.impetus.kundera.examples.pickr.dao.PickrImpl;
+import com.impetus.kundera.examples.pickr.entities.Photographer;
 
 import junit.framework.TestCase;
 
 /**
  * Test case for Pickr application
+ * 
  * @author amresh.singh
  */
 public class PickrTest extends TestCase
 {
     Pickr pickr;
+
+    String photographerId;
+
     protected void setUp() throws Exception
     {
         super.setUp();
+        photographerId = "1";
         pickr = new PickrImpl("piccandra");
-    }   
-
-    /*public void testAddPhotographer()
-    {
-        pickr.addPhotographer("1", "Amresh", "xamry@impetus.co.in", "Noida");
-    }*/
-
-    public void testCreateAlbum()
-    {
-        pickr.createAlbum("a", "My Phuket Vacation", "Went Phuket with friends");
-        pickr.createAlbum("b", "Office Pics", "Annual office party photos");
     }
 
-    public void testAddPhotoToAlbum()
+    /*
+     * public void testAddPhotographer() { pickr.addPhotographer(photographerId,
+     * "Amresh", "xamry@impetus.co.in", "Noida"); }
+     */
+
+    /*
+     * public void testCreateAlbums() { pickr.createAlbum("a",
+     * "My Phuket Vacation", "Went Phuket with friends"); pickr.createAlbum("b",
+     * "Office Pics", "Annual office party photos"); }
+     */
+
+    /*
+     * public void testAddPhotoToAlbum() { //fail("Not yet implemented"); }
+     */
+
+    public void testGetPhotographer()
     {
-        //fail("Not yet implemented");
+        Photographer p = pickr.getPhotographer(photographerId);
+        System.out.println(p);
     }
-    
+
     protected void tearDown() throws Exception
     {
         super.tearDown();

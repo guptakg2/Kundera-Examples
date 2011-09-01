@@ -53,8 +53,7 @@ public class PickrImpl implements Pickr
         
         p.setPersonalData(pd);     
         
-        em.persist(p);        
-        em.close();
+        em.persist(p);       
     }
 
     @Override
@@ -78,4 +77,13 @@ public class PickrImpl implements Pickr
         
 
     }
+    
+    @Override
+    public Photographer getPhotographer(String photographerId)
+    {
+        Photographer p = em.find(Photographer.class, "1");       
+        return p;
+    }
+    
+    
 }
