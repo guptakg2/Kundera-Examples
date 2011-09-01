@@ -27,21 +27,22 @@ import javax.persistence.Table;
 
 /**
  * Entity class representing a photographer
+ * 
  * @author amresh.singh
  */
 
 @Entity
-@Table(name="photographer", schema="KunderaExamples@piccandra")
+@Table(name = "photographer", schema = "KunderaExamples@piccandra")
 public class Photographer
 {
     @Id
     private String photographerId;
-    
-    //Will be persisted locally
+
+    // Will be persisted locally
     @Embedded
-    private PersonalData personalData;  
-    
-    //One to many, will be persisted separately
+    private PersonalData personalData;
+
+    // One to many, will be persisted separately
     @OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.EAGER)
     private List<Album> albums;
 
@@ -54,7 +55,8 @@ public class Photographer
     }
 
     /**
-     * @param photographerId the photographerId to set
+     * @param photographerId
+     *            the photographerId to set
      */
     public void setPhotographerId(String photographerId)
     {
@@ -70,7 +72,8 @@ public class Photographer
     }
 
     /**
-     * @param personalData the personalData to set
+     * @param personalData
+     *            the personalData to set
      */
     public void setPersonalData(PersonalData personalData)
     {
@@ -86,14 +89,16 @@ public class Photographer
     }
 
     /**
-     * @param albums the albums to set
+     * @param albums
+     *            the albums to set
      */
     public void addAlbum(Album album)
     {
-        if(this.albums == null || this.albums.isEmpty()) {
+        if (this.albums == null || this.albums.isEmpty())
+        {
             this.albums = new ArrayList<Album>();
         }
         this.albums.add(album);
-    } 
-    
+    }
+
 }

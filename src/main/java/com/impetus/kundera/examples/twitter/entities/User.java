@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -35,15 +36,16 @@ public class User implements Serializable
     @Embedded
     private PersonalDetail personalDetail;
 
-    //Element collection, will persist co-located
+    // Element collection, will persist co-located
     @ElementCollection
+    @CollectionTable(name = "tweeted")
     private List<Tweet> tweets;
 
     // One to many, will be persisted separately
     @OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.EAGER)
     private List<User> friends; // List of users whom I follow
 
-    //One to many, will be persisted separately
+    // One to many, will be persisted separately
     @OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.EAGER)
     private List<User> followers; // List of users who are following me
 

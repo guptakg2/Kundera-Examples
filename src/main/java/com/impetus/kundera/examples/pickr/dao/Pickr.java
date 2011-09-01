@@ -14,16 +14,24 @@
  */
 package com.impetus.kundera.examples.pickr.dao;
 
+import java.util.List;
+
 import com.impetus.kundera.examples.pickr.entities.Photographer;
 
 /**
- * <Description of functionality provided by this class>
+ * Interface for Pickr application
+ * 
  * @author amresh.singh
  */
 public interface Pickr
 {
-   void addPhotographer(String id, String name, String email, String address);
-   void createAlbum(String id, String name, String description);
-   void addPhotoToAlbum(String albumName, String photoId, String caption, String description);
-   Photographer getPhotographer(String photographerId);
+    void addPhotographer(String id, String name, String email, String address);
+
+    void createAlbum(String id, String name, String description);
+
+    void addPhotoToAlbum(String albumName, String photoId, String caption, String description);
+
+    Photographer getPhotographer(String photographerId);
+
+    public List<Photographer> getAllPhotographers();
 }

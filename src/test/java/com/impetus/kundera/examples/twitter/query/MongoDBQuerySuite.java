@@ -22,25 +22,29 @@ import com.impetus.kundera.examples.twitter.entities.Tweet;
 
 /**
  * Test suite for MongoDB Query
+ * 
  * @author amresh.singh
  */
 public class MongoDBQuerySuite extends TwitterTestSuite
 {
     /**
      * Sets the up internal.
-     * @param persistenceUnitName the new up internal
-     * @throws Exception the exception
+     * 
+     * @param persistenceUnitName
+     *            the new up internal
+     * @throws Exception
+     *             the exception
      */
     protected void setUpInternal(String persistenceUnitName) throws Exception
     {
         super.setUpInternal(persistenceUnitName);
     }
 
-   
     /**
      * Tear down internal.
-     *
-     * @throws Exception the exception
+     * 
+     * @throws Exception
+     *             the exception
      */
     protected void tearDownInternal() throws Exception
     {
@@ -51,40 +55,40 @@ public class MongoDBQuerySuite extends TwitterTestSuite
      * Execute suite.
      */
     public void executeQuerySuite()
-    {        
+    {
         getTweetsByBody();
-        //getTweetsByDevice();
+        // getTweetsByDevice();
     }
+
     /**
      * Gets the tweets by body.
-     *
+     * 
      * @return the tweets by body
      */
     public void getTweetsByBody()
     {
         List<Tweet> user1Tweet = twitter.findTweetByBody("Here");
         List<Tweet> user2Tweet = twitter.findTweetByBody("Saurabh");
-        
+
         assertNotNull(user1Tweet);
         assertNotNull(user2Tweet);
         assertEquals(1, user1Tweet.size());
         assertEquals(1, user2Tweet.size());
     }
-    
-   /**
-    * Gets the tweet by device.
-    *
-    * @return the tweet by device
-    */
-   public void getTweetsByDevice()
-   {
-       List<Tweet> webTweets = twitter.findTweetByDevice("Web");
-       List<Tweet> mobileTweets = twitter.findTweetByDevice("Mobile");
-       assertNotNull(webTweets);
-       assertNotNull(mobileTweets);
-       assertEquals(1, webTweets.size());
-       assertEquals(1, mobileTweets.size());
-   }     
-   
+
+    /**
+     * Gets the tweet by device.
+     * 
+     * @return the tweet by device
+     */
+    public void getTweetsByDevice()
+    {
+        List<Tweet> webTweets = twitter.findTweetByDevice("Web");
+        List<Tweet> mobileTweets = twitter.findTweetByDevice("Mobile");
+        assertNotNull(webTweets);
+        assertNotNull(mobileTweets);
+        assertEquals(1, webTweets.size());
+        assertEquals(1, mobileTweets.size());
+    }
 
 }

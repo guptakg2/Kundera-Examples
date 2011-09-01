@@ -8,32 +8,36 @@ import java.util.List;
 import com.impetus.kundera.examples.twitter.TwitterTestSuite;
 import com.impetus.kundera.examples.twitter.entities.Tweet;
 
-
 /**
  * The Class CassandraQuerySuite.
- *
+ * 
  * @author vivek.mishra
  */
 public class CassandraQuerySuite extends TwitterTestSuite
 {
     /**
      * Sets the up internal.
-     *
-     * @param persistenceUnitName the new up internal
-     * @throws Exception the exception
+     * 
+     * @param persistenceUnitName
+     *            the new up internal
+     * @throws Exception
+     *             the exception
      */
     protected void setUpInternal(String persistenceUnitName) throws Exception
     {
         super.setUpInternal(persistenceUnitName);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see junit.framework.TestCase#tearDown()
      */
     /**
      * Tear down internal.
-     *
-     * @throws Exception the exception
+     * 
+     * @throws Exception
+     *             the exception
      */
     protected void tearDownInternal() throws Exception
     {
@@ -46,11 +50,12 @@ public class CassandraQuerySuite extends TwitterTestSuite
     public void executeQuerySuite()
     {
         getTweetsByBody();
-        //getTweetsByDevice();
+        // getTweetsByDevice();
     }
+
     /**
      * Gets the tweets by body.
-     *
+     * 
      * @return the tweets by body
      */
     public void getTweetsByBody()
@@ -62,20 +67,20 @@ public class CassandraQuerySuite extends TwitterTestSuite
         assertEquals(1, user1Tweet.size());
         assertEquals(1, user2Tweet.size());
     }
-    
-   /**
-    * Gets the tweet by device.
-    *
-    * @return the tweet by device
-    */
-   public void getTweetsByDevice()
-   {
-       List<Tweet> webTweets = twitter.findTweetByDevice("Web");
-       List<Tweet> mobileTweets = twitter.findTweetByDevice("Mobile");
-       assertNotNull(webTweets);
-       assertNotNull(mobileTweets);
-       assertEquals(1, webTweets.size());
-       assertEquals(1, mobileTweets.size());
-       
-   }
+
+    /**
+     * Gets the tweet by device.
+     * 
+     * @return the tweet by device
+     */
+    public void getTweetsByDevice()
+    {
+        List<Tweet> webTweets = twitter.findTweetByDevice("Web");
+        List<Tweet> mobileTweets = twitter.findTweetByDevice("Mobile");
+        assertNotNull(webTweets);
+        assertNotNull(mobileTweets);
+        assertEquals(1, webTweets.size());
+        assertEquals(1, mobileTweets.size());
+
+    }
 }

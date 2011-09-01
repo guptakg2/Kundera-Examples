@@ -21,12 +21,12 @@ import com.impetus.kundera.examples.twitter.query.MongoDBQuerySuite;
 
 /**
  * Test case for MongoDB.
- *
+ * 
  * @author amresh.singh
  */
 public class TwingoTest extends MongoDBQuerySuite
 {
-    
+
     /** The user id1. */
     String userId1;
 
@@ -36,7 +36,9 @@ public class TwingoTest extends MongoDBQuerySuite
     /** The twitter. */
     Twitter twitter;
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see junit.framework.TestCase#setUp()
      */
     @Override
@@ -45,20 +47,22 @@ public class TwingoTest extends MongoDBQuerySuite
         setUpInternal("twingo");
     }
 
-    
     /**
      * Test on execute.
      */
     public void testOnExecute()
     {
-       executeTestSuite();
+        executeTestSuite();
     }
-    
-    public void testOnQuery() {
+
+    public void testOnQuery()
+    {
         executeQuerySuite();
     }
-    
-    /* (non-Javadoc)
+
+    /*
+     * (non-Javadoc)
+     * 
      * @see junit.framework.TestCase#tearDown()
      */
     @Override

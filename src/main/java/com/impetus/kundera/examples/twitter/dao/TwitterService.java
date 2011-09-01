@@ -138,7 +138,7 @@ public class TwitterService extends SuperDao implements Twitter
         {
             return null;
         }
-        return users.get(0).getFollowers(); 
+        return users.get(0).getFollowers();
     }
 
     @Override

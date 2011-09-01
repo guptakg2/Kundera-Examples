@@ -29,10 +29,9 @@ import com.impetus.kundera.examples.twitter.utils.ExampleUtils;
  */
 
 @Entity
-@Table(name = "preference", schema = "KunderaExamples")
+@Table(name = "preference", schema = "KunderaExamples@twibase")
 public class Preference
 {
-
     @Id
     String preferenceId;
 

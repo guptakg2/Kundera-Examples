@@ -20,6 +20,7 @@ import com.impetus.kundera.examples.twitter.query.HBaseQuerySuite;
 
 /**
  * Test case for Twitter like application on HBase
+ * 
  * @author amresh.singh
  */
 public class TwibaseTest extends HBaseQuerySuite
@@ -33,7 +34,9 @@ public class TwibaseTest extends HBaseQuerySuite
     /** The twitter. */
     Twitter twitter;
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see junit.framework.TestCase#setUp()
      */
     @Override
@@ -42,20 +45,22 @@ public class TwibaseTest extends HBaseQuerySuite
         setUpInternal("twibase");
     }
 
-    
     /**
      * Test on execute.
      */
     public void testOnExecute()
     {
-       executeTestSuite();
+        executeTestSuite();
     }
-    
-    public void testOnQuery() {
+
+    public void testOnQuery()
+    {
         executeQuerySuite();
     }
-    
-    /* (non-Javadoc)
+
+    /*
+     * (non-Javadoc)
+     * 
      * @see junit.framework.TestCase#tearDown()
      */
     @Override

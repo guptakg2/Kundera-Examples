@@ -19,20 +19,22 @@ import javax.persistence.Embeddable;
 
 /**
  * Class for holding personal data
+ * 
  * @author amresh.singh
  */
 
 @Embeddable
 public class PersonalData
 {
-    @Column(name="p_name")
+    @Column(name = "p_name")
     private String name;
-    
-    @Column(name="p_email")
+
+    @Column(name = "p_email")
     private String email;
-    
-    @Column(name="p_address")
+
+    @Column(name = "p_address")
     private String address;
+
     /**
      * @return the name
      */
@@ -40,13 +42,16 @@ public class PersonalData
     {
         return name;
     }
+
     /**
-     * @param name the name to set
+     * @param name
+     *            the name to set
      */
     public void setName(String name)
     {
         this.name = name;
     }
+
     /**
      * @return the email
      */
@@ -54,13 +59,16 @@ public class PersonalData
     {
         return email;
     }
+
     /**
-     * @param email the email to set
+     * @param email
+     *            the email to set
      */
     public void setEmail(String email)
     {
         this.email = email;
     }
+
     /**
      * @return the address
      */
@@ -68,12 +76,14 @@ public class PersonalData
     {
         return address;
     }
+
     /**
-     * @param address the address to set
+     * @param address
+     *            the address to set
      */
     public void setAddress(String address)
     {
         this.address = address;
-    }   
+    }
 
 }

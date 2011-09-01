@@ -62,7 +62,7 @@ public class TwissandraTest extends CassandraQuerySuite
 
     /** The client. */
     private Cassandra.Client client;
-    
+
     /** The Constant LOG. */
     private static final Log LOG = LogFactory.getLog(TwissandraTest.class);
 
@@ -74,9 +74,9 @@ public class TwissandraTest extends CassandraQuerySuite
     @Override
     protected void setUp() throws Exception
     {
-            //startCassandraServer();
-            setUpInternal("twissandra");
-            //initClient();
+        // startCassandraServer();
+        setUpInternal("twissandra");
+        // initClient();
     }
 
     /**
@@ -84,17 +84,16 @@ public class TwissandraTest extends CassandraQuerySuite
      */
     public void testOnExecute() throws Exception
     {
-        //loadData();
-        executeTestSuite();       
+        // loadData();
+        executeTestSuite();
     }
-   
+
     /**
      * Test on execute query.
      */
-    /*public void testOnQuery()
-    {
-        executeQuerySuite();   
-    }*/
+    /*
+     * public void testOnQuery() { executeQuerySuite(); }
+     */
     /*
      * (non-Javadoc)
      * 
@@ -159,57 +158,65 @@ public class TwissandraTest extends CassandraQuerySuite
      * @throws InvalidRequestException
      *             the invalid request exception
      */
-    /*public void loadData() throws org.apache.cassandra.config.ConfigurationException, TException, NotFoundException,
-            InvalidRequestException
-    {
-
-        Class<? extends AbstractReplicationStrategy> simple = SimpleStrategy.class;
-        Map<String, String> ret = new HashMap<String, String>();
-        ret.put("replication_factor", "1");
-        CfDef user_Def = new CfDef("KunderaExamples", "users");
-        user_Def.setComparator_type("UTF8Type");
-        user_Def.setColumn_type("Super");
-        user_Def.setSubcomparator_type("UTF8Type");
-        user_Def.setDefault_validation_class("UTF8Type");
-        CfDef preference_Def = new CfDef("KunderaExamples", "preference");
-        CfDef external_Def = new CfDef("KunderaExamples", "externalLinks");
-        List<CfDef> cfDefs = new ArrayList<CfDef>();
-        cfDefs.add(user_Def);
-        cfDefs.add(preference_Def);
-        cfDefs.add(external_Def);
-
-        client.send_system_add_keyspace(new KsDef("Examples", simple.getCanonicalName(), cfDefs).setReplication_factor(1));
-
-        KSMetaData metadata = new KSMetaData("KunderaExamples", simple, ret, standardCFMD("KunderaExamples", "users", ColumnFamilyType.Super),
-                standardCFMD("KunderaExamples", "preference", ColumnFamilyType.Standard), standardCFMD("KunderaExamples", "externalLinks",ColumnFamilyType.Standard));
-       
-        
-        for (CFMetaData cfm : metadata.cfMetaData().values())
-        {
-            CFMetaData.map(cfm);
-        }
-
-        DatabaseDescriptor.setTableDefinition(metadata, DatabaseDescriptor.getDefsVersion());
-
-    }*/
+    /*
+     * public void loadData() throws
+     * org.apache.cassandra.config.ConfigurationException, TException,
+     * NotFoundException, InvalidRequestException {
+     * 
+     * Class<? extends AbstractReplicationStrategy> simple =
+     * SimpleStrategy.class; Map<String, String> ret = new HashMap<String,
+     * String>(); ret.put("replication_factor", "1"); CfDef user_Def = new
+     * CfDef("KunderaExamples", "users");
+     * user_Def.setComparator_type("UTF8Type");
+     * user_Def.setColumn_type("Super");
+     * user_Def.setSubcomparator_type("UTF8Type");
+     * user_Def.setDefault_validation_class("UTF8Type"); CfDef preference_Def =
+     * new CfDef("KunderaExamples", "preference"); CfDef external_Def = new
+     * CfDef("KunderaExamples", "externalLinks"); List<CfDef> cfDefs = new
+     * ArrayList<CfDef>(); cfDefs.add(user_Def); cfDefs.add(preference_Def);
+     * cfDefs.add(external_Def);
+     * 
+     * client.send_system_add_keyspace(new KsDef("Examples",
+     * simple.getCanonicalName(), cfDefs).setReplication_factor(1));
+     * 
+     * KSMetaData metadata = new KSMetaData("KunderaExamples", simple, ret,
+     * standardCFMD("KunderaExamples", "users", ColumnFamilyType.Super),
+     * standardCFMD("KunderaExamples", "preference", ColumnFamilyType.Standard),
+     * standardCFMD("KunderaExamples",
+     * "externalLinks",ColumnFamilyType.Standard));
+     * 
+     * 
+     * for (CFMetaData cfm : metadata.cfMetaData().values()) {
+     * CFMetaData.map(cfm); }
+     * 
+     * DatabaseDescriptor.setTableDefinition(metadata,
+     * DatabaseDescriptor.getDefsVersion());
+     * 
+     * }
+     */
 
     /**
      * Standard cfmd.
-     *
-     * @param ksName the ks name
-     * @param cfName the cf name
-     * @param columnFamilyType the column family type
+     * 
+     * @param ksName
+     *            the ks name
+     * @param cfName
+     *            the cf name
+     * @param columnFamilyType
+     *            the column family type
      * @return the cF meta data
      */
-    /*private static CFMetaData standardCFMD(String ksName, String cfName, ColumnFamilyType columnFamilyType)
-    {
-    	
-        return new CFMetaData(ksName, cfName, columnFamilyType, UTF8Type.instance, null, "colfamily", Double
-                .valueOf("0"), Double.valueOf("0"), Double.valueOf("0"), 0, UTF8Type.instance, 0, 0, 0, 0, 0, Integer
-                .valueOf(0), Double.valueOf("0"), new HashMap<ByteBuffer, ColumnDefinition>());
-    }*/
-    
-     
+    /*
+     * private static CFMetaData standardCFMD(String ksName, String cfName,
+     * ColumnFamilyType columnFamilyType) {
+     * 
+     * return new CFMetaData(ksName, cfName, columnFamilyType,
+     * UTF8Type.instance, null, "colfamily", Double .valueOf("0"),
+     * Double.valueOf("0"), Double.valueOf("0"), 0, UTF8Type.instance, 0, 0, 0,
+     * 0, 0, Integer .valueOf(0), Double.valueOf("0"), new HashMap<ByteBuffer,
+     * ColumnDefinition>()); }
+     */
+
     /**
      * Inits the client.
      */
@@ -226,7 +233,7 @@ public class TwissandraTest extends CassandraQuerySuite
         }
         catch (TTransportException ttex)
         {
-         
+
             LOG.error(ttex.getMessage());
         }
         catch (Exception ex)

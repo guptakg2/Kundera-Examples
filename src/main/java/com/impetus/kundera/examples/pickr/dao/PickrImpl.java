@@ -14,11 +14,15 @@
  */
 package com.impetus.kundera.examples.pickr.dao;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
 import com.impetus.kundera.examples.pickr.entities.Album;
 import com.impetus.kundera.examples.pickr.entities.PersonalData;
 import com.impetus.kundera.examples.pickr.entities.Photographer;
+import com.impetus.kundera.examples.twitter.entities.User;
 import com.impetus.kundera.loader.Configuration;
 
 /**
@@ -29,11 +33,12 @@ import com.impetus.kundera.loader.Configuration;
 public class PickrImpl implements Pickr
 {
     EntityManager em;
-    
-    public PickrImpl(String persistenceUnitName) {
+
+    public PickrImpl(String persistenceUnitName)
+    {
         em = getEntityManager(persistenceUnitName);
     }
-    
+
     public EntityManager getEntityManager(String persistenceUnitName)
     {
         Configuration conf = new Configuration();
@@ -45,45 +50,50 @@ public class PickrImpl implements Pickr
     {
         Photographer p = new Photographer();
         p.setPhotographerId(id);
-        
+
         PersonalData pd = new PersonalData();
         pd.setName(name);
         pd.setEmail(email);
         pd.setAddress(address);
-        
-        p.setPersonalData(pd);     
-        
-        em.persist(p);       
+
+        p.setPersonalData(pd);
+
+        em.persist(p);
     }
 
     @Override
     public void createAlbum(String id, String name, String description)
     {
-       Photographer p = em.find(Photographer.class, "1");       
-       
-       Album album = new Album();
-       album.setAlbumId(id);
-       album.setAlbumName(name);
-       album.setAlbumDescription(description);
-       
-       p.addAlbum(album);
-       
-       em.persist(p);       
+        Photographer p = em.find(Photographer.class, "1");
+
+        Album album = new Album();
+        album.setAlbumId(id);
+        album.setAlbumName(name);
+        album.setAlbumDescription(description);
+
+        p.addAlbum(album);
+
+        em.persist(p);
     }
 
     @Override
     public void addPhotoToAlbum(String albumName, String photoId, String caption, String description)
     {
-        
 
     }
-    
+
     @Override
     public Photographer getPhotographer(String photographerId)
     {
-        Photographer p = em.find(Photographer.class, "1");       
+        Photographer p = em.find(Photographer.class, "1");
         return p;
     }
-    
-    
+
+    public List<Photographer> getAllPhotographers()
+    {
+        Query q = em.createQuery("select p from Photographer p");
+        List<Photographer> photographers = q.getResultList();
+        return photographers;
+    }
+
 }

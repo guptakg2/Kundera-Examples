@@ -21,20 +21,21 @@ import javax.persistence.Table;
 
 /**
  * Entity class for photo
+ * 
  * @author amresh.singh
  */
 
 @Entity
-@Table(name="photos", schema="KunderaExamples@picongo")
+@Table(name = "photos", schema = "KunderaExamples@picongo")
 public class Photo
 {
     @Id
     private String photoId;
-    
-    @Column(name="photo_caption")    
+
+    @Column(name = "photo_caption")
     private String photoCaption;
-    
-    @Column(name="photo_desc")
+
+    @Column(name = "photo_desc")
     private String photoDescription;
 
     /**
@@ -46,7 +47,8 @@ public class Photo
     }
 
     /**
-     * @param photoId the photoId to set
+     * @param photoId
+     *            the photoId to set
      */
     public void setPhotoId(String photoId)
     {
@@ -62,7 +64,8 @@ public class Photo
     }
 
     /**
-     * @param photoCaption the photoCaption to set
+     * @param photoCaption
+     *            the photoCaption to set
      */
     public void setPhotoCaption(String photoCaption)
     {
@@ -78,11 +81,12 @@ public class Photo
     }
 
     /**
-     * @param photoDescription the photoDescription to set
+     * @param photoDescription
+     *            the photoDescription to set
      */
     public void setPhotoDescription(String photoDescription)
     {
         this.photoDescription = photoDescription;
-    }  
+    }
 
 }

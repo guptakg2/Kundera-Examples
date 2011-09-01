@@ -14,6 +14,8 @@
  */
 package com.impetus.kundera.examples.pickr;
 
+import java.util.List;
+
 import com.impetus.kundera.examples.pickr.dao.Pickr;
 import com.impetus.kundera.examples.pickr.dao.PickrImpl;
 import com.impetus.kundera.examples.pickr.entities.Photographer;
@@ -53,10 +55,18 @@ public class PickrTest extends TestCase
      * public void testAddPhotoToAlbum() { //fail("Not yet implemented"); }
      */
 
-    public void testGetPhotographer()
+    /*
+     * public void testGetPhotographer() { Photographer p =
+     * pickr.getPhotographer(photographerId); System.out.println(p); }
+     */
+
+    public void testGetAllPhotographers()
     {
-        Photographer p = pickr.getPhotographer(photographerId);
-        System.out.println(p);
+        List<Photographer> photographers = pickr.getAllPhotographers();
+
+        assertNotNull(photographers);
+        assertFalse(photographers.isEmpty());
+        assertEquals(1, photographers.size());
     }
 
     protected void tearDown() throws Exception

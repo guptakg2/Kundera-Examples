@@ -27,11 +27,12 @@ import com.impetus.kundera.examples.twitter.entities.User;
 
 /**
  * Test case for MongoDB.
+ * 
  * @author amresh.singh
  */
 public class TwitterTestSuite extends TestCase
 {
-    
+
     /** The user id1. */
     String userId1;
 
@@ -43,9 +44,11 @@ public class TwitterTestSuite extends TestCase
 
     /**
      * Sets the up internal.
-     *
-     * @param persistenceUnitName the new up internal
-     * @throws Exception the exception
+     * 
+     * @param persistenceUnitName
+     *            the new up internal
+     * @throws Exception
+     *             the exception
      */
     protected void setUpInternal(String persistenceUnitName) throws Exception
     {
@@ -56,13 +59,16 @@ public class TwitterTestSuite extends TestCase
 
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see junit.framework.TestCase#tearDown()
      */
     /**
      * Tear down internal.
-     *
-     * @throws Exception the exception
+     * 
+     * @throws Exception
+     *             the exception
      */
     protected void tearDownInternal() throws Exception
     {
@@ -77,14 +83,14 @@ public class TwitterTestSuite extends TestCase
      */
     protected void executeTestSuite()
     {
-        //addUsers();
+        // addUsers();
         savePreference();
-        //addExternalLinks();
-        //addTweets();
-        //user1FollowsUser2();
-        //getAllTweets();       
+        // addExternalLinks();
+        // addTweets();
+        // user1FollowsUser2();
+        // getAllTweets();
     }
-    
+
     /**
      * Adds the users.
      */
@@ -102,72 +108,77 @@ public class TwitterTestSuite extends TestCase
         twitter.savePreference(userId1, new Preference("Motif", "2"));
         twitter.savePreference(userId2, new Preference("High Contrast", "3"));
     }
-    
+
     /**
      * Adds the external links.
      */
-    protected void addExternalLinks() {
+    protected void addExternalLinks()
+    {
         twitter.addExternalLink(userId1, "Facebook", "http://facebook.com/coolnerd");
         twitter.addExternalLink(userId1, "LinkedIn", "http://linkedin.com/in/devilmate");
-        
+
         twitter.addExternalLink(userId2, "GooglePlus", "http://plus.google.com/inviteme");
-        twitter.addExternalLink(userId2, "Yahoo", "http://yahoo.com/profiles/itsmeamry");        
+        twitter.addExternalLink(userId2, "Yahoo", "http://yahoo.com/profiles/itsmeamry");
     }
-    
+
     /**
      * Adds the tweets.
      */
-    protected void addTweets() {
+    protected void addTweets()
+    {
         twitter.addTweet(userId1, "Here is my first tweet", "Web");
         twitter.addTweet(userId1, "Second Tweet from me", "Mobile");
-        
+
         twitter.addTweet(userId2, "Saurabh tweets for the first time", "Phone");
         twitter.addTweet(userId2, "Another tweet from Saurabh", "text");
     }
-    
+
     /**
      * User1 follows user2.
      */
-    protected void user1FollowsUser2() {
+    protected void user1FollowsUser2()
+    {
         twitter.startFollowing(userId1, userId2);
     }
-    
+
     /**
      * User1 adds user2 as follower.
      */
-    protected void user1AddsUser2AsFollower() {
+    protected void user1AddsUser2AsFollower()
+    {
         twitter.addFollower(userId1, userId2);
     }
-    
+
     /**
      * Gets the all tweets.
-     *
+     * 
      * @return the all tweets
      */
-    protected void getAllTweets() {
+    protected void getAllTweets()
+    {
         List<Tweet> tweetsUser1 = twitter.getAllTweets(userId1);
         List<Tweet> tweetsUser2 = twitter.getAllTweets(userId2);
-        
+
         assertNotNull(tweetsUser1);
         assertNotNull(tweetsUser2);
-        
+
         assertFalse(tweetsUser1.isEmpty());
         assertFalse(tweetsUser2.isEmpty());
-        
+
         assertEquals(2, tweetsUser1.size());
         assertEquals(2, tweetsUser2.size());
     }
-   
+
     /**
      * Gets the all followers.
-     *
+     * 
      * @return the all followers
      */
     protected void getAllFollowers()
     {
         List<User> follower1 = twitter.getFollowers(userId1);
         List<User> follower2 = twitter.getFollowers(userId2);
-        
+
         assertNull(follower1);
         assertNotNull(follower2);
     }

@@ -30,23 +30,23 @@ import com.impetus.kundera.examples.twitter.utils.ExampleUtils;
 public class Tweet
 {
 
-    @Column(name="tweet_id")
+    @Column(name = "tweet_id")
     private String tweetId;
 
-    @Column(name="tweet_body")
+    @Column(name = "tweet_body")
     private String body;
 
-    @Column(name="tweeted_from")
+    @Column(name = "tweeted_from")
     private String device;
 
-//    private long timestamp;
+    // private long timestamp;
 
     public Tweet(String body, String device)
     {
         this.tweetId = ExampleUtils.getUniqueId();
         this.body = body;
         this.device = device;
-//        this.timestamp = ExampleUtils.getCurrentTimestamp();
+        // this.timestamp = ExampleUtils.getCurrentTimestamp();
     }
 
     public Tweet()
@@ -105,21 +105,16 @@ public class Tweet
         this.device = device;
     }
 
-/*    *//**
+    /*    *//**
      * @return the timestamp
-     *//*
-    public long getTimestamp()
-    {
-        return timestamp;
-    }
-
-    *//**
+     */
+    /*
+     * public long getTimestamp() { return timestamp; }
+     *//**
      * @param timestamp
      *            the timestamp to set
-     *//*
-    public void setTimestamp(long timestamp)
-    {
-        this.timestamp = timestamp;
-    }
-*/
+     */
+    /*
+     * public void setTimestamp(long timestamp) { this.timestamp = timestamp; }
+     */
 }

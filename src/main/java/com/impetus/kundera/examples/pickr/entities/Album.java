@@ -26,26 +26,26 @@ import javax.persistence.Table;
 
 /**
  * Entity Class for album
+ * 
  * @author amresh.singh
  */
 
 @Entity
-@Table(name="albums", schema="KunderaExamples@picongo")
+@Table(name = "albums", schema = "KunderaExamples@picongo")
 public class Album
 {
     @Id
     private String albumId;
-    
-    @Column(name="album_name")
+
+    @Column(name = "album_name")
     private String albumName;
-    
-    @Column(name="album_desc")
+
+    @Column(name = "album_desc")
     private String albumDescription;
-    
-    //One to many, will be persisted separately
+
+    // One to many, will be persisted separately
     @OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.EAGER)
-    private List<Photo> photos;    
-    
+    private List<Photo> photos;
 
     public String getAlbumId()
     {
@@ -66,7 +66,8 @@ public class Album
     }
 
     /**
-     * @param albumName the albumName to set
+     * @param albumName
+     *            the albumName to set
      */
     public void setAlbumName(String albumName)
     {
@@ -82,7 +83,8 @@ public class Album
     }
 
     /**
-     * @param albumDescription the albumDescription to set
+     * @param albumDescription
+     *            the albumDescription to set
      */
     public void setAlbumDescription(String albumDescription)
     {
@@ -98,11 +100,12 @@ public class Album
     }
 
     /**
-     * @param photos the photos to set
+     * @param photos
+     *            the photos to set
      */
     public void setPhotos(List<Photo> photos)
     {
         this.photos = photos;
-    }   
-    
+    }
+
 }

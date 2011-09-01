@@ -29,16 +29,16 @@ import com.impetus.kundera.examples.twitter.utils.ExampleUtils;
 @Embeddable
 public class PersonalDetail
 {
-    @Column(name="personal_detail_id")
+    @Column(name = "personal_detail_id")
     private String personalDetailId;
 
-    @Column(name="name")
+    @Column(name = "name")
     private String name;
 
-    @Column(name="password")
+    @Column(name = "password")
     private String password;
 
-    @Column(name="rel_status")
+    @Column(name = "rel_status")
     private String relationshipStatus;
 
     public PersonalDetail()
