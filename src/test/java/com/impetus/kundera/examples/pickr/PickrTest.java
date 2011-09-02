@@ -40,36 +40,52 @@ public class PickrTest extends TestCase
         pickr = new PickrImpl("piccandra");
     }
 
-    /*
-     * public void testAddPhotographer() { pickr.addPhotographer(photographerId,
-     * "Amresh", "xamry@impetus.co.in", "Noida"); }
-     */
+    public void test()
+    {
+        //addPhotographer();
+        //createAlbums();        
+        //getPhotographer();
+        //getAllPhotographers();
+    }
 
-    
-    /*public void testCreateAlbums()
+    public void addPhotographer()
+    {
+        pickr.addPhotographer(photographerId, "Amresh", "xamry@impetus.co.in", "Noida");
+    }
+
+    public void createAlbums()
     {
         pickr.createAlbum("a", "My Phuket Vacation", "Went Phuket with friends");
         pickr.createAlbum("b", "Office Pics", "Annual office party photos");
-    }*/
-     
+    }
 
-    /*
-     * public void testAddPhotoToAlbum() { //fail("Not yet implemented"); }
-     */
+    public void addPhotoToAlbum()
+    { // fail("Not yet implemented");
 
-    /*
-     * public void testGetPhotographer() { Photographer p =
-     * pickr.getPhotographer(photographerId); System.out.println(p); }
-     */
+    }
 
-    /*public void testGetAllPhotographers()
+    public void getPhotographer()
+    {
+        Photographer p = pickr.getPhotographer(photographerId);
+        
+        assertNotNull(p);
+        assertEquals("1", p.getPhotographerId());
+        assertNotNull(p.getPersonalData());
+        assertEquals("Amresh", p.getPersonalData().getName());
+        assertNotNull(p.getAlbums());
+        assertFalse(p.getAlbums().isEmpty());
+        assertEquals(2, p.getAlbums().size());
+        
+    }
+
+    public void getAllPhotographers()
     {
         List<Photographer> photographers = pickr.getAllPhotographers();
 
         assertNotNull(photographers);
         assertFalse(photographers.isEmpty());
         assertEquals(1, photographers.size());
-    }*/
+    }
 
     protected void tearDown() throws Exception
     {
