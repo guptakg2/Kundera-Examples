@@ -45,11 +45,13 @@ public class PickrTest extends TestCase
      * "Amresh", "xamry@impetus.co.in", "Noida"); }
      */
 
-    /*
-     * public void testCreateAlbums() { pickr.createAlbum("a",
-     * "My Phuket Vacation", "Went Phuket with friends"); pickr.createAlbum("b",
-     * "Office Pics", "Annual office party photos"); }
-     */
+    
+    /*public void testCreateAlbums()
+    {
+        pickr.createAlbum("a", "My Phuket Vacation", "Went Phuket with friends");
+        pickr.createAlbum("b", "Office Pics", "Annual office party photos");
+    }*/
+     
 
     /*
      * public void testAddPhotoToAlbum() { //fail("Not yet implemented"); }
@@ -60,14 +62,14 @@ public class PickrTest extends TestCase
      * pickr.getPhotographer(photographerId); System.out.println(p); }
      */
 
-    public void testGetAllPhotographers()
+    /*public void testGetAllPhotographers()
     {
         List<Photographer> photographers = pickr.getAllPhotographers();
 
         assertNotNull(photographers);
         assertFalse(photographers.isEmpty());
         assertEquals(1, photographers.size());
-    }
+    }*/
 
     protected void tearDown() throws Exception
     {
