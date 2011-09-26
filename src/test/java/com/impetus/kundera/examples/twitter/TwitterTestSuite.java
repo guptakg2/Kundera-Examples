@@ -83,12 +83,12 @@ public class TwitterTestSuite extends TestCase
      */
     protected void executeTestSuite()
     {
-        // addUsers();
+        addUsers();
         savePreference();
-        // addExternalLinks();
-        // addTweets();
-        // user1FollowsUser2();
-        // getAllTweets();
+        addExternalLinks();
+        addTweets();
+        user1FollowsUser2();
+        getAllTweets();
     }
 
     /**
