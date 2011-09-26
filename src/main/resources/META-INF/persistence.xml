@@ -6,7 +6,7 @@
 	<persistence-unit name="twissandra">
 		<provider>com.impetus.kundera.ejb.KunderaPersistence</provider>		
 		<properties>
-			<property name="server.config" value="D:/Softwares/Development/Cassandra/apache-cassandra-0.8.2/conf/cassandra.yaml"/>
+			<property name="server.config" value="D:/Software/apache-cassandra-0.8.2/conf/cassandra.yaml"/>
 			<property name="kundera.nodes" value="localhost"/>
 			<property name="kundera.port" value="9160"/>
 			<property name="kundera.keyspace" value="KunderaExamples"/>
