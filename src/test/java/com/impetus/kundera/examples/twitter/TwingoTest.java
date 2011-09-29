@@ -16,7 +16,6 @@
 package com.impetus.kundera.examples.twitter;
 
 import com.impetus.kundera.examples.twitter.dao.Twitter;
-import com.impetus.kundera.examples.twitter.dao.TwitterService;
 import com.impetus.kundera.examples.twitter.query.MongoDBQuerySuite;
 
 /**

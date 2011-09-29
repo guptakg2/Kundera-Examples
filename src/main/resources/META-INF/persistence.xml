@@ -4,7 +4,7 @@
 	version="2.0">
 
 	<persistence-unit name="twissandra">
-		<provider>com.impetus.kundera.ejb.KunderaPersistence</provider>		
+		<provider>com.impetus.kundera.KunderaPersistence</provider>		
 		<properties>
 			<property name="server.config" value="D:/Software/apache-cassandra-0.8.2/conf/cassandra.yaml"/>
 			<property name="kundera.nodes" value="localhost"/>
@@ -19,7 +19,7 @@
 	</persistence-unit>
 
 	<persistence-unit name="twibase">
-		<provider>com.impetus.kundera.ejb.KunderaPersistence</provider>
+		<provider>com.impetus.kundera.KunderaPersistence</provider>
 		
 		<properties>
 			<property name="kundera.nodes" value="localhost"/>
@@ -32,7 +32,7 @@
 		</properties>
 	</persistence-unit>
         <persistence-unit name="twingo">
-		<provider>com.impetus.kundera.ejb.KunderaPersistence</provider>		
+		<provider>com.impetus.kundera.KunderaPersistence</provider>		
 		<properties>
 			<property name="kundera.nodes" value="localhost"/>
 			<property name="kundera.port" value="27017"/>
@@ -46,7 +46,7 @@
 	
 	
 	<persistence-unit name="piccandra">
-		<provider>com.impetus.kundera.ejb.KunderaPersistence</provider>		
+		<provider>com.impetus.kundera.KunderaPersistence</provider>		
 		<properties>
 			<property name="server.config" value="D:/Softwares/Development/Cassandra/apache-cassandra-0.8.2/conf/cassandra.yaml"/>
 			<property name="kundera.nodes" value="localhost"/>
@@ -61,7 +61,7 @@
 	</persistence-unit>
 
 	<persistence-unit name="picbase">
-		<provider>com.impetus.kundera.ejb.KunderaPersistence</provider>
+		<provider>com.impetus.kundera.KunderaPersistence</provider>
 		
 		<properties>
 			<property name="kundera.nodes" value="localhost"/>
@@ -74,7 +74,7 @@
 		</properties>
 	</persistence-unit>
         <persistence-unit name="picongo">
-		<provider>com.impetus.kundera.ejb.KunderaPersistence</provider>		
+		<provider>com.impetus.kundera.KunderaPersistence</provider>		
 		<properties>
 			<property name="kundera.nodes" value="localhost"/>
 			<property name="kundera.port" value="27017"/>

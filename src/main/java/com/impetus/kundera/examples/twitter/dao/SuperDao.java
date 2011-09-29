@@ -5,7 +5,7 @@ package com.impetus.kundera.examples.twitter.dao;
 
 import javax.persistence.EntityManager;
 
-import com.impetus.kundera.loader.Configuration;
+import com.impetus.kundera.client.Configuration;
 
 /**
  * The Class SuperDao.

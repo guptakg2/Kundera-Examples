@@ -19,11 +19,10 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
+import com.impetus.kundera.client.Configuration;
 import com.impetus.kundera.examples.pickr.entities.Album;
 import com.impetus.kundera.examples.pickr.entities.PersonalData;
 import com.impetus.kundera.examples.pickr.entities.Photographer;
-import com.impetus.kundera.examples.twitter.entities.User;
-import com.impetus.kundera.loader.Configuration;
 
 /**
  * Implementation class for Pickr functionality

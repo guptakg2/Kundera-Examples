@@ -16,11 +16,11 @@ package com.impetus.kundera.examples.pickr;
 
 import java.util.List;
 
+import junit.framework.TestCase;
+
 import com.impetus.kundera.examples.pickr.dao.Pickr;
 import com.impetus.kundera.examples.pickr.dao.PickrImpl;
 import com.impetus.kundera.examples.pickr.entities.Photographer;
-
-import junit.framework.TestCase;
 
 /**
  * Test case for Pickr application
