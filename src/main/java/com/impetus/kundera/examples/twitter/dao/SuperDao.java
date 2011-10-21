@@ -4,8 +4,7 @@
 package com.impetus.kundera.examples.twitter.dao;
 
 import javax.persistence.EntityManager;
-
-import com.impetus.kundera.client.Configuration;
+import javax.persistence.Persistence;
 
 /**
  * The Class SuperDao.
@@ -26,8 +25,7 @@ public class SuperDao
      */
     protected EntityManager init(String persistenceUnitName)
     {
-        Configuration conf = new Configuration();
-        return conf.getEntityManager(persistenceUnitName);
+        return Persistence.createEntityManagerFactory(persistenceUnitName).createEntityManager();
 
     }
 }

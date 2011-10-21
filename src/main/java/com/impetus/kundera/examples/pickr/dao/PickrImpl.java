@@ -17,9 +17,9 @@ package com.impetus.kundera.examples.pickr.dao;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Persistence;
 import javax.persistence.Query;
 
-import com.impetus.kundera.client.Configuration;
 import com.impetus.kundera.examples.pickr.entities.Album;
 import com.impetus.kundera.examples.pickr.entities.PersonalData;
 import com.impetus.kundera.examples.pickr.entities.Photographer;
@@ -40,8 +40,7 @@ public class PickrImpl implements Pickr
 
     public EntityManager getEntityManager(String persistenceUnitName)
     {
-        Configuration conf = new Configuration();
-        return conf.getEntityManager(persistenceUnitName);
+        return Persistence.createEntityManagerFactory(persistenceUnitName).createEntityManager();
     }
 
     @Override

@@ -42,10 +42,10 @@ public class PickrTest extends TestCase
 
     public void test()
     {
-        //addPhotographer();
-        //createAlbums();        
-        //getPhotographer();
-        //getAllPhotographers();
+        // addPhotographer();
+        // createAlbums();
+        // getPhotographer();
+        // getAllPhotographers();
     }
 
     public void addPhotographer()
@@ -67,7 +67,7 @@ public class PickrTest extends TestCase
     public void getPhotographer()
     {
         Photographer p = pickr.getPhotographer(photographerId);
-        
+
         assertNotNull(p);
         assertEquals("1", p.getPhotographerId());
         assertNotNull(p.getPersonalData());
@@ -75,7 +75,7 @@ public class PickrTest extends TestCase
         assertNotNull(p.getAlbums());
         assertFalse(p.getAlbums().isEmpty());
         assertEquals(2, p.getAlbums().size());
-        
+
     }
 
     public void getAllPhotographers()
