@@ -34,6 +34,16 @@ public class PersonalData
 
     @Column(name = "p_address")
     private String address;
+    
+    public PersonalData() {
+        
+    }
+    
+    public PersonalData(String name, String email, String address) {
+        this.name = name;
+        this.email = email;
+        this.address = address;
+    }
 
     /**
      * @return the name

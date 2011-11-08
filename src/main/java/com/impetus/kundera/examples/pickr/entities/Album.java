@@ -46,6 +46,16 @@ public class Album
     // One to many, will be persisted separately
     @OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.EAGER)
     private List<Photo> photos;
+    
+    public Album() {
+        
+    }
+    
+    public Album(String albumId, String name, String description) {
+        this.albumId = albumId;
+        this.albumName = name;
+        this.albumDescription = description;
+    }
 
     public String getAlbumId()
     {

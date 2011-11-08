@@ -20,6 +20,8 @@ import junit.framework.TestCase;
 
 import com.impetus.kundera.examples.pickr.dao.Pickr;
 import com.impetus.kundera.examples.pickr.dao.PickrImpl;
+import com.impetus.kundera.examples.pickr.entities.Album;
+import com.impetus.kundera.examples.pickr.entities.PersonalData;
 import com.impetus.kundera.examples.pickr.entities.Photographer;
 
 /**
@@ -37,21 +39,35 @@ public class PickrTest extends TestCase
     {
         super.setUp();
         photographerId = "1";
-        pickr = new PickrImpl("piccandra");
+        pickr = new PickrImpl("piccandra,picongo");
     }
 
     public void test()
     {
-        // addPhotographer();
+        //addPhotographer();
         // createAlbums();
+        addPhotographerAndAlbums();
         // getPhotographer();
         // getAllPhotographers();
+    }
+    
+    public void addPhotographerAndAlbums()
+    {
+        Photographer p = new Photographer();
+        p.setPhotographerId(photographerId);
+        p.setPersonalData(new PersonalData("Amresh", "amresh.singh@impetus.co.in", "Noida"));
+        p.addAlbum(new Album("a", "My Phuket Vacation", "Went Phuket with friends"));
+        p.addAlbum(new Album("b", "Office Pics", "Annual office party photos"));        
+        
+        pickr.addPhotographerAndAlbums(p);
     }
 
     public void addPhotographer()
     {
         pickr.addPhotographer(photographerId, "Amresh", "xamry@impetus.co.in", "Noida");
     }
+    
+    
 
     public void createAlbums()
     {

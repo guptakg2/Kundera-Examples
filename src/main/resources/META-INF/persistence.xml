@@ -12,8 +12,8 @@
 			<property name="kundera.keyspace" value="KunderaExamples"/>
 			<property name="kundera.dialect" value="cassandra"/>
 			<property name="kundera.client" value="Pelops"/>
-			<property name="kundera.cache.provider_class" value="com.impetus.kundera.cache.ehcache.EhCacheProvider"/>
-            <property name="net.sf.ehcache.configurationResourceName" value="/ehcache-test.xml"/>   			
+			<property name="kundera.cache.provider.class" value="com.impetus.kundera.cache.ehcache.EhCacheProvider"/>
+            <property name="kundera.cache.config.resource" value="/ehcache-test.xml"/>   				
 		</properties>
 		
 	</persistence-unit>
@@ -27,8 +27,8 @@
 			<property name="kundera.keyspace" value="KunderaExamples"/>
 			<property name="kundera.dialect" value="hbase"/>
 			<property name="kundera.client" value="Hbase"/>
-			<property name="kundera.cache.provider_class" value="com.impetus.kundera.cache.ehcache.EhCacheProvider"/>
-            <property name="net.sf.ehcache.configurationResourceName" value="/ehcache-test.xml"/>		
+			<property name="kundera.cache.provider.class" value="com.impetus.kundera.cache.ehcache.EhCacheProvider"/>
+            <property name="kundera.cache.config.resource" value="/ehcache-test.xml"/>   		
 		</properties>
 	</persistence-unit>
         <persistence-unit name="twingo">
@@ -39,6 +39,8 @@
 			<property name="kundera.keyspace" value="KunderaExamples"/>
 			<property name="kundera.dialect" value="mongodb"/>
 			<property name="kundera.client" value="MongoDB"/>
+			<property name="kundera.cache.provider.class" value="com.impetus.kundera.cache.ehcache.EhCacheProvider"/>
+            <property name="kundera.cache.config.resource" value="/ehcache-test.xml"/>   	
 		</properties>
 	</persistence-unit>	
 	
@@ -50,12 +52,12 @@
 		<properties>
 			<property name="server.config" value="D:/Softwares/Development/Cassandra/apache-cassandra-0.8.2/conf/cassandra.yaml"/>
 			<property name="kundera.nodes" value="localhost"/>
-			<property name="kundera.port" value="9161"/>
+			<property name="kundera.port" value="9160"/>
 			<property name="kundera.keyspace" value="KunderaExamples"/>
 			<property name="kundera.dialect" value="cassandra"/>
 			<property name="kundera.client" value="Pelops"/>
-			<property name="kundera.cache.provider_class" value="com.impetus.kundera.cache.ehcache.EhCacheProvider"/>
-            <property name="net.sf.ehcache.configurationResourceName" value="/ehcache-test.xml"/>   			
+			<property name="kundera.cache.provider.class" value="com.impetus.kundera.cache.ehcache.EhCacheProvider"/>
+            <property name="kundera.cache.config.resource" value="/ehcache-test.xml"/>   				
 		</properties>
 		
 	</persistence-unit>
@@ -69,8 +71,8 @@
 			<property name="kundera.keyspace" value="KunderaExamples"/>
 			<property name="kundera.dialect" value="hbase"/>
 			<property name="kundera.client" value="Hbase"/>
-			<property name="kundera.cache.provider_class" value="com.impetus.kundera.cache.ehcache.EhCacheProvider"/>
-            <property name="net.sf.ehcache.configurationResourceName" value="/ehcache-test.xml"/>		
+			<property name="kundera.cache.provider.class" value="com.impetus.kundera.cache.ehcache.EhCacheProvider"/>
+            <property name="kundera.cache.config.resource" value="/ehcache-test.xml"/>   	
 		</properties>
 	</persistence-unit>
         <persistence-unit name="picongo">
@@ -81,6 +83,8 @@
 			<property name="kundera.keyspace" value="KunderaExamples"/>
 			<property name="kundera.dialect" value="mongodb"/>
 			<property name="kundera.client" value="MongoDB"/>
+			<property name="kundera.cache.provider.class" value="com.impetus.kundera.cache.ehcache.EhCacheProvider"/>
+            <property name="kundera.cache.config.resource" value="/ehcache-test.xml"/>   	
 		</properties>
 	</persistence-unit>	
 </persistence>
