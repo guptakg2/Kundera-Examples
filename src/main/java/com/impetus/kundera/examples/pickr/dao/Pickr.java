@@ -26,8 +26,8 @@ import com.impetus.kundera.examples.pickr.entities.Photographer;
 public interface Pickr
 {
     void addPhotographerAndAlbums(Photographer p);
-    
-    void addPhotographer(String id, String name, String email, String address);    
+
+    void addPhotographer(String id, String name, String email, String address);
 
     void createAlbum(String id, String name, String description);
 

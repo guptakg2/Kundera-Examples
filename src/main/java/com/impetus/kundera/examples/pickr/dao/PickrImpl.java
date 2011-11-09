@@ -33,9 +33,9 @@ import com.impetus.kundera.examples.pickr.entities.Photographer;
 
 public class PickrImpl implements Pickr
 {
-    
+
     EntityManagerFactory emf;
-    
+
     EntityManager em;
 
     public PickrImpl(String persistenceUnitName)
@@ -45,12 +45,10 @@ public class PickrImpl implements Pickr
 
     public EntityManager getEntityManager(String persistenceUnitName)
     {
-        
+
         emf = Persistence.createEntityManagerFactory(persistenceUnitName);
         return emf.createEntityManager();
     }
-    
-    
 
     @Override
     public void addPhotographerAndAlbums(Photographer p)

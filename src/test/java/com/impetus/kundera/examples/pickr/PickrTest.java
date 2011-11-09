@@ -44,21 +44,19 @@ public class PickrTest extends TestCase
 
     public void test()
     {
-        //addPhotographer();
-        // createAlbums();
-        addPhotographerAndAlbums();
-        // getPhotographer();
+        // addPhotographerAndAlbums();
+        getPhotographer();
         // getAllPhotographers();
     }
-    
+
     public void addPhotographerAndAlbums()
     {
         Photographer p = new Photographer();
         p.setPhotographerId(photographerId);
         p.setPersonalData(new PersonalData("Amresh", "amresh.singh@impetus.co.in", "Noida"));
         p.addAlbum(new Album("a", "My Phuket Vacation", "Went Phuket with friends"));
-        p.addAlbum(new Album("b", "Office Pics", "Annual office party photos"));        
-        
+        p.addAlbum(new Album("b", "Office Pics", "Annual office party photos"));
+
         pickr.addPhotographerAndAlbums(p);
     }
 
@@ -66,8 +64,6 @@ public class PickrTest extends TestCase
     {
         pickr.addPhotographer(photographerId, "Amresh", "xamry@impetus.co.in", "Noida");
     }
-    
-    
 
     public void createAlbums()
     {
