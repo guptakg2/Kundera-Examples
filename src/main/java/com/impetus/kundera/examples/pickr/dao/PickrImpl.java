@@ -40,20 +40,17 @@ public class PickrImpl implements Pickr
 
     public PickrImpl(String persistenceUnitName)
     {
-        em = getEntityManager(persistenceUnitName);
-    }
-
-    public EntityManager getEntityManager(String persistenceUnitName)
-    {
-
         emf = Persistence.createEntityManagerFactory(persistenceUnitName);
-        return emf.createEntityManager();
-    }
+        em = emf.createEntityManager();
+    } 
+
+   
 
     @Override
     public void addPhotographerAndAlbums(Photographer p)
     {
-        em.persist(p);
+
+        em.persist(p);       
     }
 
     @Override
@@ -70,6 +67,7 @@ public class PickrImpl implements Pickr
         p.setPersonalData(pd);
 
         em.persist(p);
+
     }
 
     @Override
@@ -85,6 +83,7 @@ public class PickrImpl implements Pickr
         p.addAlbum(album);
 
         em.persist(p);
+
     }
 
     @Override
@@ -106,5 +105,14 @@ public class PickrImpl implements Pickr
         List<Photographer> photographers = q.getResultList();
         return photographers;
     }
+
+    @Override
+    public void close()
+    {
+        em.close();
+        emf.close();
+    }
+    
+    
 
 }

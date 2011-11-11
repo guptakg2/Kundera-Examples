@@ -36,4 +36,6 @@ public interface Pickr
     Photographer getPhotographer(String photographerId);
 
     public List<Photographer> getAllPhotographers();
+    
+    public void close();
 }
