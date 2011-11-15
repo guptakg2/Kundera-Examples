@@ -36,21 +36,21 @@ public class PickrImpl implements Pickr
 
     EntityManagerFactory emf;
 
-    EntityManager em;
-
     public PickrImpl(String persistenceUnitName)
     {
-        emf = Persistence.createEntityManagerFactory(persistenceUnitName);
-        em = emf.createEntityManager();
-    } 
+        if (emf == null)
+        {
+            emf = Persistence.createEntityManagerFactory(persistenceUnitName);
+        }
 
-   
+    }
 
     @Override
     public void addPhotographerAndAlbums(Photographer p)
     {
-
-        em.persist(p);       
+        EntityManager em = emf.createEntityManager();
+        em.persist(p);
+        em.close();
     }
 
     @Override
@@ -66,13 +66,15 @@ public class PickrImpl implements Pickr
 
         p.setPersonalData(pd);
 
+        EntityManager em = emf.createEntityManager();
         em.persist(p);
-
+        em.close();
     }
 
     @Override
     public void createAlbum(String id, String name, String description)
     {
+        EntityManager em = emf.createEntityManager();
         Photographer p = em.find(Photographer.class, "1");
 
         Album album = new Album();
@@ -83,7 +85,7 @@ public class PickrImpl implements Pickr
         p.addAlbum(album);
 
         em.persist(p);
-
+        em.close();
     }
 
     @Override
@@ -95,24 +97,24 @@ public class PickrImpl implements Pickr
     @Override
     public Photographer getPhotographer(String photographerId)
     {
+        EntityManager em = emf.createEntityManager();
         Photographer p = em.find(Photographer.class, "1");
         return p;
     }
 
     public List<Photographer> getAllPhotographers()
     {
+        EntityManager em = emf.createEntityManager();
         Query q = em.createQuery("select p from Photographer p");
         List<Photographer> photographers = q.getResultList();
+        em.close();
         return photographers;
     }
 
     @Override
     public void close()
     {
-        em.close();
         emf.close();
     }
-    
-    
 
 }

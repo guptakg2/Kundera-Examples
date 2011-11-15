@@ -45,10 +45,9 @@ public class PickrTest extends TestCase
     public void test()
     {
         addPhotographerAndAlbums();
-        getPhotographer();
-        getAllPhotographers();
-        
-        
+        // getPhotographer();
+        // getAllPhotographers();
+
         pickr.close();
     }
 
