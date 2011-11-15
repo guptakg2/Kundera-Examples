@@ -14,6 +14,7 @@
  */
 package com.impetus.kundera.examples.pickr.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -108,6 +109,9 @@ public class Album
      */
     public List<Photo> getPhotos()
     {
+        if(photos == null) {
+            photos = new ArrayList<Photo>();
+        }
         return photos;
     }
 
@@ -118,6 +122,10 @@ public class Album
     public void setPhotos(List<Photo> photos)
     {
         this.photos = photos;
+    }
+    
+    public void addPhoto(Photo photo) {
+        getPhotos().add(photo);
     }
 
 }

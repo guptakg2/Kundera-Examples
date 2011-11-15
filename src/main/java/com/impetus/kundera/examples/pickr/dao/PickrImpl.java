@@ -22,7 +22,6 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 
 import com.impetus.kundera.examples.pickr.entities.Album;
-import com.impetus.kundera.examples.pickr.entities.PersonalData;
 import com.impetus.kundera.examples.pickr.entities.Photographer;
 
 /**
@@ -43,33 +42,16 @@ public class PickrImpl implements Pickr
             emf = Persistence.createEntityManagerFactory(persistenceUnitName);
         }
 
-    }
+    }    
 
     @Override
-    public void addPhotographerAndAlbums(Photographer p)
-    {
-        EntityManager em = emf.createEntityManager();
-        em.persist(p);
-        em.close();
-    }
-
-    @Override
-    public void addPhotographer(String id, String name, String email, String address)
-    {
-        Photographer p = new Photographer();
-        p.setPhotographerId(id);
-
-        PersonalData pd = new PersonalData();
-        pd.setName(name);
-        pd.setEmail(email);
-        pd.setAddress(address);
-
-        p.setPersonalData(pd);
+    public void addPhotographer(Photographer p)
+    {   
 
         EntityManager em = emf.createEntityManager();
         em.persist(p);
         em.close();
-    }
+    }  
 
     @Override
     public void createAlbum(String id, String name, String description)

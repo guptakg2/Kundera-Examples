@@ -26,7 +26,7 @@ import javax.persistence.Table;
  */
 
 @Entity
-@Table(name = "photos", schema = "KunderaExamples@picongo")
+@Table(name = "photos", schema = "KunderaExamples@picbase")
 public class Photo
 {
     @Id
@@ -37,6 +37,16 @@ public class Photo
 
     @Column(name = "photo_desc")
     private String photoDescription;
+    
+    public Photo() {
+        
+    }
+    
+    public Photo(String photoId, String caption, String description) {
+        this.photoId = photoId;
+        this.photoCaption = caption;
+        this.photoDescription = description;
+    }
 
     /**
      * @return the photoId
