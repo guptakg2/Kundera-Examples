@@ -48,39 +48,32 @@ public class TwissandraTest extends CassandraQuerySuite
     /** The Constant LOG. */
     private static final Log LOG = LogFactory.getLog(TwissandraTest.class);
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see junit.framework.TestCase#setUp()
-     */
+
     @Override
     protected void setUp() throws Exception
     {
-        // startCassandraServer();
         setUpInternal("twissandra");
-        // initClient();
     }
 
     /**
      * Test on execute.
      */
-    public void testOnExecute() throws Exception
+    /*public void testOnExecute() throws Exception
     {
         // loadData();
-        executeTestSuite();
-    }
+       executeTestSuite();
+    }*/
 
     /**
      * Test on execute query.
      */
-    /*
-     * public void testOnQuery() { executeQuerySuite(); }
-     */
-    /*
-     * (non-Javadoc)
-     * 
-     * @see junit.framework.TestCase#tearDown()
-     */
+    
+    public void testOnQuery()
+    {
+        executeQuerySuite();
+    }
+    
+
     @Override
     protected void tearDown() throws Exception
     {

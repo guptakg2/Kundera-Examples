@@ -86,7 +86,7 @@ public class TwitterTestSuite extends TestCase
         addUsers();
         // savePreference();
         // addExternalLinks();
-        // addTweets();
+        addTweets();
         // user1FollowsUser2();
         // getAllTweets();
     }
