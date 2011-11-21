@@ -3,7 +3,7 @@
  */
 package com.impetus.kundera.examples.twitter.dao;
 
-import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 /**
@@ -23,9 +23,9 @@ public class SuperDao
      * @throws Exception
      *             the exception
      */
-    protected EntityManager init(String persistenceUnitName)
+    protected EntityManagerFactory createEntityManagerFactory(String persistenceUnitName)
     {
-        return Persistence.createEntityManagerFactory(persistenceUnitName).createEntityManager();
+        return Persistence.createEntityManagerFactory(persistenceUnitName);
 
     }
 }

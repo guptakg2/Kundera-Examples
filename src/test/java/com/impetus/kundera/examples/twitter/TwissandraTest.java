@@ -15,22 +15,8 @@
  */
 package com.impetus.kundera.examples.twitter;
 
-import java.io.IOException;
-import java.net.Socket;
-import java.net.UnknownHostException;
-
-import javax.naming.ConfigurationException;
-
-import org.apache.cassandra.service.EmbeddedCassandraService;
-import org.apache.cassandra.thrift.Cassandra;
-import org.apache.cassandra.thrift.TBinaryProtocol;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.thrift.protocol.TProtocol;
-import org.apache.thrift.transport.TFramedTransport;
-import org.apache.thrift.transport.TSocket;
-import org.apache.thrift.transport.TTransport;
-import org.apache.thrift.transport.TTransportException;
 
 import com.impetus.kundera.examples.twitter.query.CassandraQuerySuite;
 
@@ -41,9 +27,6 @@ import com.impetus.kundera.examples.twitter.query.CassandraQuerySuite;
  */
 public class TwissandraTest extends CassandraQuerySuite
 {
-
-    /** The client. */
-    private Cassandra.Client client;
 
     /** The Constant LOG. */
     private static final Log LOG = LogFactory.getLog(TwissandraTest.class);
@@ -60,7 +43,6 @@ public class TwissandraTest extends CassandraQuerySuite
      */
     /*public void testOnExecute() throws Exception
     {
-        // loadData();
        executeTestSuite();
     }*/
 
@@ -68,7 +50,7 @@ public class TwissandraTest extends CassandraQuerySuite
      * Test on execute query.
      */
     
-    public void testOnQuery()
+   public void testOnQuery()
     {
         executeQuerySuite();
     }
@@ -88,7 +70,7 @@ public class TwissandraTest extends CassandraQuerySuite
      * @throws ConfigurationException
      *             the configuration exception
      */
-    private static void startCassandraServer() throws IOException, ConfigurationException
+   /* private static void startCassandraServer() throws IOException, ConfigurationException
     {
 
         if (!checkIfServerRunning())
@@ -96,7 +78,7 @@ public class TwissandraTest extends CassandraQuerySuite
             EmbeddedCassandraService cassandra = new EmbeddedCassandraService();
             cassandra.start();
         }
-    }
+    }*/
 
     /**
      * Check if server running.
@@ -104,7 +86,7 @@ public class TwissandraTest extends CassandraQuerySuite
      * @return true, if successful
      */
 
-    public static boolean checkIfServerRunning()
+   /* public static boolean checkIfServerRunning()
     {
         try
         {
@@ -119,7 +101,7 @@ public class TwissandraTest extends CassandraQuerySuite
         {
             return false;
         }
-    }
+    }*/
 
     /**
      * Load data.
@@ -195,7 +177,7 @@ public class TwissandraTest extends CassandraQuerySuite
     /**
      * Inits the client.
      */
-    private void initClient()
+    /*private void initClient()
     {
         TSocket socket = new TSocket("127.0.0.1", 9165);
         TTransport transport = new TFramedTransport(socket);
@@ -215,5 +197,5 @@ public class TwissandraTest extends CassandraQuerySuite
         {
             LOG.error(ex.getMessage());
         }
-    }
+    }*/
 }
