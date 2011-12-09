@@ -29,17 +29,18 @@ import com.impetus.kundera.examples.twitter.utils.ExampleUtils;
  */
 
 @Entity
-@Table(name = "externalLinks", schema = "KunderaExamples")
+@Table(name = "EXTERNAL_LINK", schema = "KunderaExamples@twissandra")
 public class ExternalLink
 {
 
     @Id
+    @Column(name="EXT_LINK_ID")
     private String extLinkId;
 
-    @Column(name = "link_type")
+    @Column(name = "LINK_TYPE")
     private String linkType;
 
-    @Column(name = "link_address")
+    @Column(name = "LINK_ADDRESS")
     private String linkAddress;
 
     public ExternalLink()

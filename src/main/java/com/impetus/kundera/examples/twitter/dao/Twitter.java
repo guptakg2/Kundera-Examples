@@ -12,7 +12,9 @@ import com.impetus.kundera.examples.twitter.entities.User;
  */
 public interface Twitter
 {
-
+	
+	void addUser(User user);
+	
     /**
      * Registers a new user with Twitter application
      * 
@@ -90,6 +92,10 @@ public interface Twitter
      *            the user id
      * @return the all tweets
      */
+    List<User> getAllUsers();
+    	
+    
+    
     List<Tweet> getAllTweets(String userId);
 
     /**

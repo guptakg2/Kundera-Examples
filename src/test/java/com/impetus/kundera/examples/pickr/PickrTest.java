@@ -18,12 +18,12 @@ import java.util.List;
 
 import junit.framework.TestCase;
 
-import com.impetus.kundera.examples.pickr.dao.Pickr;
-import com.impetus.kundera.examples.pickr.dao.PickrImpl;
-import com.impetus.kundera.examples.pickr.entities.Album;
-import com.impetus.kundera.examples.pickr.entities.PersonalData;
-import com.impetus.kundera.examples.pickr.entities.Photo;
-import com.impetus.kundera.examples.pickr.entities.Photographer;
+import com.impetus.kundera.examples.crossdatastore.pickr.dao.Pickr;
+import com.impetus.kundera.examples.crossdatastore.pickr.dao.PickrImpl;
+import com.impetus.kundera.examples.crossdatastore.pickr.entities.Album;
+import com.impetus.kundera.examples.crossdatastore.pickr.entities.PersonalData;
+import com.impetus.kundera.examples.crossdatastore.pickr.entities.Photo;
+import com.impetus.kundera.examples.crossdatastore.pickr.entities.Photographer;
 
 /**
  * Test case for Pickr application

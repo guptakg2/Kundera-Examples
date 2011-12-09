@@ -21,6 +21,7 @@ import junit.framework.TestCase;
 
 import com.impetus.kundera.examples.twitter.dao.Twitter;
 import com.impetus.kundera.examples.twitter.dao.TwitterService;
+import com.impetus.kundera.examples.twitter.entities.ExternalLink;
 import com.impetus.kundera.examples.twitter.entities.Preference;
 import com.impetus.kundera.examples.twitter.entities.Tweet;
 import com.impetus.kundera.examples.twitter.entities.User;
@@ -83,12 +84,54 @@ public class TwitterTestSuite extends TestCase
      */
     protected void executeTestSuite()
     {
-//        addUsers();
-        // savePreference();
-        // addExternalLinks();
+        /*addUsers();
         addTweets();
-        // user1FollowsUser2();
-        // getAllTweets();
+        savePreference();
+        addExternalLinks();        
+        user1FollowsUser2();
+        getAllTweets();*/
+    	
+    	addAllUserInfo();
+    	getAllUsers();
+    	getAllTweets();
+    }
+    
+    
+    
+    
+    
+    protected void addAllUserInfo() {
+    	User user1 = new User(userId1, "Amresh", "password1", "married");
+    	
+    	user1.setPreference(new Preference("Motif", "2"));
+    	
+    	user1.addExternalLink(new ExternalLink("Facebook", "http://facebook.com/coolnerd"));
+    	user1.addExternalLink(new ExternalLink("LinkedIn", "http://linkedin.com/in/devilmate"));
+    	
+    	user1.addTweet(new Tweet("Here is my first tweet", "Web"));
+    	user1.addTweet(new Tweet("Second Tweet from me", "Mobile"));
+    	
+    	
+    	
+    	User user2 = new User(userId2, "Saurabh", "password2", "single");
+    	
+    	user2.setPreference(new Preference("High Contrast", "3"));
+    	
+    	user2.addExternalLink(new ExternalLink("GooglePlus", "http://plus.google.com/inviteme"));
+    	user2.addExternalLink(new ExternalLink("Yahoo", "http://yahoo.com/profiles/itsmeamry"));
+
+    	user2.addTweet(new Tweet("Saurabh tweets for the first time", "Phone"));
+    	user2.addTweet(new Tweet("Another tweet from Saurabh", "text"));
+    	
+    	
+    	twitter.addUser(user1);
+    	twitter.addUser(user2);
+    }
+    
+    
+    protected void getAllUsers() {
+    	List<User> users = twitter.getAllUsers();
+    	System.out.println(users);
     }
 
     /**

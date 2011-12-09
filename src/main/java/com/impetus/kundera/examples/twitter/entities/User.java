@@ -3,7 +3,6 @@
  */
 package com.impetus.kundera.examples.twitter.entities;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -11,11 +10,13 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -25,11 +26,12 @@ import javax.persistence.Table;
  * 
  */
 @Entity
-@Table(name = "users", schema = "KunderaExamples")
-public class User implements Serializable
+@Table(name = "USER", schema = "KunderaExamples@twissandra")
+public class User 
 {
 
-    @Id
+    @Id    
+    @Column(name="USER_ID")
     private String userId;
 
     // Embedded object, will persist co-located
@@ -43,18 +45,22 @@ public class User implements Serializable
 
     // One to many, will be persisted separately
     @OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.EAGER)
+    @JoinColumn(name="FRIEND_ID")
     private List<User> friends; // List of users whom I follow
 
     // One to many, will be persisted separately
     @OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.EAGER)
+    @JoinColumn(name="FOLLOWER_ID")
     private List<User> followers; // List of users who are following me
 
     // One-to-one, will be persisted separately
     @OneToOne(cascade = { CascadeType.ALL }, fetch = FetchType.EAGER)
+    @JoinColumn(name="PREFERENCE_ID")
     private Preference preference;
 
     // One to many, will be persisted separately
     @OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.EAGER)
+    @JoinColumn(name="USER_ID")
     private Set<ExternalLink> externalLinks;
 
     public User()

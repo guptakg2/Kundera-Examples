@@ -194,6 +194,11 @@
 			<artifactId>jamm</artifactId>
 			<version>0.2.2</version>
 		</dependency>
+		<dependency>
+			<groupId>org.xerial</groupId>
+			<artifactId>snappy</artifactId>
+			<version>1.0.1-rc4</version>			
+		</dependency>
 
 		<!-- Non public dependencies- being picked from kundera svn repository -->
 		<dependency>
@@ -237,12 +242,10 @@
 			<groupId>javassist</groupId>
 			<artifactId>javassist</artifactId>
 			<version>3.9.0.GA</version>
-		</dependency>		
-		<dependency>
-			<groupId>org.apache.solr</groupId>
-			<artifactId>solandra</artifactId>
-			<version>UNKNOWN</version>
-		</dependency>
+		</dependency>	
+		
+		
+		<!-- HBase depndencies -->
 		<dependency>
 			<groupId>org.apache.hbase</groupId>
 			<artifactId>hbase-core</artifactId>
@@ -265,18 +268,33 @@
 			<artifactId>mongo</artifactId>
 			<version>2.5.3</version>
 		</dependency>
+		
+		
+		<!-- Kundera Dependencies -->
 		<dependency>
-			<groupId>com.impetus</groupId>
-			<artifactId>kundera</artifactId>
-			<version>2.0.3</version>
-		</dependency>		
+			<groupId>com.impetus.client</groupId>
+			<artifactId>kundera-cassandra</artifactId>
+			<version>2.0.4</version>
+		</dependency>	
 		<dependency>
-			<groupId>org.xerial</groupId>
-			<artifactId>snappy</artifactId>
-			<version>1.0.1-rc4</version>			
+			<groupId>com.impetus.client</groupId>
+			<artifactId>kundera-hbase</artifactId>
+			<version>2.0.4</version>
+		</dependency>	
+		<dependency>
+			<groupId>com.impetus.client</groupId>
+			<artifactId>kundera-mongo</artifactId>
+			<version>2.0.4</version>
 		</dependency>
+		<dependency>
+			<groupId>com.impetus.client</groupId>
+			<artifactId>kundera-rdbms</artifactId>
+			<version>2.0.4</version>
+		</dependency>	
 		
 	</dependencies>
+	
+	
 	<build>
 		<plugins>
 			<plugin>

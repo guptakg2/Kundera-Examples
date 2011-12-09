@@ -58,6 +58,14 @@ public class TwitterService extends SuperDao implements Twitter
             emf.close();
         }
     }
+    
+    @Override
+    public void addUser(User user)
+    {
+        em = emf.createEntityManager();        
+        em.persist(user);
+        em.close();
+    }
 
     @Override
     public void addUser(String userId, String name, String password, String relationshipStatus)
@@ -125,8 +133,22 @@ public class TwitterService extends SuperDao implements Twitter
         em.persist(user);
         em.close();
     }
+    
+    
+    
 
     @Override
+	public List<User> getAllUsers() {
+    	em = emf.createEntityManager();
+        Query q = em.createQuery("select u from User u");
+        
+        List<User> users = q.getResultList();
+        em.close();
+        
+        return users;
+	}
+
+	@Override
     public List<Tweet> getAllTweets(String userId)
     {
         em = emf.createEntityManager();

@@ -29,16 +29,17 @@ import com.impetus.kundera.examples.twitter.utils.ExampleUtils;
  */
 
 @Entity
-@Table(name = "preference", schema = "KunderaExamples@twissandra")
+@Table(name = "PREFERENCE", schema = "KunderaExamples@twissandra")
 public class Preference
 {
     @Id
+    @Column(name="PREFERENCE_ID")
     String preferenceId;
 
-    @Column(name = "website_theme")
+    @Column(name = "WEBSITE_THEME")
     String websiteTheme;
 
-    @Column(name = "privacy_level")
+    @Column(name = "PRIVACY_LEVEL")
     String privacyLevel; // 1, 2, 3
 
     public Preference()

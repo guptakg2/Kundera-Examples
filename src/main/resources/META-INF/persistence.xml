@@ -2,7 +2,7 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence
 	http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
 	version="2.0">
-
+	<!-- Persistence Units for Twitter application -->
 	<persistence-unit name="twissandra">
 		<provider>com.impetus.kundera.KunderaPersistence</provider>		
 		<properties>			
@@ -13,13 +13,10 @@
 			<property name="kundera.client" value="Pelops"/>
 			<property name="kundera.cache.provider.class" value="com.impetus.kundera.cache.ehcache.EhCacheProvider"/>
             <property name="kundera.cache.config.resource" value="/ehcache-test.xml"/>   				
-		</properties>
-		
+		</properties>		
 	</persistence-unit>
-
 	<persistence-unit name="twibase">
-		<provider>com.impetus.kundera.KunderaPersistence</provider>
-		
+		<provider>com.impetus.kundera.KunderaPersistence</provider>		
 		<properties>
 			<property name="kundera.nodes" value="localhost"/>
 			<property name="kundera.port" value="9165"/>
@@ -42,10 +39,8 @@
             <property name="kundera.cache.config.resource" value="/ehcache-test.xml"/>   	
 		</properties>
 	</persistence-unit>	
-	
-	
-	
-	
+		
+	<!-- Persistence Units for Pickr application -->	
 	<persistence-unit name="piccandra">
 		<provider>com.impetus.kundera.KunderaPersistence</provider>		
 		<properties>			
@@ -56,13 +51,10 @@
 			<property name="kundera.client" value="Pelops"/>
 			<property name="kundera.cache.provider.class" value="com.impetus.kundera.cache.ehcache.EhCacheProvider"/>
             <property name="kundera.cache.config.resource" value="/ehcache-test.xml"/>   				
-		</properties>
-		
+		</properties>		
 	</persistence-unit>
-
 	<persistence-unit name="picbase">
-		<provider>com.impetus.kundera.KunderaPersistence</provider>
-		
+		<provider>com.impetus.kundera.KunderaPersistence</provider>		
 		<properties>
 			<property name="kundera.nodes" value="localhost"/>
 			<property name="kundera.port" value="9160"/>
@@ -74,6 +66,84 @@
 		</properties>
 	</persistence-unit>
         <persistence-unit name="picongo">
+		<provider>com.impetus.kundera.KunderaPersistence</provider>		
+		<properties>
+			<property name="kundera.nodes" value="localhost"/>
+			<property name="kundera.port" value="27017"/>
+			<property name="kundera.keyspace" value="KunderaExamples"/>
+			<property name="kundera.dialect" value="mongodb"/>
+			<property name="kundera.client" value="MongoDB"/>
+			<property name="kundera.cache.provider.class" value="com.impetus.kundera.cache.ehcache.EhCacheProvider"/>
+            <property name="kundera.cache.config.resource" value="/ehcache-test.xml"/>   	
+		</properties>
+	</persistence-unit>	
+	
+	<!-- Persistence Units for User-Address example (Cross-datastore persistence) -->
+	<persistence-unit name="rdbms">		
+		<provider>com.impetus.kundera.KunderaPersistence</provider>
+		
+		<class>com.impetus.useraddress.entities.PersonnelUni1To1FK</class>
+		<class>com.impetus.useraddress.entities.PersonnelUni1To1PK</class>
+		<class>com.impetus.useraddress.entities.PersonnelUni1ToM</class>
+		<class>com.impetus.useraddress.entities.PersonnelUniMTo1</class>
+		<class>com.impetus.useraddress.entities.PersonnelUniMToM</class>
+		<class>com.impetus.useraddress.entities.PersonnelBi1To1FK</class>
+		<class>com.impetus.useraddress.entities.PersonnelBi1To1PK</class>
+		<class>com.impetus.useraddress.entities.PersonnelBi1ToM</class>
+		<class>com.impetus.useraddress.entities.PersonnelBiMTo1</class>
+		<class>com.impetus.useraddress.entities.PersonnelBiMToM</class>
+		
+		<class>com.impetus.useraddress.entities.HabitatUni1To1FK</class>
+		<class>com.impetus.useraddress.entities.HabitatUni1To1PK</class>
+		<class>com.impetus.useraddress.entities.HabitatUni1ToM</class>
+		<class>com.impetus.useraddress.entities.HabitatUniMTo1</class>
+		<class>com.impetus.useraddress.entities.HabitatUniMToM</class>
+		<class>com.impetus.useraddress.entities.HabitatBi1To1FK</class>
+		<class>com.impetus.useraddress.entities.HabitatBi1To1PK</class>
+		<class>com.impetus.useraddress.entities.HabitatBi1ToM</class>
+		<class>com.impetus.useraddress.entities.HabitatBiMTo1</class>
+		<class>com.impetus.useraddress.entities.HabitatBiMToM</class>
+		
+		<properties>
+			<property name="kundera.client" value="rdbms" />
+  			<!--<property name="hibernate.hbm2ddl.auto" value="create" />-->
+  			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.format_sql" value="true" />
+			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect" />
+			<property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
+			<property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/hibernatepoc" />
+			<property name="hibernate.connection.username" value="root" />
+			<property name="hibernate.connection.password" value="impetus" />
+			<property name="hibernate.current_session_context_class"
+				value="org.hibernate.context.ThreadLocalSessionContext" />
+		</properties>
+	</persistence-unit>
+	<persistence-unit name="addcassandra">
+		<provider>com.impetus.kundera.KunderaPersistence</provider>		
+		<properties>			
+			<property name="kundera.nodes" value="localhost"/>
+			<property name="kundera.port" value="9160"/>
+			<property name="kundera.keyspace" value="KunderaExamples"/>
+			<property name="kundera.dialect" value="cassandra"/>
+			<property name="kundera.client" value="Pelops"/>
+			<property name="kundera.cache.provider.class" value="com.impetus.kundera.cache.ehcache.EhCacheProvider"/>
+            <property name="kundera.cache.config.resource" value="/ehcache-test.xml"/>   			
+		</properties>		
+	</persistence-unit>
+	<persistence-unit name="addhbase">
+		<provider>com.impetus.kundera.KunderaPersistence</provider>
+
+		<properties>
+			<property name="kundera.nodes" value="localhost"/>
+			<property name="kundera.port" value="9165"/>
+			<property name="kundera.keyspace" value="KunderaExamples"/>
+			<property name="kundera.dialect" value="hbase"/>
+			<property name="kundera.client" value="Hbase"/>
+			<property name="kundera.cache.provider.class" value="com.impetus.kundera.cache.ehcache.EhCacheProvider"/>
+            <property name="kundera.cache.config.resource" value="/ehcache-test.xml"/>   		
+		</properties>
+	</persistence-unit>
+	<persistence-unit name="addmongo">
 		<provider>com.impetus.kundera.KunderaPersistence</provider>		
 		<properties>
 			<property name="kundera.nodes" value="localhost"/>
