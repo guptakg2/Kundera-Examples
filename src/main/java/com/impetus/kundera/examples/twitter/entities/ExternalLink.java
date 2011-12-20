@@ -45,7 +45,6 @@ public class ExternalLink
 
     public ExternalLink()
     {
-
     }
 
     public ExternalLink(String type, String address)

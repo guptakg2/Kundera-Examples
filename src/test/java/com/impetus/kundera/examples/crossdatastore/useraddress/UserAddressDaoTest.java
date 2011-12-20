@@ -136,9 +136,8 @@ public class UserAddressDaoTest extends TestCase
         assertEquals("unionetoonefk_a", add.getAddressId());
         assertEquals("123, New street", add.getStreet());     
         
-        dao.closeEntityManagerFactory();
-       
-        dao.closeEntityManagerFactory();
+        dao.closeEntityManagerFactory();       
+        
     }
     
     public void savePersonUniOneToOnePK()
