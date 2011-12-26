@@ -32,7 +32,7 @@ public class UserAddressDaoTest extends TestCase
 {    
 	
 	//Change this as per your unit testing requirements, alongwith entity definition
-    String persistenceUnit = "rdbms,addhbase";
+    String persistenceUnit = "rdbms";
     UserAddressDaoImpl dao;
 
     protected void setUp() throws Exception
@@ -56,27 +56,29 @@ public class UserAddressDaoTest extends TestCase
     	//savePersonUniOneToOnePK();
     	//findPersonUniOneToOnePK();
     	
-    	savePersonUniOneToMany();
+    	//savePersonUniOneToMany();
     	//findPersonUniOneToMany();
     	
-    	/*savePersonUniManyToOne();
-    	findPersonUniManyToOne();*/
+    	//savePersonUniManyToOne();
+    	//findPersonUniManyToOne();
     	
-    	//savePersonUniManyToMay();
+    	//savePersonUniManyToMany();
     	//findPersonUniManyToMany();
     	
+    	
+    	
     	/* Bidirectional */
-    	/*savePersonBiOneToOneFK();
-    	findPersonBiOneToOneFK();
+    	savePersonBiOneToOneFK();
+    	//findPersonBiOneToOneFK();
     	
-    	savePersonBiOneToOnePK();
-    	findPersonBiOneToOnePK();
+    	//savePersonBiOneToOnePK();
+    	//findPersonBiOneToOnePK();
     	
-    	savePersonBiOneToMany();
-    	findPersonBiOneToMany();
+    	//savePersonBiOneToMany();
+    	//findPersonBiOneToMany();
     	
-    	savePersonBiManyToOne();
-    	findPersonBiManyToOne();*/
+    	//savePersonBiManyToOne();
+    	//findPersonBiManyToOne();
     	
     	//savePersonBiManyToMany();
     	//findPersonBiManyToMany();
@@ -303,7 +305,7 @@ public class UserAddressDaoTest extends TestCase
     	dao.closeEntityManagerFactory();
     }
     
-    public void savePersonUniManyToMay() {
+    public void savePersonUniManyToMany() {
     	dao = new UserAddressDaoImpl(persistenceUnit);
     	
     	PersonnelUniMToM person1 = new PersonnelUniMToM();  
@@ -365,7 +367,9 @@ public class UserAddressDaoTest extends TestCase
         HabitatBi1To1FK address = new HabitatBi1To1FK();
         address.setAddressId("bionetoonefk_a");
         address.setStreet("123, New street");        
-        person.setAddress(address);        
+        person.setAddress(address); 
+        address.setPerson(person);
+        
         dao.savePerson(person); 
         
         dao.closeEntityManagerFactory();

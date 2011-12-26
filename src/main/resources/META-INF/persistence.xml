@@ -82,31 +82,31 @@
 	<persistence-unit name="rdbms">		
 		<provider>com.impetus.kundera.KunderaPersistence</provider>
 		
-		<class>com.impetus.useraddress.entities.PersonnelUni1To1FK</class>
-		<class>com.impetus.useraddress.entities.PersonnelUni1To1PK</class>
-		<class>com.impetus.useraddress.entities.PersonnelUni1ToM</class>
-		<class>com.impetus.useraddress.entities.PersonnelUniMTo1</class>
-		<class>com.impetus.useraddress.entities.PersonnelUniMToM</class>
-		<class>com.impetus.useraddress.entities.PersonnelBi1To1FK</class>
-		<class>com.impetus.useraddress.entities.PersonnelBi1To1PK</class>
-		<class>com.impetus.useraddress.entities.PersonnelBi1ToM</class>
-		<class>com.impetus.useraddress.entities.PersonnelBiMTo1</class>
-		<class>com.impetus.useraddress.entities.PersonnelBiMToM</class>
+		<class>com.impetus.kundera.examples.crossdatastore.useraddress.entities.PersonnelUni1To1FK</class>
+		<class>com.impetus.kundera.examples.crossdatastore.useraddress.entities.PersonnelUni1To1PK</class>
+		<class>com.impetus.kundera.examples.crossdatastore.useraddress.entities.PersonnelUni1ToM</class>
+		<class>com.impetus.kundera.examples.crossdatastore.useraddress.entities.PersonnelUniMTo1</class>
+		<class>com.impetus.kundera.examples.crossdatastore.useraddress.entities.PersonnelUniMToM</class>
+		<class>com.impetus.kundera.examples.crossdatastore.useraddress.entities.PersonnelBi1To1FK</class>
+		<class>com.impetus.kundera.examples.crossdatastore.useraddress.entities.PersonnelBi1To1PK</class>
+		<class>com.impetus.kundera.examples.crossdatastore.useraddress.entities.PersonnelBi1ToM</class>
+		<class>com.impetus.kundera.examples.crossdatastore.useraddress.entities.PersonnelBiMTo1</class>
+		<class>com.impetus.kundera.examples.crossdatastore.useraddress.entities.PersonnelBiMToM</class>
 		
-		<class>com.impetus.useraddress.entities.HabitatUni1To1FK</class>
-		<class>com.impetus.useraddress.entities.HabitatUni1To1PK</class>
-		<class>com.impetus.useraddress.entities.HabitatUni1ToM</class>
-		<class>com.impetus.useraddress.entities.HabitatUniMTo1</class>
-		<class>com.impetus.useraddress.entities.HabitatUniMToM</class>
-		<class>com.impetus.useraddress.entities.HabitatBi1To1FK</class>
-		<class>com.impetus.useraddress.entities.HabitatBi1To1PK</class>
-		<class>com.impetus.useraddress.entities.HabitatBi1ToM</class>
-		<class>com.impetus.useraddress.entities.HabitatBiMTo1</class>
-		<class>com.impetus.useraddress.entities.HabitatBiMToM</class>
+		<class>com.impetus.kundera.examples.crossdatastore.useraddress.entities.HabitatUni1To1FK</class>
+		<class>com.impetus.kundera.examples.crossdatastore.useraddress.entities.HabitatUni1To1PK</class>
+		<class>com.impetus.kundera.examples.crossdatastore.useraddress.entities.HabitatUni1ToM</class>
+		<class>com.impetus.kundera.examples.crossdatastore.useraddress.entities.HabitatUniMTo1</class>
+		<class>com.impetus.kundera.examples.crossdatastore.useraddress.entities.HabitatUniMToM</class>
+		<class>com.impetus.kundera.examples.crossdatastore.useraddress.entities.HabitatBi1To1FK</class>
+		<class>com.impetus.kundera.examples.crossdatastore.useraddress.entities.HabitatBi1To1PK</class>
+		<class>com.impetus.kundera.examples.crossdatastore.useraddress.entities.HabitatBi1ToM</class>
+		<class>com.impetus.kundera.examples.crossdatastore.useraddress.entities.HabitatBiMTo1</class>
+		<class>com.impetus.kundera.examples.crossdatastore.useraddress.entities.HabitatBiMToM</class>
 		
 		<properties>
 			<property name="kundera.client" value="rdbms" />
-  			<!--<property name="hibernate.hbm2ddl.auto" value="create" />-->
+<!--  			<property name="hibernate.hbm2ddl.auto" value="create" />-->
   			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.format_sql" value="true" />
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect" />
