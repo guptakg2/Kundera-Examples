@@ -18,10 +18,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -32,18 +34,23 @@ import javax.persistence.Table;
  */
 
 @Entity
-@Table(name = "photographer", schema = "KunderaExamples@piccandra")
+@Table(name = "PHOTOGRAPHER", schema = "Pickr")
 public class Photographer
 {
     @Id
+    @Column(name = "PHOTOGRAPHER_ID")
     private String photographerId;
+    
+    @Column(name = "PHOTOGRAPHER_NAME")
+    private String photographerName;
 
     // Will be persisted locally
     @Embedded
     private PersonalData personalData;
 
     // One to many, will be persisted separately
-    @OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name="PHOTOGRAPHER_ID")
     private List<Album> albums;
 
     /**
@@ -61,6 +68,23 @@ public class Photographer
     public void setPhotographerId(String photographerId)
     {
         this.photographerId = photographerId;
+    }   
+    
+
+    /**
+     * @return the photographerName
+     */
+    public String getPhotographerName()
+    {
+        return photographerName;
+    }
+
+    /**
+     * @param photographerName the photographerName to set
+     */
+    public void setPhotographerName(String photographerName)
+    {
+        this.photographerName = photographerName;
     }
 
     /**

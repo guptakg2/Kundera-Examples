@@ -22,6 +22,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -32,20 +33,22 @@ import javax.persistence.Table;
  */
 
 @Entity
-@Table(name = "albums", schema = "KunderaExamples@picbase")
+@Table(name = "ALBUMS", schema = "Pickr@piccandra")
 public class Album
 {
     @Id
+    @Column(name="ALBUM_ID")
     private String albumId;
 
-    @Column(name = "album_name")
+    @Column(name = "ALBUM_NAME")
     private String albumName;
 
-    @Column(name = "album_desc")
+    @Column(name = "ALBUM_DESC")
     private String albumDescription;
 
     // One to many, will be persisted separately
-    @OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name="ALBUM_ID")
     private List<Photo> photos;
 
     public Album()

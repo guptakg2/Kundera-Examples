@@ -40,13 +40,32 @@
 		</properties>
 	</persistence-unit>	
 		
-	<!-- Persistence Units for Pickr application -->	
+	<!-- Persistence Units for Pickr application -->
+	<persistence-unit name="picmysql">		
+		<provider>com.impetus.kundera.KunderaPersistence</provider>		
+		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.Photographer</class>
+		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.Album</class>
+		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.Photo</class>			
+		<properties>
+			<property name="kundera.client" value="rdbms" />
+ 	  		<property name="hibernate.hbm2ddl.auto" value="create" />
+  			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.format_sql" value="true" />
+			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect" />
+			<property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
+			<property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/Pickr" />
+			<property name="hibernate.connection.username" value="root" />
+			<property name="hibernate.connection.password" value="impetus" />
+			<property name="hibernate.current_session_context_class"
+				value="org.hibernate.context.ThreadLocalSessionContext" />
+		</properties>
+	</persistence-unit>	
 	<persistence-unit name="piccandra">
 		<provider>com.impetus.kundera.KunderaPersistence</provider>		
 		<properties>			
 			<property name="kundera.nodes" value="localhost"/>
 			<property name="kundera.port" value="9160"/>
-			<property name="kundera.keyspace" value="KunderaExamples"/>
+			<property name="kundera.keyspace" value="Pickr"/>
 			<property name="kundera.dialect" value="cassandra"/>
 			<property name="kundera.client" value="Pelops"/>
 			<property name="kundera.cache.provider.class" value="com.impetus.kundera.cache.ehcache.EhCacheProvider"/>
@@ -58,7 +77,7 @@
 		<properties>
 			<property name="kundera.nodes" value="localhost"/>
 			<property name="kundera.port" value="9160"/>
-			<property name="kundera.keyspace" value="KunderaExamples"/>
+			<property name="kundera.keyspace" value="Pickr"/>
 			<property name="kundera.dialect" value="hbase"/>
 			<property name="kundera.client" value="Hbase"/>
 			<property name="kundera.cache.provider.class" value="com.impetus.kundera.cache.ehcache.EhCacheProvider"/>
@@ -70,7 +89,7 @@
 		<properties>
 			<property name="kundera.nodes" value="localhost"/>
 			<property name="kundera.port" value="27017"/>
-			<property name="kundera.keyspace" value="KunderaExamples"/>
+			<property name="kundera.keyspace" value="Pickr"/>
 			<property name="kundera.dialect" value="mongodb"/>
 			<property name="kundera.client" value="MongoDB"/>
 			<property name="kundera.cache.provider.class" value="com.impetus.kundera.cache.ehcache.EhCacheProvider"/>

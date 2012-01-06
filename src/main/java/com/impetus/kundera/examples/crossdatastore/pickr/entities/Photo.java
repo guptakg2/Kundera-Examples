@@ -26,16 +26,17 @@ import javax.persistence.Table;
  */
 
 @Entity
-@Table(name = "photos", schema = "KunderaExamples@picongo")
+@Table(name = "PHOTOS", schema = "Pickr@picongo")
 public class Photo
 {
     @Id
+    @Column(name="PHOTO_ID")
     private String photoId;
 
-    @Column(name = "photo_caption")
+    @Column(name = "PHOTO_CAPTION")
     private String photoCaption;
 
-    @Column(name = "photo_desc")
+    @Column(name = "PHOTO_DESC")
     private String photoDescription;
     
     public Photo() {

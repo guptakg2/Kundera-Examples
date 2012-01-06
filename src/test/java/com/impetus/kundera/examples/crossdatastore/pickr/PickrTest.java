@@ -40,23 +40,22 @@ public class PickrTest extends TestCase
     {
         super.setUp();
         photographerId = "1";
-        pickr = new PickrImpl("piccandra,picongo,picbase");
+        pickr = new PickrImpl("picmysql,piccandra,picongo");
     }
 
     public void test()
     {
         addPhotographerAlbumsAndPhotos();
-        getPhotographer();
-        getAllPhotographers();
-
-        pickr.close();
+        //getPhotographer();
+        //getAllPhotographers();       
     }
 
     public void addPhotographerAndAlbums()
     {
         Photographer p = new Photographer();
         p.setPhotographerId(photographerId);
-        p.setPersonalData(new PersonalData("Amresh", "amresh.singh@impetus.co.in", "Noida"));
+        p.setPhotographerName("Amresh");
+        p.setPersonalData(new PersonalData("www.amresh.com", "amresh.singh@impetus.co.in", "xamry"));
         p.addAlbum(new Album("a", "My Phuket Vacation", "Went Phuket with friends"));
         p.addAlbum(new Album("b", "Office Pics", "Annual office party photos"));
 
@@ -67,7 +66,8 @@ public class PickrTest extends TestCase
     {
         Photographer p = new Photographer();
         p.setPhotographerId(photographerId);
-        p.setPersonalData(new PersonalData("Amresh", "amresh.singh@impetus.co.in", "Noida"));
+        p.setPhotographerName("Amresh");
+        p.setPersonalData(new PersonalData("www.amresh.com", "amresh.singh@impetus.co.in", "xamry"));
         
         Album album1 = new Album("a", "My Phuket Vacation", "Went Phuket with friends"); 
         album1.addPhoto(new Photo("a1", "One beach", "On beach with friends"));
@@ -90,8 +90,8 @@ public class PickrTest extends TestCase
     {
         Photographer p = new Photographer();
         p.setPhotographerId(photographerId);
-
-        p.setPersonalData(new PersonalData("Amresh", "amresh.singh@impetus.co.in", "Noida"));
+        p.setPhotographerName("Amresh");
+        p.setPersonalData(new PersonalData("www.amresh.com", "amresh.singh@impetus.co.in", "xamry"));
         
         pickr.addPhotographer(p);
     }
@@ -103,7 +103,8 @@ public class PickrTest extends TestCase
     }
 
     public void addPhotoToAlbum()
-    { // fail("Not yet implemented");
+    { 
+        // fail("Not yet implemented");
 
     }
 
@@ -113,8 +114,9 @@ public class PickrTest extends TestCase
 
         assertNotNull(p);
         assertEquals("1", p.getPhotographerId());
+        assertEquals("Amresh", p.getPhotographerName());
         assertNotNull(p.getPersonalData());
-        assertEquals("Amresh", p.getPersonalData().getName());
+        assertEquals("www.amresh.com", p.getPersonalData().getWebsite());
         assertNotNull(p.getAlbums());
         assertFalse(p.getAlbums().isEmpty());
         assertEquals(2, p.getAlbums().size());
@@ -148,6 +150,7 @@ public class PickrTest extends TestCase
     protected void tearDown() throws Exception
     {
         super.tearDown();
+        pickr.close();
     }
 
 }

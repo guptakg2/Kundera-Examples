@@ -2,18 +2,17 @@ package com.impetus.kundera.examples.crossdatastore.useraddress.entities;
 
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "PERSON", schema = "hibernatepoc")
+@Table(name = "PERSON", schema = "KunderaExamples@addmongo")
 public class PersonnelUniMToM {
 	@Id
 	@Column(name = "PERSON_ID")
@@ -25,8 +24,15 @@ public class PersonnelUniMToM {
 	@Embedded
 	PersonalData personalData;
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinColumn(name="PERSON_ID")
+	@ManyToMany
+	  @JoinTable(name = "PERSON_ADDRESS", 
+	    joinColumns = {
+	      @JoinColumn(name="PERSON_ID")           
+	    },
+	    inverseJoinColumns = {
+	      @JoinColumn(name="ADDRESS_ID")
+	    }
+	  )
 	private Set<HabitatUniMToM> addresses;
 
 	public String getPersonId() {

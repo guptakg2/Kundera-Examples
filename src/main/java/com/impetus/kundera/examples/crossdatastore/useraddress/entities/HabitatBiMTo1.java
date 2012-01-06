@@ -11,7 +11,7 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name="ADDRESS", schema="KunderaExamples@addhbase")
+@Table(name="ADDRESS", schema="hibernatepoc")
 public class HabitatBiMTo1
 {
     @Id    

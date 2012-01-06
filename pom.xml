@@ -201,26 +201,7 @@
 		</dependency>
 
 		<!-- Non public dependencies- being picked from kundera svn repository -->
-		<dependency>
-			<groupId>org.apache.cassandra</groupId>
-			<artifactId>apache-cassandra</artifactId>
-			<version>0.8.2</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.cassandra</groupId>
-			<artifactId>apache-cassandra-thrift</artifactId>
-			<version>0.8.2</version>
-		</dependency>
-		<dependency>
-			<groupId>libthrift</groupId>
-			<artifactId>libthrift</artifactId>
-			<version>0.6</version>
-		</dependency>
-		<dependency>
-			<groupId>org.scale7</groupId>
-			<artifactId>scale7-pelops</artifactId>
-			<version>1.2-0.7.x-SNAPSHOT</version>
-		</dependency>
+		
 		<dependency>
 			<groupId>org.safehaus.jug</groupId>
 			<artifactId>jug-asl</artifactId>
@@ -271,26 +252,26 @@
 		
 		
 		<!-- Kundera Dependencies -->
-		<dependency>
-			<groupId>com.impetus.client</groupId>
-			<artifactId>kundera-cassandra</artifactId>
-			<version>2.0.4</version>
-		</dependency>	
-		<dependency>
-			<groupId>com.impetus.client</groupId>
-			<artifactId>kundera-hbase</artifactId>
-			<version>2.0.4</version>
-		</dependency>	
-		<dependency>
-			<groupId>com.impetus.client</groupId>
-			<artifactId>kundera-mongo</artifactId>
-			<version>2.0.4</version>
-		</dependency>
-		<dependency>
-			<groupId>com.impetus.client</groupId>
-			<artifactId>kundera-rdbms</artifactId>
-			<version>2.0.4</version>
-		</dependency>	
+<!--		<dependency>-->
+<!--			<groupId>com.impetus.client</groupId>-->
+<!--			<artifactId>kundera-cassandra</artifactId>-->
+<!--			<version>2.0.4</version>-->
+<!--		</dependency>	-->
+<!--		<dependency>-->
+<!--			<groupId>com.impetus.client</groupId>-->
+<!--			<artifactId>kundera-hbase</artifactId>-->
+<!--			<version>2.0.4</version>-->
+<!--		</dependency>	-->
+<!--		<dependency>-->
+<!--			<groupId>com.impetus.client</groupId>-->
+<!--			<artifactId>kundera-mongo</artifactId>-->
+<!--			<version>2.0.4</version>-->
+<!--		</dependency>-->
+<!--		<dependency>-->
+<!--			<groupId>com.impetus.client</groupId>-->
+<!--			<artifactId>kundera-rdbms</artifactId>-->
+<!--			<version>2.0.4</version>-->
+<!--		</dependency>	-->
 		
 	</dependencies>
 	

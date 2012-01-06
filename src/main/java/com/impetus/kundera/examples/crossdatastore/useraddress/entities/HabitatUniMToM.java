@@ -7,7 +7,7 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name="ADDRESS", schema="KunderaExamples@addhbase")
+@Table(name="ADDRESS", schema="KunderaExamples@addmongo")
 public class HabitatUniMToM
 {
     @Id    

@@ -32,20 +32,18 @@ public class UserAddressDaoTest extends TestCase
 {    
 	
 	//Change this as per your unit testing requirements, alongwith entity definition
-    String persistenceUnit = "rdbms";
+    String persistenceUnit = "addmongo";
     UserAddressDaoImpl dao;
 
     protected void setUp() throws Exception
     {
-        super.setUp();       
-        
+        super.setUp();             
     }
 
     protected void tearDown() throws Exception
     {
         super.tearDown();          
-    }
-    
+    }   
     
     
     public void test() {
@@ -62,13 +60,13 @@ public class UserAddressDaoTest extends TestCase
     	//savePersonUniManyToOne();
     	//findPersonUniManyToOne();
     	
-    	//savePersonUniManyToMany();
-    	//findPersonUniManyToMany();
+        //savePersonUniManyToMany();
+    	findPersonUniManyToMany();
     	
     	
     	
     	/* Bidirectional */
-    	savePersonBiOneToOneFK();
+    	//savePersonBiOneToOneFK();
     	//findPersonBiOneToOneFK();
     	
     	//savePersonBiOneToOnePK();
@@ -352,7 +350,42 @@ public class UserAddressDaoTest extends TestCase
     }
     
     public void findPersonUniManyToMany() {
+    	dao = new UserAddressDaoImpl(persistenceUnit);
     	
+    	PersonnelUniMToM person1 = (PersonnelUniMToM)dao.findPerson(PersonnelUniMToM.class, "unimanytomany_1");
+    	assertNotNull(person1);
+    	assertEquals("unimanytomany_1", person1.getPersonId());
+    	assertEquals("Amresh", person1.getPersonName());
+    	PersonalData pd1 = person1.getPersonalData();
+    	assertNotNull(pd1);
+    	assertEquals("www.amresh.com", pd1.getWebsite());
+    	Set<HabitatUniMToM> addresses1 = person1.getAddresses();
+    	assertNotNull(addresses1);
+    	assertFalse(addresses1.isEmpty());
+    	assertEquals(2, addresses1.size());
+    	HabitatUniMToM address11 = (HabitatUniMToM)addresses1.toArray()[0];
+    	assertNotNull(address11);
+    	HabitatUniMToM address12 = (HabitatUniMToM)addresses1.toArray()[1];
+    	assertNotNull(address12);
+    	
+    	PersonnelUniMToM person2 = (PersonnelUniMToM)dao.findPerson(PersonnelUniMToM.class, "unimanytomany_2");
+    	assertNotNull(person2);
+
+    	assertEquals("unimanytomany_2", person2.getPersonId());
+    	assertEquals("Vivek", person2.getPersonName());
+    	PersonalData pd2 = person2.getPersonalData();
+    	assertNotNull(pd2);
+    	assertEquals("www.vivek.com", pd2.getWebsite());
+    	Set<HabitatUniMToM> addresses2 = person2.getAddresses();
+    	assertNotNull(addresses2);
+    	assertFalse(addresses2.isEmpty());
+    	assertEquals(2, addresses2.size());
+    	HabitatUniMToM address21 = (HabitatUniMToM)addresses2.toArray()[0];
+    	assertNotNull(address21);
+    	HabitatUniMToM address22 = (HabitatUniMToM)addresses2.toArray()[1];
+    	assertNotNull(address22);
+    	
+    	dao.closeEntityManagerFactory();
     }
     
     
