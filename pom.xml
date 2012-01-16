@@ -59,6 +59,16 @@
 			<name>riptano</name>
 			<url>http://mvn.riptano.com/content/repositories/public</url>
 		</repository>
+		<repository>
+			<id>spring-milestone</id>
+			<name>Spring Maven MILESTONE Repository</name>
+			<url>http://maven.springframework.org/milestone</url>
+		</repository>
+		<repository>
+			<id>morphia.googlecode.com</id>
+			<name>Morphia Repo at Google Code</name>
+			<url>http://morphia.googlecode.com/svn/mavenrepo</url>
+		</repository>
 	</repositories>
 	<reporting>
 		<plugins>
@@ -188,7 +198,7 @@
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
 			<version>r08</version>
-		</dependency>		
+		</dependency>
 		<dependency>
 			<groupId>com.github.stephenc</groupId>
 			<artifactId>jamm</artifactId>
@@ -197,11 +207,11 @@
 		<dependency>
 			<groupId>org.xerial</groupId>
 			<artifactId>snappy</artifactId>
-			<version>1.0.1-rc4</version>			
+			<version>1.0.1-rc4</version>
 		</dependency>
 
 		<!-- Non public dependencies- being picked from kundera svn repository -->
-		
+
 		<dependency>
 			<groupId>org.safehaus.jug</groupId>
 			<artifactId>jug-asl</artifactId>
@@ -223,9 +233,9 @@
 			<groupId>javassist</groupId>
 			<artifactId>javassist</artifactId>
 			<version>3.9.0.GA</version>
-		</dependency>	
-		
-		
+		</dependency>
+
+
 		<!-- HBase depndencies -->
 		<dependency>
 			<groupId>org.apache.hbase</groupId>
@@ -249,33 +259,81 @@
 			<artifactId>mongo</artifactId>
 			<version>2.5.3</version>
 		</dependency>
-		
-		
+
+
 		<!-- Kundera Dependencies -->
-<!--		<dependency>-->
-<!--			<groupId>com.impetus.client</groupId>-->
-<!--			<artifactId>kundera-cassandra</artifactId>-->
-<!--			<version>2.0.4</version>-->
-<!--		</dependency>	-->
-<!--		<dependency>-->
-<!--			<groupId>com.impetus.client</groupId>-->
-<!--			<artifactId>kundera-hbase</artifactId>-->
-<!--			<version>2.0.4</version>-->
-<!--		</dependency>	-->
-<!--		<dependency>-->
-<!--			<groupId>com.impetus.client</groupId>-->
-<!--			<artifactId>kundera-mongo</artifactId>-->
-<!--			<version>2.0.4</version>-->
-<!--		</dependency>-->
-<!--		<dependency>-->
-<!--			<groupId>com.impetus.client</groupId>-->
-<!--			<artifactId>kundera-rdbms</artifactId>-->
-<!--			<version>2.0.4</version>-->
-<!--		</dependency>	-->
+		<dependency>
+			<groupId>com.impetus.client</groupId>
+			<artifactId>kundera-cassandra</artifactId>
+			<version>2.0.4</version>
+		</dependency>
+		<dependency>
+			<groupId>com.impetus.client</groupId>
+			<artifactId>kundera-hbase</artifactId>
+			<version>2.0.4</version>
+		</dependency>
+		<dependency>
+			<groupId>com.impetus.client</groupId>
+			<artifactId>kundera-mongo</artifactId>
+			<version>2.0.4</version>
+		</dependency>
+		<dependency>
+			<groupId>com.impetus.client</groupId>
+			<artifactId>kundera-rdbms</artifactId>
+			<version>2.0.4</version>
+		</dependency>
 		
+		<!-- Hector dependencies -->
+		<dependency>
+            <groupId>me.prettyprint</groupId>
+            <artifactId>hector-core</artifactId>
+            <version>0.8.0-2</version>
+        </dependency>
+        
+        <!-- Spring data dependencies -->        
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>3.0.5.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>3.0.5.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-mongodb</artifactId>
+            <version>1.0.0.M2</version>
+        </dependency>
+        <dependency>
+            <groupId>cglib</groupId>
+            <artifactId>cglib</artifactId>
+            <version>2.2</version>
+        </dependency>
+        
+        <!-- Morphia Dependencies -->
+        <dependency>
+            <groupId>com.google.code.morphia</groupId>
+            <artifactId>morphia</artifactId>
+            <version>0.98</version>
+        </dependency>
+        
+        <!-- Data nucleus dependencies -->
+        <dependency>
+            <groupId>org.datanucleus</groupId>
+            <artifactId>datanucleus-core</artifactId>
+            <version>[2.0.99, 2.9)</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.datanucleus</groupId>
+            <artifactId>datanucleus-api-jpa</artifactId>
+            <version>3.0.0-release</version>
+        </dependency>        
 	</dependencies>
-	
-	
+
+
 	<build>
 		<plugins>
 			<plugin>

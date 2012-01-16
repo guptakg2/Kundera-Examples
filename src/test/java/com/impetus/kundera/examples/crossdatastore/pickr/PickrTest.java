@@ -45,8 +45,8 @@ public class PickrTest extends TestCase
 
     public void test()
     {
-        addPhotographerAlbumsAndPhotos();
-        //getPhotographer();
+        //addPhotographerAlbumsAndPhotos();
+        getPhotographer();
         //getAllPhotographers();       
     }
 
@@ -56,8 +56,8 @@ public class PickrTest extends TestCase
         p.setPhotographerId(photographerId);
         p.setPhotographerName("Amresh");
         p.setPersonalData(new PersonalData("www.amresh.com", "amresh.singh@impetus.co.in", "xamry"));
-        p.addAlbum(new Album("a", "My Phuket Vacation", "Went Phuket with friends"));
-        p.addAlbum(new Album("b", "Office Pics", "Annual office party photos"));
+        p.addAlbum(new Album("album_1", "My Phuket Vacation", "Went Phuket with friends"));
+        p.addAlbum(new Album("album_2", "Office Pics", "Annual office party photos"));
 
         pickr.addPhotographer(p);
     }
@@ -69,15 +69,15 @@ public class PickrTest extends TestCase
         p.setPhotographerName("Amresh");
         p.setPersonalData(new PersonalData("www.amresh.com", "amresh.singh@impetus.co.in", "xamry"));
         
-        Album album1 = new Album("a", "My Phuket Vacation", "Went Phuket with friends"); 
-        album1.addPhoto(new Photo("a1", "One beach", "On beach with friends"));
-        album1.addPhoto(new Photo("a2", "In Hotel", "Chilling out in room"));
-        album1.addPhoto(new Photo("a3", "At Airport", "So tired"));
+        Album album1 = new Album("album_1", "My Phuket Vacation", "Went Phuket with friends"); 
+        album1.addPhoto(new Photo("photo_1", "One beach", "On beach with friends"));
+        album1.addPhoto(new Photo("photo_2", "In Hotel", "Chilling out in room"));
+        album1.addPhoto(new Photo("photo_3", "At Airport", "So tired"));
         
         
-        Album album2 = new Album("b", "Office Pics", "Annual office party photos");
-        album2.addPhoto(new Photo("b1", "Office Team event", "Shot at Fun park"));
-        album2.addPhoto(new Photo("b2", "My Team", "My team is the best"));
+        Album album2 = new Album("album_2", "Office Pics", "Annual office party photos");
+        album2.addPhoto(new Photo("photo_4", "Office Team event", "Shot at Fun park"));
+        album2.addPhoto(new Photo("photo_5", "My Team", "My team is the best"));
                 
         p.addAlbum(album1);
         p.addAlbum(album2);
@@ -98,8 +98,8 @@ public class PickrTest extends TestCase
 
     public void createAlbums()
     {
-        pickr.createAlbum("a", "My Phuket Vacation", "Went Phuket with friends");
-        pickr.createAlbum("b", "Office Pics", "Annual office party photos");
+        pickr.createAlbum("album_1", "My Phuket Vacation", "Went Phuket with friends");
+        pickr.createAlbum("album_2", "Office Pics", "Annual office party photos");
     }
 
     public void addPhotoToAlbum()
@@ -117,13 +117,17 @@ public class PickrTest extends TestCase
         assertEquals("Amresh", p.getPhotographerName());
         assertNotNull(p.getPersonalData());
         assertEquals("www.amresh.com", p.getPersonalData().getWebsite());
+        assertEquals("amresh.singh@impetus.co.in", p.getPersonalData().getEmail());
+        assertEquals("xamry", p.getPersonalData().getYahooId());
+        
         assertNotNull(p.getAlbums());
         assertFalse(p.getAlbums().isEmpty());
         assertEquals(2, p.getAlbums().size());
         
         Album album1 = p.getAlbums().get(0);
         assertNotNull(album1);
-        assertEquals(1, album1.getAlbumId().length());
+        assertTrue(album1.getAlbumId().equals("album_1") || album1.getAlbumId().equals("album_2"));
+        
         assertFalse(album1.getAlbumName().length() == 0);
         assertFalse(album1.getAlbumDescription().length() == 0);
         
@@ -134,7 +138,23 @@ public class PickrTest extends TestCase
         
         Photo album1Photo1 = album1Photos.get(0);
         assertNotNull(album1Photo1);
-        assertEquals(2, album1Photo1.getPhotoId().length());       
+        assertEquals(7, album1Photo1.getPhotoId().length());       
+        
+        Album album2 = p.getAlbums().get(1);
+        assertNotNull(album2);
+        assertTrue(album2.getAlbumId().equals("album_1") || album2.getAlbumId().equals("album_2"));
+        
+        assertFalse(album2.getAlbumName().length() == 0);
+        assertFalse(album2.getAlbumDescription().length() == 0);
+        
+        List<Photo> album2Photos = album2.getPhotos();
+        assertNotNull(album2Photos);
+        assertFalse(album2Photos.isEmpty());
+        assertFalse(album2Photos.size() < 2);
+        
+        Photo album2Photo1 = album2Photos.get(0);
+        assertNotNull(album2Photo1);
+        assertEquals(7, album2Photo1.getPhotoId().length());
 
     }
 

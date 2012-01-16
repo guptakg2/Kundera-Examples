@@ -48,7 +48,7 @@ public class UserAddressDaoTest extends TestCase
     
     public void test() {
     	/* Unidirectional */
-    	//savePersonUniOneToOneFK();
+    	savePersonUniOneToOneFK();
     	//findPersonUniOneToOneFK();
     	
     	//savePersonUniOneToOnePK();
@@ -61,7 +61,7 @@ public class UserAddressDaoTest extends TestCase
     	//findPersonUniManyToOne();
     	
         //savePersonUniManyToMany();
-    	findPersonUniManyToMany();
+    	//findPersonUniManyToMany();
     	
     	
     	
