@@ -42,7 +42,7 @@ public class StudentDao
         emf.close();
     } 
     
-    public Student findStudent(String studentId) {
+    public Student findStudent(Object studentId) {
         EntityManager em =  emf.createEntityManager();
         Student student = em.find(Student.class, studentId);
         em.close();

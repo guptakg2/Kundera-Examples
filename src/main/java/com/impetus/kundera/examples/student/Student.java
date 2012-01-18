@@ -9,13 +9,13 @@ import javax.persistence.TemporalType;
 
 
 @Entity
-@Table(name="STUDENT", schema="KunderaExamples@addcassandra")
+@Table(name="STUDENT", schema="KunderaExamples@addhbase")
 public class Student
 {
     //Primitive Types
     @Id   
     @Column(name="STUDENT_ID")    
-    private String studentId;
+    private long studentId;
     
     @Column(name="UNIQUE_ID")
     private long uniqueId;
@@ -67,24 +67,26 @@ public class Student
     
     @Column(name="MONTHLY_FEE")
     private Double monthlyFee;    
-
+    
+    
     /**
      * @return the studentId
      */
-    public String getStudentId()
+    public long getStudentId()
     {
         return studentId;
     }
 
     /**
-     * @param studentId the studentId to set
+     * @param studentId
+     *            the studentId to set
      */
-    public void setStudentId(String studentId)
+    public void setStudentId(long studentId)
     {
         this.studentId = studentId;
     }
 
-    /**
+	/**
      * @return the uniqueId
      */
     public long getUniqueId()
