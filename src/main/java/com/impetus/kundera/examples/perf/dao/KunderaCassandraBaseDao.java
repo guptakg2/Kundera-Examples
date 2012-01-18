@@ -23,8 +23,6 @@ import java.util.Map;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-import org.apache.cassandra.locator.AbstractReplicationStrategy;
-import org.apache.cassandra.locator.SimpleStrategy;
 import org.apache.cassandra.thrift.Cassandra;
 import org.apache.cassandra.thrift.CfDef;
 import org.apache.cassandra.thrift.KsDef;
@@ -78,7 +76,7 @@ public class KunderaCassandraBaseDao {
     
     private void createSchema() {
 		//Initialize Cassandra Client		
-		TSocket socket = new TSocket(HOST, Integer.parseInt(PORT));
+		/*TSocket socket = new TSocket(HOST, Integer.parseInt(PORT));
         TTransport transport = new TFramedTransport(socket);
         TProtocol protocol = new TBinaryProtocol(transport);
         Cassandra.Client client = new Cassandra.Client(protocol);
@@ -116,6 +114,7 @@ public class KunderaCassandraBaseDao {
 		} catch (TException e) {
 			e.printStackTrace();
 		}
-	}
+	}*/
+    }
 	
 }

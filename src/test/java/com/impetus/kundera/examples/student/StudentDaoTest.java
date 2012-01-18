@@ -11,7 +11,7 @@ import junit.framework.TestCase;
  */
 public class StudentDaoTest extends TestCase
 {
-    private String persistenceUnit = "addhbase";
+    private String persistenceUnit = "addcassandra";
     
     private int numberOfStudents = 1000;
     
@@ -32,7 +32,7 @@ public class StudentDaoTest extends TestCase
     /**
      * Test method for {@link com.impetus.kundera.examples.student.StudentDao#saveStudents(java.util.Set)}.
      */
-    public void testSaveStudents()
+    /*public void testSaveStudents()
     {
         long start = System.currentTimeMillis();
         for(int i = 0; i < numberOfStudents; i++) {
@@ -41,23 +41,51 @@ public class StudentDaoTest extends TestCase
         }
         
         System.out.println("Time taken to save " + numberOfStudents + " records(ms): " + (System.currentTimeMillis() - start));
+    }*/
+    
+    public void test() {
+        //saveStudent();
+        findStudent();
     }
 
     /**
      * Test method for {@link com.impetus.kundera.examples.student.StudentDao#saveStudent(com.impetus.kundera.examples.student.Student)}.
      */
-    public void testSaveStudent()
+    public void saveStudent()
     {
-        //Student student = new Student("1", "Amry", "IV");
-        //dao.saveStudent(student);
+        Student s = new Student();
+        
+        s.setStudentId("1");
+        s.setUniqueId(78575785897L);
+        s.setStudentName("Amresh");
+        s.setExceptional(true);
+        s.setAge(30);
+        s.setSemester('C');
+        s.setDigitalSignature((byte)5);
+        s.setCgpa((short)8);
+        s.setPercentage((float)69.6);
+        s.setHeight(163.76765654);
+        s.setEnrolmentDate(new java.util.Date());
+        s.setEnrolmentTime(new java.util.Date());
+        s.setJoiningDateAndTime(new java.util.Date());  
+        
+        s.setYearsSpent(3);
+        s.setRollNumber(978423946455l);
+        s.setMonthlyFee(135434.89);
+        
+        dao.saveStudent(s);
     }
 
     /**
      * Test method for {@link com.impetus.kundera.examples.student.StudentDao#findStudent(java.lang.String)}.
      */
-    public void testFindStudent()
+    public void findStudent()
     {
-        //fail("Not yet implemented");
+        Student s = dao.findStudent("1");
+        System.out.println(s);
     }
+    
+    
+    
 
 }
