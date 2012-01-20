@@ -15,7 +15,7 @@ public class Student
     //Primitive Types
     @Id   
     @Column(name="STUDENT_ID")    
-    private long studentId;
+    private String studentId;
     
     @Column(name="UNIQUE_ID")
     private long uniqueId;
@@ -74,7 +74,7 @@ public class Student
      */
     public long getStudentId()
     {
-        return studentId;
+        return Long.parseLong(studentId);
     }
 
     /**
@@ -83,7 +83,7 @@ public class Student
      */
     public void setStudentId(long studentId)
     {
-        this.studentId = studentId;
+        this.studentId = studentId+"";
     }
 
 	/**
