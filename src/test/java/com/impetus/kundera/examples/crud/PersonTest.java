@@ -15,7 +15,6 @@
  ******************************************************************************/
 package com.impetus.kundera.examples.crud;
 
-
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -30,35 +29,49 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Test case to perform simple CRUD operation.
+ * Test case to perform simple CRUD operation.(insert, delete, merge, and select)
  * 
  * @author vivek.mishra
  * 
- * create column family PERSON with comparator=UTF8Type and column_metadata=[{column_name: PERSON_NAME, validation_class: UTF8Type, index_type: KEYS}, {column_name: AGE, validation_class: IntegerType, index_type: KEYS}];
- *
+ *  Run this script to create column family in cassandra with indexes.
+ *         create column family PERSON with comparator=UTF8Type and
+ *         column_metadata=[{column_name: PERSON_NAME, validation_class:
+ *         UTF8Type, index_type: KEYS}, {column_name: AGE, validation_class:
+ *         IntegerType, index_type: KEYS}];
+ * 
  */
 public class PersonTest
 {
 
+    /** The emf. */
+    private EntityManagerFactory emf;
+
+    /** The em. */
+    private EntityManager em;
+
     /**
-     * @throws java.lang.Exception
+     * Sets the up.
+     *
+     * @throws Exception the exception
      */
     @Before
     public void setUp() throws Exception
     {
+        emf = Persistence.createEntityManagerFactory("twissandra");
+        em = emf.createEntityManager();
     }
 
-    
+    /**
+     * On crud.
+     */
     @Test
     public void onInsert()
     {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("twissandra");
-        EntityManager em = emf.createEntityManager();
-        em.persist(prepareData("1",10));
-        em.persist(prepareData("2",20));
-        em.persist(prepareData("3",15));
+        em.persist(prepareData("1", 10));
+        em.persist(prepareData("2", 20));
+        em.persist(prepareData("3", 15));
 
-        // find by id.        
+        // find by id.
         Person p = em.find(Person.class, "1");
         Assert.assertNotNull(p);
         Assert.assertEquals("vivek", p.getPersonName());
@@ -69,31 +82,76 @@ public class PersonTest
         Assert.assertNotNull(results);
         Assert.assertFalse(results.isEmpty());
         Assert.assertEquals(3, results.size());
-        
+
         // find by name and age.
         q = em.createQuery("Select p from Person p where p.PERSON_NAME = vivek and p.AGE > 10");
         results = q.getResultList();
         Assert.assertNotNull(results);
         Assert.assertFalse(results.isEmpty());
         Assert.assertEquals(2, results.size());
-        
-        //find by name, age clause
+
+        // find by name, age clause
         q = em.createQuery("Select p from Person p where p.PERSON_NAME = vivek and p.AGE > 10 and p.AGE <20");
         results = q.getResultList();
         Assert.assertNotNull(results);
         Assert.assertFalse(results.isEmpty());
         Assert.assertEquals(1, results.size());
-        emf.close();
     }
-    
+
     /**
-     * @throws java.lang.Exception
+     * On merge.
+     */
+    @Test
+    public void onMerge()
+    {
+        em.persist(prepareData("1", 10));
+        Person p = em.find(Person.class, "1");
+        Assert.assertNotNull(p);
+        Assert.assertEquals("vivek", p.getPersonName());
+        // modify record.
+        p.setPersonName("newvivek");
+        em.merge(p);
+
+        Query q = em.createQuery("Select p from Person p where p.PERSON_NAME = vivek");
+        List<Person> results = q.getResultList();
+        Assert.assertNotNull(results);
+        Assert.assertEquals(2, results.size());
+
+        q = em.createQuery("Select p from Person p where p.PERSON_NAME = newvivek");
+        results = q.getResultList();
+        Assert.assertNotNull(results);
+        Assert.assertEquals(1, results.size());
+        Assert.assertNotSame("vivek", results.get(0).getPersonName());
+        Assert.assertEquals("newvivek", results.get(0).getPersonName());
+
+    }
+
+    /**
+     * Tear down.
+     *
+     * @throws Exception the exception
      */
     @After
     public void tearDown() throws Exception
-    {
+    {/*
+        Delete is working, but as row keys are not deleted from cassandra, so resulting in issue while reading back.
+        // Delete
+        em.remove(em.find(Person.class, "1"));
+        em.remove(em.find(Person.class, "2"));
+        em.remove(em.find(Person.class, "3"));
+        em.close();
+        emf.close();
+        em = null;
+        emf = null;*/
     }
 
+    /**
+     * Prepare data.
+     *
+     * @param rowKey the row key
+     * @param age the age
+     * @return the person
+     */
     private Person prepareData(String rowKey, int age)
     {
         Person o = new Person();
