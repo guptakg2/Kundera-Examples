@@ -10,8 +10,8 @@ import javax.persistence.Table;
  * The Class Person.
  */
 @Entity
-@Table(name = "PERSON", schema = "KunderaExamples@twissandra")
-public class Person
+@Table(name = "PERSON", schema = "kunderaexamples")
+public class PersonRDBMS
 {
     
     /** The person id. */

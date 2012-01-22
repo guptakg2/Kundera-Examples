@@ -40,7 +40,7 @@ import org.junit.Test;
  *         IntegerType, index_type: KEYS}];
  * 
  */
-public class PersonTest
+public class PersonTest extends BaseTest
 {
 
     /** The emf. */
@@ -72,13 +72,13 @@ public class PersonTest
         em.persist(prepareData("3", 15));
 
         // find by id.
-        Person p = em.find(Person.class, "1");
+        PersonCassandra p = em.find(PersonCassandra.class, "1");
         Assert.assertNotNull(p);
         Assert.assertEquals("vivek", p.getPersonName());
 
         // find by name.
         Query q = em.createQuery("Select p from Person p where p.PERSON_NAME = vivek");
-        List<Person> results = q.getResultList();
+        List<PersonCassandra> results = q.getResultList();
         Assert.assertNotNull(results);
         Assert.assertFalse(results.isEmpty());
         Assert.assertEquals(3, results.size());
@@ -105,7 +105,7 @@ public class PersonTest
     public void onMerge()
     {
         em.persist(prepareData("1", 10));
-        Person p = em.find(Person.class, "1");
+        PersonCassandra p = em.find(PersonCassandra.class, "1");
         Assert.assertNotNull(p);
         Assert.assertEquals("vivek", p.getPersonName());
         // modify record.
@@ -113,7 +113,7 @@ public class PersonTest
         em.merge(p);
 
         Query q = em.createQuery("Select p from Person p where p.PERSON_NAME = vivek");
-        List<Person> results = q.getResultList();
+        List<PersonCassandra> results = q.getResultList();
         Assert.assertNotNull(results);
         Assert.assertEquals(2, results.size());
 
@@ -145,19 +145,4 @@ public class PersonTest
         emf = null;*/
     }
 
-    /**
-     * Prepare data.
-     *
-     * @param rowKey the row key
-     * @param age the age
-     * @return the person
-     */
-    private Person prepareData(String rowKey, int age)
-    {
-        Person o = new Person();
-        o.setPersonId(rowKey);
-        o.setPersonName("vivek");
-        o.setAge(age);
-        return o;
-    }
 }

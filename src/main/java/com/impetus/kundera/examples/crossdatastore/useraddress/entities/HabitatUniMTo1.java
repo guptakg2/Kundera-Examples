@@ -6,7 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="ADDRESS", schema="hibernatepoc")
+@Table(name="ADDRESS", schema="KunderaExamples@twissandra")
 public class HabitatUniMTo1 {
 	@Id    
     @Column(name = "ADDRESS_ID")
