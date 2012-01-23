@@ -13,8 +13,8 @@
 			<property name="kundera.client" value="Pelops"/>
 			<property name="kundera.cache.provider.class" value="com.impetus.kundera.cache.ehcache.EhCacheProvider"/>
             <property name="kundera.cache.config.resource" value="/ehcache-test.xml"/>   				
- 			<property name="use_secondry_index" value="true"/>
-		</properties>		
+<!--  			<property name="use_secondry_index" value="true"/>
+ -->		</properties>		
 	</persistence-unit>
 	<persistence-unit name="twibase">
 		<provider>com.impetus.kundera.KunderaPersistence</provider>		
@@ -127,7 +127,7 @@
 		<class>com.impetus.kundera.examples.student.Student</class>		
 		<properties>
 			<property name="kundera.client" value="rdbms" />
-  			<property name="hibernate.hbm2ddl.auto" value="create" />
+  		    <property name="hibernate.hbm2ddl.auto" value="create" />
   			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.format_sql" value="true" />
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect" />
