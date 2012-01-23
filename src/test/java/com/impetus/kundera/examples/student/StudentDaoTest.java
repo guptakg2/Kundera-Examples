@@ -58,8 +58,8 @@ public class StudentDaoTest extends TestCase
     }*/
     
     public void testAllDataTypes() {
-        //saveStudent();
-        findStudent();
+        saveStudent();
+        //findStudent();
     }
 
     /**

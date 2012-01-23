@@ -14,6 +14,7 @@ import com.impetus.kundera.examples.crossdatastore.useraddress.entities.HabitatB
 import com.impetus.kundera.examples.crossdatastore.useraddress.entities.HabitatBi1To1PK;
 import com.impetus.kundera.examples.crossdatastore.useraddress.entities.HabitatBi1ToM;
 import com.impetus.kundera.examples.crossdatastore.useraddress.entities.HabitatBiMTo1;
+import com.impetus.kundera.examples.crossdatastore.useraddress.entities.HabitatBiMToM;
 import com.impetus.kundera.examples.crossdatastore.useraddress.entities.HabitatUni1To1FK;
 import com.impetus.kundera.examples.crossdatastore.useraddress.entities.HabitatUni1To1PK;
 import com.impetus.kundera.examples.crossdatastore.useraddress.entities.HabitatUni1ToM;
@@ -25,6 +26,7 @@ import com.impetus.kundera.examples.crossdatastore.useraddress.entities.Personne
 import com.impetus.kundera.examples.crossdatastore.useraddress.entities.PersonnelBi1To1PK;
 import com.impetus.kundera.examples.crossdatastore.useraddress.entities.PersonnelBi1ToM;
 import com.impetus.kundera.examples.crossdatastore.useraddress.entities.PersonnelBiMTo1;
+import com.impetus.kundera.examples.crossdatastore.useraddress.entities.PersonnelBiMToM;
 import com.impetus.kundera.examples.crossdatastore.useraddress.entities.PersonnelUni1To1FK;
 import com.impetus.kundera.examples.crossdatastore.useraddress.entities.PersonnelUni1To1PK;
 import com.impetus.kundera.examples.crossdatastore.useraddress.entities.PersonnelUni1ToM;
@@ -693,20 +695,130 @@ public class UserAddressDaoTest
         dao.closeEntityManagerFactory();
     }
 
-    /**
-     * Save person bi many to many.
-     */
     public void savePersonBiManyToMany()
     {
+        dao = new UserAddressDaoImpl(persistenceUnit);
 
+        PersonnelBiMToM person1 = new PersonnelBiMToM();
+        person1.setPersonId("bimanytomany_1");
+        person1.setPersonName("Amresh");
+        person1.setPersonalData(new PersonalData("www.amresh.com", "amry.ks@gmail.com", "xamry"));
+
+        PersonnelBiMToM person2 = new PersonnelBiMToM();
+        person2.setPersonId("bimanytomany_2");
+        person2.setPersonName("Vivek");
+        person2.setPersonalData(new PersonalData("www.vivek.com", "vivek@gmail.com", "mevivs"));
+
+        HabitatBiMToM address1 = new HabitatBiMToM();
+        address1.setAddressId("bimanytomany_a");
+        address1.setStreet("AAAAAAAAAAAAA");
+
+        HabitatBiMToM address2 = new HabitatBiMToM();
+        address2.setAddressId("bimanytomany_b");
+        address2.setStreet("BBBBBBBBBBBBBBB");
+
+        HabitatBiMToM address3 = new HabitatBiMToM();
+        address3.setAddressId("bimanytomany_c");
+        address3.setStreet("CCCCCCCCCCC");
+
+        
+        //Set addresses into persons
+        Set<HabitatBiMToM> person1Addresses = new HashSet<HabitatBiMToM>();
+        Set<HabitatBiMToM> person2Addresses = new HashSet<HabitatBiMToM>();
+
+        person1Addresses.add(address1);
+        person1Addresses.add(address2);
+
+        person2Addresses.add(address2);
+        person2Addresses.add(address3);
+
+        person1.setAddresses(person1Addresses);
+        person2.setAddresses(person2Addresses);
+        
+        //Set people into addresses
+        Set<PersonnelBiMToM> address1People = new HashSet<PersonnelBiMToM>();
+        Set<PersonnelBiMToM> address2People = new HashSet<PersonnelBiMToM>();
+        Set<PersonnelBiMToM> address3People = new HashSet<PersonnelBiMToM>();
+        
+        address1People.add(person1);
+        address2People.add(person1);
+        address2People.add(person2);
+        address3People.add(person2);
+        
+        address1.setPeople(address1People);
+        address2.setPeople(address2People);
+        address3.setPeople(address3People);        
+
+        //Persist both persons
+        Set<PersonnelBiMToM> persons = new HashSet<PersonnelBiMToM>();
+        persons.add(person1);
+        persons.add(person2);
+
+        dao.savePersons(persons);
+
+        dao.closeEntityManagerFactory();
     }
 
-    /**
-     * Find person bi many to many.
-     */
     public void findPersonBiManyToMany()
     {
+        dao = new UserAddressDaoImpl(persistenceUnit);
 
+        PersonnelBiMToM person1 = (PersonnelBiMToM) dao.findPerson(PersonnelBiMToM.class, "bimanytomany_1");
+        Assert.assertNotNull(person1);
+        Assert.assertEquals("bimanytomany_1", person1.getPersonId());
+        Assert.assertEquals("Amresh", person1.getPersonName());
+        PersonalData pd1 = person1.getPersonalData();
+        Assert.assertNotNull(pd1);
+        Assert.assertEquals("www.amresh.com", pd1.getWebsite());
+        Set<HabitatBiMToM> addresses1 = person1.getAddresses();
+        Assert.assertNotNull(addresses1);
+        Assert.assertFalse(addresses1.isEmpty());
+        Assert.assertEquals(2, addresses1.size());
+        HabitatBiMToM address11 = (HabitatBiMToM) addresses1.toArray()[0];
+        Assert.assertNotNull(address11);
+        HabitatBiMToM address12 = (HabitatBiMToM) addresses1.toArray()[1];
+        Assert.assertNotNull(address12);
+
+        PersonnelBiMToM person2 = (PersonnelBiMToM) dao.findPerson(PersonnelBiMToM.class, "bimanytomany_2");
+        Assert.assertNotNull(person2);
+
+        Assert.assertEquals("bimanytomany_2", person2.getPersonId());
+        Assert.assertEquals("Vivek", person2.getPersonName());
+        PersonalData pd2 = person2.getPersonalData();
+        Assert.assertNotNull(pd2);
+        Assert.assertEquals("www.vivek.com", pd2.getWebsite());
+        Set<HabitatBiMToM> addresses2 = person2.getAddresses();
+        Assert.assertNotNull(addresses2);
+        Assert.assertFalse(addresses2.isEmpty());
+        Assert.assertEquals(2, addresses2.size());
+        HabitatBiMToM address21 = (HabitatBiMToM) addresses2.toArray()[0];
+        Assert.assertNotNull(address21);
+        HabitatBiMToM address22 = (HabitatBiMToM) addresses2.toArray()[1];
+        Assert.assertNotNull(address22);
+        
+        Set<PersonnelBiMToM> address11People = address11.getPeople();
+        Set<PersonnelBiMToM> address12People = address12.getPeople();
+        Set<PersonnelBiMToM> address21People = address21.getPeople();
+        Set<PersonnelBiMToM> address22People = address22.getPeople();
+        
+        Assert.assertNotNull(address11People);
+        Assert.assertFalse(address11People.isEmpty());
+        Assert.assertTrue(address11People.size() == 1 || address11People.size() == 2);
+        
+        Assert.assertNotNull(address12People);
+        Assert.assertFalse(address12People.isEmpty());
+        Assert.assertTrue(address12People.size() == 1 || address12People.size() == 2);
+        
+        Assert.assertNotNull(address21People);
+        Assert.assertFalse(address21People.isEmpty());
+        Assert.assertTrue(address21People.size() == 1 || address21People.size() == 2);
+        
+        Assert.assertNotNull(address22People);
+        Assert.assertFalse(address22People.isEmpty());
+        Assert.assertTrue(address22People.size() == 1 || address22People.size() == 2);
+        
+        dao.closeEntityManagerFactory();
     }
+
 
 }

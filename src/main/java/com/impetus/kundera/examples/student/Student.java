@@ -59,6 +59,8 @@ public class Student
     
     //Wrapper types
     
+    
+    
     @Column(name="YEARS_SPENT")
     private Integer yearsSpent;
     
