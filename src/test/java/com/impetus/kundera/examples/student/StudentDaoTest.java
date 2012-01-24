@@ -16,9 +16,9 @@ public class StudentDaoTest extends TestCase
     private String persistenceUnit = "addhbase";
     
     private Object studentId;
-    Date enrolmentDate;
-    Date enrolmentTime;
-    Date joiningDateAndTime;
+    Date enrolmentDate = new Date();
+    Date enrolmentTime = new Date();
+    Date joiningDateAndTime = new Date();
     
     
     private int numberOfStudents = 1000;
@@ -30,10 +30,6 @@ public class StudentDaoTest extends TestCase
         super.setUp();
         dao = new StudentDao(persistenceUnit);
         studentId = new Long(123456789);
-        
-        enrolmentDate = new Date();
-        enrolmentTime = new Date();
-        joiningDateAndTime = new Date();
         
     }
 

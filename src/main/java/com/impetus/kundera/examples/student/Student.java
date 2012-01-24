@@ -57,8 +57,7 @@ public class Student
     @Temporal(TemporalType.TIMESTAMP)  
     private java.util.Date joiningDateAndTime;
     
-    //Wrapper types
-    
+    //Wrapper types    
     
     
     @Column(name="YEARS_SPENT")

@@ -42,7 +42,7 @@ public class UserAddressDaoTest
     // Change this as per your unit testing requirements, alongwith entity
     // definition
     /** The persistence unit. */
-    String persistenceUnit = "twissandra,rdbms";
+    String persistenceUnit = "addcassandra,rdbms";
 
     /** The dao. */
     UserAddressDaoImpl dao;
@@ -74,17 +74,17 @@ public class UserAddressDaoTest
     public void test()
     {
         /* Unidirectional */
-        savePersonUniOneToOneFK();
-        findPersonUniOneToOneFK();
+        //savePersonUniOneToOneFK();
+        //findPersonUniOneToOneFK();
 
 //         savePersonUniOneToOnePK();
 //         findPersonUniOneToOnePK();
 
-         savePersonUniOneToMany();
-         findPersonUniOneToMany();
+         //savePersonUniOneToMany();
+         //findPersonUniOneToMany();
 
-         savePersonUniManyToOne();
-         findPersonUniManyToOne();
+         //savePersonUniManyToOne();
+         //findPersonUniManyToOne();
 
         // savePersonUniManyToMany();
         // findPersonUniManyToMany();
@@ -102,8 +102,8 @@ public class UserAddressDaoTest
         // savePersonBiManyToOne();
         // findPersonBiManyToOne();
 
-        // savePersonBiManyToMany();
-        // findPersonBiManyToMany();
+        //savePersonBiManyToMany();
+         findPersonBiManyToMany();
     }
 
     /**
