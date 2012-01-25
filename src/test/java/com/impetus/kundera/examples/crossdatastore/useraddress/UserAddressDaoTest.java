@@ -74,36 +74,36 @@ public class UserAddressDaoTest
     public void test()
     {
         /* Unidirectional */
-        //savePersonUniOneToOneFK();
-        //findPersonUniOneToOneFK();
+        // savePersonUniOneToOneFK();
+        // findPersonUniOneToOneFK();
 
-//         savePersonUniOneToOnePK();
-//         findPersonUniOneToOnePK();
+        // savePersonUniOneToOnePK();
+        // findPersonUniOneToOnePK();
 
-         //savePersonUniOneToMany();
-         //findPersonUniOneToMany();
+        // savePersonUniOneToMany();
+        // findPersonUniOneToMany();
 
-         //savePersonUniManyToOne();
-         //findPersonUniManyToOne();
+        // savePersonUniManyToOne();
+        // findPersonUniManyToOne();
 
         // savePersonUniManyToMany();
         // findPersonUniManyToMany();
 
         /* Bidirectional */
-        // savePersonBiOneToOneFK();
-        // findPersonBiOneToOneFK();
+        //savePersonBiOneToOneFK();
+        //findPersonBiOneToOneFK();
 
         // savePersonBiOneToOnePK();
         // findPersonBiOneToOnePK();
 
-        // savePersonBiOneToMany();
-        // findPersonBiOneToMany();
+        //savePersonBiOneToMany();
+        //findPersonBiOneToMany();
 
-        // savePersonBiManyToOne();
-        // findPersonBiManyToOne();
+         //savePersonBiManyToOne();
+         //findPersonBiManyToOne();
 
         //savePersonBiManyToMany();
-         findPersonBiManyToMany();
+         //findPersonBiManyToMany();
     }
 
     /**

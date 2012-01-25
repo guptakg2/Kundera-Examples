@@ -70,6 +70,7 @@ public class Student
     private Double monthlyFee;    
     
     
+    
     /**
      * @return the studentId
      */
