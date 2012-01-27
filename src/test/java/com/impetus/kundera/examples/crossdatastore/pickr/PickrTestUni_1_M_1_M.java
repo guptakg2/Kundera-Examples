@@ -89,7 +89,7 @@ public class PickrTestUni_1_M_1_M extends PickrBaseTest
 
     public void getPhotographerUni_1_M_1_M()
     {
-        PhotographerUni_1_M_1_M p = (PhotographerUni_1_M_1_M)pickr.getPhotographer(PhotographerUni_1_M_1_M.class, photographerId);
+        PhotographerUni_1_M_1_M p = (PhotographerUni_1_M_1_M)pickr.getPhotographer(PhotographerUni_1_M_1_M.class, ""+photographerId);
 
         Assert.assertNotNull(p);
         Assert.assertEquals("1", p.getPhotographerId());

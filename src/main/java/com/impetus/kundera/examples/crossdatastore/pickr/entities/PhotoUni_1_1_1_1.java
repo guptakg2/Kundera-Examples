@@ -30,7 +30,7 @@ public class PhotoUni_1_1_1_1
 {
     @Id
     @Column(name="PHOTO_ID")
-    private int photoId;
+    private String photoId;
 
     @Column(name = "PHOTO_CAPTION")
     private String photoCaption;
@@ -43,30 +43,27 @@ public class PhotoUni_1_1_1_1
 
     }
     
-    public PhotoUni_1_1_1_1(int photoId, String caption, String description) {
+    public PhotoUni_1_1_1_1(String photoId, String caption, String description) {
         this.photoId = photoId;
         this.photoCaption = caption;
         this.photoDescription = description;
     }
     
-
     /**
-     * @return the photoId
-     */
-    public int getPhotoId()
-    {
-        return photoId;
-    }
+	 * @return the photoId
+	 */
+	public String getPhotoId() {
+		return photoId;
+	}
 
-    /**
-     * @param photoId the photoId to set
-     */
-    public void setPhotoId(int photoId)
-    {
-        this.photoId = photoId;
-    }
+	/**
+	 * @param photoId the photoId to set
+	 */
+	public void setPhotoId(String photoId) {
+		this.photoId = photoId;
+	}
 
-    /**
+	/**
      * @return the photoCaption
      */
     public String getPhotoCaption()

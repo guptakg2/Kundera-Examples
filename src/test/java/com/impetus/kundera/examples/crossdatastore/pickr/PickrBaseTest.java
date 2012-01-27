@@ -25,12 +25,12 @@ import com.impetus.kundera.examples.crossdatastore.pickr.dao.PickrImpl;
 public class PickrBaseTest
 {
     Pickr pickr;
-    String photographerId;
+    int photographerId;
 
     
     protected void setUp() throws Exception
     {
-        photographerId = "1";
+        photographerId = 1;
         pickr = new PickrImpl("picmysql");
     }
 

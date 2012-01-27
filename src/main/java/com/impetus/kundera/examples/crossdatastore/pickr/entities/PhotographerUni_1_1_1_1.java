@@ -48,7 +48,7 @@ public class PhotographerUni_1_1_1_1
     // One to many, will be persisted separately
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name="ALBUM_ID")
-    private AlbumUni_1_M_1_M album;     
+    private AlbumUni_1_1_1_1 album;     
 
     /**
      * @return the photographerName
@@ -99,20 +99,20 @@ public class PhotographerUni_1_1_1_1
         this.photographerId = photographerId;
     }
 
-    /**
-     * @return the album
-     */
-    public AlbumUni_1_M_1_M getAlbum()
-    {
-        return album;
-    }
+	/**
+	 * @return the album
+	 */
+	public AlbumUni_1_1_1_1 getAlbum() {
+		return album;
+	}
 
-    /**
-     * @param album the album to set
-     */
-    public void setAlbum(AlbumUni_1_M_1_M album)
-    {
-        this.album = album;
-    }   
+	/**
+	 * @param album the album to set
+	 */
+	public void setAlbum(AlbumUni_1_1_1_1 album) {
+		this.album = album;
+	}
+
+    
 
 }

@@ -28,6 +28,10 @@ public interface Pickr
     Object getPhotographer(Class<?> entityClass, String photographerId);
 
     public List<Object> getAllPhotographers(String className);
+    
+    public void deletePhotographer(Object p);
+    
+    public void mergePhotographer(Object p);
 
     public void close();
 }

@@ -39,7 +39,7 @@ public class PhotographerUni_1_M_1_M
 {
     @Id
     @Column(name = "PHOTOGRAPHER_ID")
-    private String photographerId;
+    private int photographerId;
     
     @Column(name = "PHOTOGRAPHER_NAME")
     private String photographerName;
@@ -51,27 +51,24 @@ public class PhotographerUni_1_M_1_M
     // One to many, will be persisted separately
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name="PHOTOGRAPHER_ID")
-    private List<AlbumUni_1_M_1_M> albums;
-
-    /**
-     * @return the photographerId
-     */
-    public String getPhotographerId()
-    {
-        return photographerId;
-    }
-
-    /**
-     * @param photographerId
-     *            the photographerId to set
-     */
-    public void setPhotographerId(String photographerId)
-    {
-        this.photographerId = photographerId;
-    }   
+    private List<AlbumUni_1_M_1_M> albums;   
     
 
     /**
+	 * @return the photographerId
+	 */
+	public int getPhotographerId() {
+		return photographerId;
+	}
+
+	/**
+	 * @param photographerId the photographerId to set
+	 */
+	public void setPhotographerId(int photographerId) {
+		this.photographerId = photographerId;
+	}
+
+	/**
      * @return the photographerName
      */
     public String getPhotographerName()

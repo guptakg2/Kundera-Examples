@@ -1,5 +1,5 @@
-/*
- * Copyright 2011 Impetus Infotech.
+/**
+ * Copyright 2012 Impetus Infotech.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -57,6 +57,7 @@ public class PickrImpl implements Pickr
         return p;
     }
 
+    @Override
     public List<Object> getAllPhotographers(String className)
     {
         EntityManager em = emf.createEntityManager();
@@ -65,8 +66,23 @@ public class PickrImpl implements Pickr
         em.close();
         return photographers;
     }
+    
+    
+	@Override
+	public void deletePhotographer(Object p) {
+		EntityManager em = emf.createEntityManager();
+		em.remove(p);
+		em.close();		
+	}
 
-    @Override
+	@Override
+	public void mergePhotographer(Object p) {
+		EntityManager em = emf.createEntityManager();
+		em.merge(p);
+		em.close();
+	}
+
+	@Override
     public void close()
     {
         emf.close();

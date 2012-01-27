@@ -34,7 +34,7 @@ public class AlbumUni_1_1_1_1
 {
     @Id
     @Column(name="ALBUM_ID")
-    private int albumId;
+    private String albumId;
 
     @Column(name = "ALBUM_NAME")
     private String albumName;
@@ -45,37 +45,37 @@ public class AlbumUni_1_1_1_1
     // One to many, will be persisted separately
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name="PHOTO_ID")
-    private PhotoUni_1_M_1_M photo;
+    private PhotoUni_1_1_1_1 photo;
 
     public AlbumUni_1_1_1_1()
     {
      
     }
     
-    public AlbumUni_1_1_1_1(int albumId, String name, String description)
+    public AlbumUni_1_1_1_1(String albumId, String name, String description)
     {
         this.albumId = albumId;
         this.albumName = name;
         this.albumDescription = description;
     }
 
-    /**
-     * @return the albumId
-     */
-    public int getAlbumId()
-    {
-        return albumId;
-    }
+    
 
     /**
-     * @param albumId the albumId to set
-     */
-    public void setAlbumId(int albumId)
-    {
-        this.albumId = albumId;
-    }
+	 * @return the albumId
+	 */
+	public String getAlbumId() {
+		return albumId;
+	}
 
-    /**
+	/**
+	 * @param albumId the albumId to set
+	 */
+	public void setAlbumId(String albumId) {
+		this.albumId = albumId;
+	}
+
+	/**
      * @return the albumName
      */
     public String getAlbumName()
@@ -107,19 +107,19 @@ public class AlbumUni_1_1_1_1
         this.albumDescription = albumDescription;
     }
 
-    /**
-     * @return the photo
-     */
-    public PhotoUni_1_M_1_M getPhoto()
-    {
-        return photo;
-    }
+	/**
+	 * @return the photo
+	 */
+	public PhotoUni_1_1_1_1 getPhoto() {
+		return photo;
+	}
 
-    /**
-     * @param photo the photo to set
-     */
-    public void setPhoto(PhotoUni_1_M_1_M photo)
-    {
-        this.photo = photo;
-    }
+	/**
+	 * @param photo the photo to set
+	 */
+	public void setPhoto(PhotoUni_1_1_1_1 photo) {
+		this.photo = photo;
+	}
+
+    
 }
