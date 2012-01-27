@@ -5,18 +5,17 @@
 	version="2.0">
 	<!-- Persistence Units for Twitter application -->
 	<persistence-unit name="twissandra">
-		<provider>com.impetus.kundera.KunderaPersistence</provider>
-		<properties>
-			<property name="kundera.nodes" value="localhost" />
-			<property name="kundera.port" value="9160" />
-			<property name="kundera.keyspace" value="KunderaExamples" />
-			<property name="kundera.dialect" value="cassandra" />
-			<property name="kundera.client" value="Pelops" />
-			<property name="kundera.cache.provider.class"
-				value="com.impetus.kundera.cache.ehcache.EhCacheProvider" />
-			<property name="kundera.cache.config.resource" value="/ehcache-test.xml" />
-			<!-- <property name="use_secondry_index" value="true"/> -->
-		</properties>
+		<provider>com.impetus.kundera.KunderaPersistence</provider>		
+		<properties>			
+			<property name="kundera.nodes" value="localhost"/>
+			<property name="kundera.port" value="9160"/>
+			<property name="kundera.keyspace" value="KunderaExamples"/>
+			<property name="kundera.dialect" value="cassandra"/>
+			<property name="kundera.client" value="Pelops"/>
+			<property name="kundera.cache.provider.class" value="com.impetus.kundera.cache.ehcache.EhCacheProvider"/>
+            <property name="kundera.cache.config.resource" value="/ehcache-test.xml"/>   				
+  			<property name="index_home_dir" value="/home/impadmin/lucene"/>
+ 		</properties>	
 	</persistence-unit>
 	<persistence-unit name="twibase">
 		<provider>com.impetus.kundera.KunderaPersistence</provider>
