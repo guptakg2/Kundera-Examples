@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2011 Impetus Infotech.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,22 +12,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.impetus.kundera.examples.crossdatastore.pickr.dao;
+package com.impetus.kundera.examples.crossdatastore.pickr;
 
-import java.util.List;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
+
+
 
 /**
- * Interface for Pickr application
+ * Test suite for Pickr application
  * 
  * @author amresh.singh
  */
-public interface Pickr
-{
-    void addPhotographer(Object p);
-    
-    Object getPhotographer(Class<?> entityClass, String photographerId);
+@RunWith(Suite.class)
+@SuiteClasses({
+    //PickrTestUni_1_1_1_1.class,
+    PickrTestUni_1_M_1_M.class
+})
+public class PickrTestSuite
+{    
 
-    public List<Object> getAllPhotographers(String className);
-
-    public void close();
 }

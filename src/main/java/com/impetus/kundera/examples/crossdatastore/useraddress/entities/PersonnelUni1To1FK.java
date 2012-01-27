@@ -10,30 +10,28 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-
 @Entity
-@Table(name="PERSON", schema="hibernatepoc")
+@Table(name = "PERSON", schema = "hibernatepoc")
 public class PersonnelUni1To1FK
 {
-    @Id   
-    @Column(name="PERSON_ID")    
+    @Id
+    @Column(name = "PERSON_ID")
     private String personId;
-    
-    @Column(name="PERSON_NAME")
+
+    @Column(name = "PERSON_NAME")
     private String personName;
-    
+
     @Embedded
     PersonalData personalData;
-    
-    @OneToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY) 
-	@JoinColumn(name="ADDRESS_ID")
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "ADDRESS_ID")
     private HabitatUni1To1FK address;
 
     public String getPersonId()
     {
         return personId;
-    }   
-    
+    }
 
     public String getPersonName()
     {
@@ -43,31 +41,31 @@ public class PersonnelUni1To1FK
     public void setPersonName(String personName)
     {
         this.personName = personName;
-    }  
+    }
 
-
-	public void setPersonId(String personId)
+    public void setPersonId(String personId)
     {
         this.personId = personId;
     }
 
-	public PersonalData getPersonalData() {
-		return personalData;
-	}
+    public PersonalData getPersonalData()
+    {
+        return personalData;
+    }
 
+    public void setPersonalData(PersonalData personalData)
+    {
+        this.personalData = personalData;
+    }
 
-	public void setPersonalData(PersonalData personalData) {
-		this.personalData = personalData;
-	}
+    public HabitatUni1To1FK getAddress()
+    {
+        return address;
+    }
 
-
-	public HabitatUni1To1FK getAddress() {
-		return address;
-	}
-
-
-	public void setAddress(HabitatUni1To1FK address) {
-		this.address = address;
-	}	
+    public void setAddress(HabitatUni1To1FK address)
+    {
+        this.address = address;
+    }
 
 }

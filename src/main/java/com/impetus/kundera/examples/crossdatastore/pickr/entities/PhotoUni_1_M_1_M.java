@@ -26,8 +26,8 @@ import javax.persistence.Table;
  */
 
 @Entity
-@Table(name = "PHOTOS", schema = "Pickr@picongo")
-public class Photo
+@Table(name = "PHOTO", schema = "Pickr")
+public class PhotoUni_1_M_1_M
 {
     @Id
     @Column(name="PHOTO_ID")
@@ -39,11 +39,11 @@ public class Photo
     @Column(name = "PHOTO_DESC")
     private String photoDescription;
     
-    public Photo() {
+    public PhotoUni_1_M_1_M() {
         
     }
     
-    public Photo(String photoId, String caption, String description) {
+    public PhotoUni_1_M_1_M(String photoId, String caption, String description) {
         this.photoId = photoId;
         this.photoCaption = caption;
         this.photoDescription = description;

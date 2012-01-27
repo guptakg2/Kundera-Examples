@@ -35,7 +35,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "PHOTOGRAPHER", schema = "Pickr")
-public class Photographer
+public class PhotographerUni_1_M_1_M
 {
     @Id
     @Column(name = "PHOTOGRAPHER_ID")
@@ -51,7 +51,7 @@ public class Photographer
     // One to many, will be persisted separately
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name="PHOTOGRAPHER_ID")
-    private List<Album> albums;
+    private List<AlbumUni_1_M_1_M> albums;
 
     /**
      * @return the photographerId
@@ -107,7 +107,7 @@ public class Photographer
     /**
      * @return the albums
      */
-    public List<Album> getAlbums()
+    public List<AlbumUni_1_M_1_M> getAlbums()
     {
         return albums;
     }
@@ -116,11 +116,11 @@ public class Photographer
      * @param albums
      *            the albums to set
      */
-    public void addAlbum(Album album)
+    public void addAlbum(AlbumUni_1_M_1_M album)
     {
         if (this.albums == null || this.albums.isEmpty())
         {
-            this.albums = new ArrayList<Album>();
+            this.albums = new ArrayList<AlbumUni_1_M_1_M>();
         }
         this.albums.add(album);
     }

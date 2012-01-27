@@ -21,9 +21,6 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
-import com.impetus.kundera.examples.crossdatastore.pickr.entities.Album;
-import com.impetus.kundera.examples.crossdatastore.pickr.entities.Photographer;
-
 /**
  * Implementation class for Pickr functionality
  * 
@@ -41,11 +38,10 @@ public class PickrImpl implements Pickr
         {
             emf = Persistence.createEntityManagerFactory(persistenceUnitName);
         }
-
     }    
 
     @Override
-    public void addPhotographer(Photographer p)
+    public void addPhotographer(Object p)
     {   
 
         EntityManager em = emf.createEntityManager();
@@ -54,41 +50,18 @@ public class PickrImpl implements Pickr
     }  
 
     @Override
-    public void createAlbum(String id, String name, String description)
+    public Object getPhotographer(Class<?> entityClass, String photographerId)
     {
         EntityManager em = emf.createEntityManager();
-        Photographer p = em.find(Photographer.class, "1");
-
-        Album album = new Album();
-        album.setAlbumId(id);
-        album.setAlbumName(name);
-        album.setAlbumDescription(description);
-
-        p.addAlbum(album);
-
-        em.persist(p);
-        em.close();
-    }
-
-    @Override
-    public void addPhotoToAlbum(String albumName, String photoId, String caption, String description)
-    {
-
-    }
-
-    @Override
-    public Photographer getPhotographer(String photographerId)
-    {
-        EntityManager em = emf.createEntityManager();
-        Photographer p = em.find(Photographer.class, "1");
+        Object p = em.find(entityClass, photographerId);
         return p;
     }
 
-    public List<Photographer> getAllPhotographers()
+    public List<Object> getAllPhotographers(String className)
     {
         EntityManager em = emf.createEntityManager();
-        Query q = em.createQuery("select p from Photographer p");
-        List<Photographer> photographers = q.getResultList();
+        Query q = em.createQuery("select p from " + className + " p");
+        List<Object> photographers = q.getResultList();
         em.close();
         return photographers;
     }

@@ -10,25 +10,24 @@ import javax.persistence.Table;
 @Table(name="ADDRESS", schema="KunderaExamples@twissandra")
 public class HabitatUni1To1FK
 {
-    @Id    
+    @Id
     @Column(name = "ADDRESS_ID")
-    private String addressId;   
-   
+    private String addressId;
 
     @Column(name = "STREET")
-    private String street;   
-    
-    	
+    private String street;
 
-	public String getAddressId() {
-		return addressId;
-	}
+    public String getAddressId()
+    {
+        return addressId;
+    }
 
-	public void setAddressId(String addressId) {
-		this.addressId = addressId;
-	}
+    public void setAddressId(String addressId)
+    {
+        this.addressId = addressId;
+    }
 
-	public String getStreet()
+    public String getStreet()
     {
         return street;
     }
@@ -36,6 +35,6 @@ public class HabitatUni1To1FK
     public void setStreet(String street)
     {
         this.street = street;
-    }  
+    }
 
 }
