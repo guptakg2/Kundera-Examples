@@ -57,14 +57,47 @@ public class PickrTestUni_1_M_1_M extends PickrBaseTest
     @Test
     public void test()
     {
-        addPhotographerUni_1_M_1_M();
-        //getPhotographerUni_1_M_1_M();
+        addPhotographer();
+        getPhotographer();
+        getAllPhotographers();
+    	//deletePhotographer();
         
     }
     
-    public void addPhotographerUni_1_M_1_M()
+    private void addPhotographer()
     {
-        PhotographerUni_1_M_1_M p = new PhotographerUni_1_M_1_M();
+        PhotographerUni_1_M_1_M p = preparePhotographer();
+
+        pickr.addPhotographer(p);
+    }
+
+    private void getPhotographer()
+    {
+        PhotographerUni_1_M_1_M p = (PhotographerUni_1_M_1_M)pickr.getPhotographer(PhotographerUni_1_M_1_M.class, ""+photographerId);
+
+        assertPhotographer(p);
+
+    }
+    
+    private void getAllPhotographers() {
+    	List<Object> ps = pickr.getAllPhotographers(PhotographerUni_1_M_1_M.class.getSimpleName());
+    	PhotographerUni_1_M_1_M p = (PhotographerUni_1_M_1_M)ps.get(0);
+    	
+    	assertPhotographer(p);
+    	
+    }
+    
+    private void deletePhotographer() {
+    	PhotographerUni_1_M_1_M p = (PhotographerUni_1_M_1_M)pickr.getPhotographer(PhotographerUni_1_M_1_M.class, ""+photographerId);
+    	Assert.assertNotNull(p);
+    	pickr.deletePhotographer(p);
+    	PhotographerUni_1_M_1_M p2 = (PhotographerUni_1_M_1_M)pickr.getPhotographer(PhotographerUni_1_M_1_M.class, ""+photographerId);
+    	Assert.assertNull(p);
+    
+    }
+    
+    private PhotographerUni_1_M_1_M preparePhotographer() {
+		PhotographerUni_1_M_1_M p = new PhotographerUni_1_M_1_M();
         p.setPhotographerId(photographerId);
         p.setPhotographerName("Amresh");
         p.setPersonalData(new PersonalData("www.amresh.com", "amresh.singh@impetus.co.in", "xamry"));
@@ -81,18 +114,12 @@ public class PickrTestUni_1_M_1_M extends PickrBaseTest
                 
         p.addAlbum(album1);
         p.addAlbum(album2);
-
-        pickr.addPhotographer(p);
-    }
-
-
-
-    public void getPhotographerUni_1_M_1_M()
-    {
-        PhotographerUni_1_M_1_M p = (PhotographerUni_1_M_1_M)pickr.getPhotographer(PhotographerUni_1_M_1_M.class, ""+photographerId);
-
-        Assert.assertNotNull(p);
-        Assert.assertEquals("1", p.getPhotographerId());
+		return p;
+	}
+    
+    private void assertPhotographer(PhotographerUni_1_M_1_M p) {
+    	Assert.assertNotNull(p);
+        Assert.assertEquals(1, p.getPhotographerId());
         Assert.assertEquals("Amresh", p.getPhotographerName());
         Assert.assertNotNull(p.getPersonalData());
         Assert.assertEquals("www.amresh.com", p.getPersonalData().getWebsite());
@@ -134,7 +161,6 @@ public class PickrTestUni_1_M_1_M extends PickrBaseTest
         PhotoUni_1_M_1_M album2Photo1 = album2Photos.get(0);
         Assert.assertNotNull(album2Photo1);
         Assert.assertEquals(7, album2Photo1.getPhotoId().length());
-
-    }   
+    }
 
 }
