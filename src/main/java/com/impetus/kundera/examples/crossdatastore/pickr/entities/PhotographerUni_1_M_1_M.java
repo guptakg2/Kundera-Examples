@@ -34,13 +34,13 @@ import javax.persistence.Table;
  */
 
 @Entity
-@Table(name = "PHOTOGRAPHER", schema = "Pickr")
+@Table(name = "PHOTOGRAPHER", schema = "Pickr@piccandra")
 public class PhotographerUni_1_M_1_M
 {
     @Id
     @Column(name = "PHOTOGRAPHER_ID")
     private int photographerId;
-    
+
     @Column(name = "PHOTOGRAPHER_NAME")
     private String photographerName;
 
@@ -50,25 +50,27 @@ public class PhotographerUni_1_M_1_M
 
     // One to many, will be persisted separately
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name="PHOTOGRAPHER_ID")
-    private List<AlbumUni_1_M_1_M> albums;   
-    
+    @JoinColumn(name = "PHOTOGRAPHER_ID")
+    private List<AlbumUni_1_M_1_M> albums;
 
     /**
-	 * @return the photographerId
-	 */
-	public int getPhotographerId() {
-		return photographerId;
-	}
+     * @return the photographerId
+     */
+    public int getPhotographerId()
+    {
+        return photographerId;
+    }
 
-	/**
-	 * @param photographerId the photographerId to set
-	 */
-	public void setPhotographerId(int photographerId) {
-		this.photographerId = photographerId;
-	}
+    /**
+     * @param photographerId
+     *            the photographerId to set
+     */
+    public void setPhotographerId(int photographerId)
+    {
+        this.photographerId = photographerId;
+    }
 
-	/**
+    /**
      * @return the photographerName
      */
     public String getPhotographerName()
@@ -77,7 +79,8 @@ public class PhotographerUni_1_M_1_M
     }
 
     /**
-     * @param photographerName the photographerName to set
+     * @param photographerName
+     *            the photographerName to set
      */
     public void setPhotographerName(String photographerName)
     {

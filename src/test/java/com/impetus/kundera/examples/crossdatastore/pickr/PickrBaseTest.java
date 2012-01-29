@@ -22,7 +22,7 @@ import com.impetus.kundera.examples.crossdatastore.pickr.dao.PickrImpl;
  * @author amresh.singh
  *
  */
-public class PickrBaseTest
+public abstract class PickrBaseTest
 {
     Pickr pickr;
     int photographerId;
@@ -31,7 +31,7 @@ public class PickrBaseTest
     protected void setUp() throws Exception
     {
         photographerId = 1;
-        pickr = new PickrImpl("picmysql");
+        pickr = new PickrImpl("piccandra");
     }
 
     public void test()
@@ -43,4 +43,11 @@ public class PickrBaseTest
     {
         pickr.close();
     }
+    
+    protected abstract void addPhotographer();
+    protected abstract void updatePhotographer();
+    protected abstract void getPhotographer();
+    protected abstract void getAllPhotographers();
+    protected abstract void deletePhotographer();
+    
 }

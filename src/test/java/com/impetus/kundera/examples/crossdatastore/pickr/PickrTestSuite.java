@@ -27,8 +27,8 @@ import org.junit.runners.Suite.SuiteClasses;
  */
 @RunWith(Suite.class)
 @SuiteClasses({
-    //PickrTestUni_1_1_1_1.class,
-    PickrTestUni_1_M_1_M.class
+    PickrTestUni_1_1_1_1.class
+    //PickrTestUni_1_M_1_M.class
 })
 public class PickrTestSuite
 {    

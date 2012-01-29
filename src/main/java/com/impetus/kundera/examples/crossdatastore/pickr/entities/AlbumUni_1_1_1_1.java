@@ -29,7 +29,7 @@ import javax.persistence.Table;
  *
  */
 @Entity
-@Table(name = "ALBUM", schema = "Pickr")
+@Table(name = "ALBUM", schema = "Pickr@piccandra")
 public class AlbumUni_1_1_1_1
 {
     @Id
