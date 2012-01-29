@@ -76,34 +76,48 @@ public class PersonTest extends BaseTest
         Assert.assertNotNull(p);
         Assert.assertEquals("vivek", p.getPersonName());
 
-        // find by name.
+//        // find by name.
         Query q = em.createQuery("Select p from PersonCassandra p where p.PERSON_NAME = vivek");
         List<PersonCassandra> results = q.getResultList();
         Assert.assertNotNull(results);
         Assert.assertFalse(results.isEmpty());
         Assert.assertEquals(3, results.size());
-//
-//        // find by name and age.
+////
+////        // find by name and age.
         q = em.createQuery("Select p from PersonCassandra p where p.PERSON_NAME = vivek and p.AGE > 10");
         results = q.getResultList();
         Assert.assertNotNull(results);
         Assert.assertFalse(results.isEmpty());
         Assert.assertEquals(2, results.size());
-
-//        // find by name, age clause
+//
+////        // find by name, age clause
         q = em.createQuery("Select p from PersonCassandra p where p.PERSON_NAME = vivek and p.AGE > 10 and p.AGE <20");
         results = q.getResultList();
         Assert.assertNotNull(results);
         Assert.assertFalse(results.isEmpty());
         Assert.assertEquals(1, results.size());
-
-        // find by between clause
+//
+//        // find by between clause
         q = em.createQuery("Select p from PersonCassandra p where p.PERSON_NAME = vivek and p.AGE between 10 and 15");
         results = q.getResultList();
         Assert.assertNotNull(results);
         Assert.assertFalse(results.isEmpty());
         Assert.assertEquals(2, results.size());
 
+        // find by Range.
+        q = em.createQuery("Select p from PersonCassandra p where p.PERSON_ID Between 1 and 2");
+        results = q.getResultList();
+        Assert.assertNotNull(results);
+        Assert.assertFalse(results.isEmpty());
+        Assert.assertEquals(2, results.size());
+
+        //find by without where clause. 
+        q = em.createQuery("Select p from PersonCassandra p");
+        results = q.getResultList();
+        Assert.assertNotNull(results);
+        Assert.assertFalse(results.isEmpty());
+        Assert.assertEquals(3, results.size());
+        
     }
 
     /**
@@ -121,17 +135,17 @@ public class PersonTest extends BaseTest
         em.merge(p);
         emf.close();
 //
-//        Query q = em.createQuery("Select p from PersonCassandra p where p.PERSON_NAME = vivek");
-//        List<PersonCassandra> results = q.getResultList();
-//        Assert.assertNotNull(results);
-//        Assert.assertEquals(2, results.size());
+        Query q = em.createQuery("Select p from PersonCassandra p where p.PERSON_NAME = vivek");
+        List<PersonCassandra> results = q.getResultList();
+        Assert.assertNotNull(results);
+        Assert.assertEquals(2, results.size());
 //
-//        q = em.createQuery("Select p from PersonCassandra p where p.PERSON_NAME = newvivek");
-//        results = q.getResultList();
-//        Assert.assertNotNull(results);
-//        Assert.assertEquals(1, results.size());
-//        Assert.assertNotSame("vivek", results.get(0).getPersonName());
-//        Assert.assertEquals("newvivek", results.get(0).getPersonName());
+        q = em.createQuery("Select p from PersonCassandra p where p.PERSON_NAME = newvivek");
+        results = q.getResultList();
+        Assert.assertNotNull(results);
+        Assert.assertEquals(1, results.size());
+        Assert.assertNotSame("vivek", results.get(0).getPersonName());
+        Assert.assertEquals("newvivek", results.get(0).getPersonName());
 
     }
 
