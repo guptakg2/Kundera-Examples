@@ -15,6 +15,7 @@
  ******************************************************************************/
 package com.impetus.kundera.examples.crud;
 
+import java.util.Iterator;
 import java.util.Set;
 
 import javax.persistence.EntityManager;
@@ -67,17 +68,48 @@ public class PersonAssociationTest extends BaseTest
     @Test
     public void onInsert()
     {
-        Employee personAssociation = new Employee();
-        personAssociation.setPersonId("1_e");
-        personAssociation.setPersonName("emp");
+        Employee emp1 = new Employee();
+        emp1.setPersonId("1_e");
+        emp1.setPersonName("emp");
+        
+        Employee emp2 = new Employee();
+        emp2.setPersonId("2_e");
+        emp2.setPersonName("emp2");
+        
         Employee manager = new Employee();
         manager.setPersonId("2_m");
         manager.setPersonName("mgr");
-        personAssociation.setManager(manager);
-        em.persist(personAssociation);
+        emp1.setManager(manager);
+        
+        //set manager for employee2
+        emp2.setManager(manager);
+        //set manager for employee1
+        emp1.setManager(manager);
+        
+        Set<Employee> ems = new java.util.HashSet<Employee>();
+        ems.add(emp2);
+        ems.add(emp1);
+        
+        //set employees for manager.
+        manager.setEmployees(ems);
+        
+        em.persist(manager);
+        em.persist(emp1);
+        em.persist(emp2);
+        
         Employee emp = em.find(Employee.class, "1_e");
+        
         Assert.assertNotNull(emp);
         Assert.assertEquals("2_m", emp.getManager().getPersonId());
+        Assert.assertNotNull(emp.getEmployees());
+        Assert.assertNotNull(emp.getManager().getEmployees());
+        Assert.assertFalse(emp.getManager().getEmployees().isEmpty());
+        Assert.assertEquals(2, emp.getManager().getEmployees().size());
+        Iterator<Employee> iter = emp.getManager().getEmployees().iterator();
+        String firstEmployee = iter.next().getPersonId();
+        String secEmployee = iter.next().getPersonId();
+        Assert.assertNotSame(firstEmployee, secEmployee);
+//        Assert.assertEquals("2_e", emp.getEmployees().iterator().next().getPersonId());
     }
 
     /**

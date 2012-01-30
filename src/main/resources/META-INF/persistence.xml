@@ -54,15 +54,15 @@
 		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.PhotographerUni_1_M_1_M</class>
 		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.AlbumUni_1_M_1_M</class>
 		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.PhotoUni_1_M_1_M</class>
-
+		<class>com.impetus.kundera.examples.crud.Employee</class>
 		<properties>
 			<property name="kundera.client" value="rdbms" />
-<!--			<property name="hibernate.hbm2ddl.auto" value="create" />-->
+			<property name="hibernate.hbm2ddl.auto" value="create" />
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.format_sql" value="true" />
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect" />
 			<property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
-			<property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/Pickr" />
+			<property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/hibernatepoc" />
 			<property name="hibernate.connection.username" value="root" />
 			<property name="hibernate.connection.password" value="impetus" />
 			<property name="hibernate.current_session_context_class"

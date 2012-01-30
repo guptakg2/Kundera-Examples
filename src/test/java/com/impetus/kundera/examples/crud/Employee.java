@@ -43,8 +43,11 @@ public class Employee
     @Column(name = "PERSON_NAME")
     private String personName;
 
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "manager")
+    private Set<Employee> Employees;
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "PERSON_ID")
+    @JoinColumn(name = "MANAGER_ID")
     private Employee manager;
 
     
@@ -82,6 +85,22 @@ public class Employee
     public void setPersonName(String personName)
     {
         this.personName = personName;
+    }
+
+    /**
+     * @return the employees
+     */
+    public Set<Employee> getEmployees()
+    {
+        return Employees;
+    }
+
+    /**
+     * @param employees the employees to set
+     */
+    public void setEmployees(Set<Employee> employees)
+    {
+        Employees = employees;
     }
 
     /**
