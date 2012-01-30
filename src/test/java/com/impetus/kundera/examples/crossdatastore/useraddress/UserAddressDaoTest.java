@@ -1,20 +1,19 @@
 package com.impetus.kundera.examples.crossdatastore.useraddress;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
-import junit.framework.Assert;
+import javax.persistence.Query;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import junit.framework.Assert;
+import junit.framework.TestCase;
 
 import com.impetus.kundera.examples.crossdatastore.useraddress.dao.UserAddressDaoImpl;
 import com.impetus.kundera.examples.crossdatastore.useraddress.entities.HabitatBi1To1FK;
 import com.impetus.kundera.examples.crossdatastore.useraddress.entities.HabitatBi1To1PK;
 import com.impetus.kundera.examples.crossdatastore.useraddress.entities.HabitatBi1ToM;
 import com.impetus.kundera.examples.crossdatastore.useraddress.entities.HabitatBiMTo1;
-import com.impetus.kundera.examples.crossdatastore.useraddress.entities.HabitatBiMToM;
 import com.impetus.kundera.examples.crossdatastore.useraddress.entities.HabitatUni1To1FK;
 import com.impetus.kundera.examples.crossdatastore.useraddress.entities.HabitatUni1To1PK;
 import com.impetus.kundera.examples.crossdatastore.useraddress.entities.HabitatUni1ToM;
@@ -26,89 +25,99 @@ import com.impetus.kundera.examples.crossdatastore.useraddress.entities.Personne
 import com.impetus.kundera.examples.crossdatastore.useraddress.entities.PersonnelBi1To1PK;
 import com.impetus.kundera.examples.crossdatastore.useraddress.entities.PersonnelBi1ToM;
 import com.impetus.kundera.examples.crossdatastore.useraddress.entities.PersonnelBiMTo1;
-import com.impetus.kundera.examples.crossdatastore.useraddress.entities.PersonnelBiMToM;
 import com.impetus.kundera.examples.crossdatastore.useraddress.entities.PersonnelUni1To1FK;
 import com.impetus.kundera.examples.crossdatastore.useraddress.entities.PersonnelUni1To1PK;
 import com.impetus.kundera.examples.crossdatastore.useraddress.entities.PersonnelUni1ToM;
 import com.impetus.kundera.examples.crossdatastore.useraddress.entities.PersonnelUniMTo1;
 import com.impetus.kundera.examples.crossdatastore.useraddress.entities.PersonnelUniMToM;
 
-/**
- * The Class UserAddressDaoTest.
- */
-public class UserAddressDaoTest
+public class UserAddressDaoTest extends TestCase
 {
 
     // Change this as per your unit testing requirements, alongwith entity
     // definition
-    /** The persistence unit. */
-    String persistenceUnit = "addcassandra,rdbms";
+    String persistenceUnit = "addcassandra";
 
-    /** The dao. */
     UserAddressDaoImpl dao;
 
-    /**
-     * Sets the up.
-     *
-     * @throws Exception the exception
-     */
-    @Before
-    public void setUp() throws Exception
+    protected void setUp() throws Exception
     {
+        super.setUp();
     }
 
-    /**
-     * Tear down.
-     *
-     * @throws Exception the exception
-     */
-    @After
-    public void tearDown() throws Exception
+    protected void tearDown() throws Exception
     {
+        super.tearDown();
     }
 
-    /**
-     * Test.
-     */
-    @Test
     public void test()
     {
+
+        // savePerson();
+
         /* Unidirectional */
-        // savePersonUniOneToOneFK();
+        savePersonUniOneToOneFK();
         // findPersonUniOneToOneFK();
+        // mergePersonUniOneToOneFK();
+        queryPersonUniOneToOneFK();
+        // deletePersonUniOneToOneFK();
 
         // savePersonUniOneToOnePK();
         // findPersonUniOneToOnePK();
+        // mergePersonUniOneToOnePK();
+        // queryPersonUniOneToOnePK();
+        // deletePersonUniOneToOnePK();
 
         // savePersonUniOneToMany();
         // findPersonUniOneToMany();
+        // mergePersonUniOneToMany();
+        // queryPersonUniOneToMany();
+        // deletePersonUniOneToMany();
 
         // savePersonUniManyToOne();
         // findPersonUniManyToOne();
+        // mergePersonUniManyToOne();
+        // queryPersonUniManyToOne();
+        // deletePersonUniManyToOne();
 
         // savePersonUniManyToMany();
         // findPersonUniManyToMany();
+        // mergePersonUniManyToMany();
+        // queryPersonUniManyToMany();
+        // deletePersonUniManyToMany();
 
         /* Bidirectional */
-        //savePersonBiOneToOneFK();
-        //findPersonBiOneToOneFK();
+        // savePersonBiOneToOneFK();
+        // findPersonBiOneToOneFK();
+        // mergePersonBiOneToOneFK();
+        // queryPersonBiOneToOneFK();
+        // deletePersonBiOneToOneFK();
 
         // savePersonBiOneToOnePK();
         // findPersonBiOneToOnePK();
+        // mergePersonBiOneToOnePK();
+        // queryPersonBiOneToOnePK();
+        // deletePersonBiOneToOnePK();
 
-        //savePersonBiOneToMany();
-        //findPersonBiOneToMany();
+        // savePersonBiOneToMany();
+        // findPersonBiOneToMany();
+        // mergePersonBiOneToMany();
+        // queryPersonBiOneToMany();
+        // deletePersonBiOneToMany();
 
-         //savePersonBiManyToOne();
-         //findPersonBiManyToOne();
+        // savePersonBiManyToOne();
+        // findPersonBiManyToOne();
+        // mergePersonBiManyToOne();
+        // queryPersonBiManyToOne();
+        // deletePersonBiManyToOne();
 
-        //savePersonBiManyToMany();
-         //findPersonBiManyToMany();
+        // savePersonBiManyToMany();
+        // findPersonBiManyToMany();
+        // mergePersonBiManyToMany();
+        // queryPersonBiManyToMany();
+        // deletePersonBiManyToMany();
     }
 
-    /**
-     * Save person.
-     */
     public void savePerson()
     {
         dao = new UserAddressDaoImpl(persistenceUnit);
@@ -117,14 +126,23 @@ public class UserAddressDaoTest
         person.setPersonId("1");
         person.setPersonName("Amresh");
         person.setPersonalData(new PersonalData("www.amresh.com", "amry.ks@gmail.com", "xamry"));
-        dao.savePerson(person);
+        dao.insert(person);
 
         dao.closeEntityManagerFactory();
     }
 
-    /**
-     * Save person uni one to one fk.
-     */
+    public void updatePerson()
+    {
+        dao = new UserAddressDaoImpl(persistenceUnit);
+        Personnel personnel = dao.getEntityManager(persistenceUnit).find(Personnel.class, "1");
+        Assert.assertNotNull(personnel);
+        personnel.setPersonName("Kuldeep2");
+        dao.update(personnel);
+        personnel = dao.getEntityManager(persistenceUnit).find(Personnel.class, "1");
+        Assert.assertNotNull(personnel);
+        Assert.assertEquals("Kuldeep2", personnel.getPersonName());
+    }
+
     public void savePersonUniOneToOneFK()
     {
         dao = new UserAddressDaoImpl(persistenceUnit);
@@ -138,41 +156,82 @@ public class UserAddressDaoTest
         address.setAddressId("unionetoonefk_a");
         address.setStreet("123, New street");
         person.setAddress(address);
-        dao.savePerson(person);
+        dao.insert(person);
 
         dao.closeEntityManagerFactory();
 
     }
 
-    /**
-     * Find person uni one to one fk.
-     */
     public void findPersonUniOneToOneFK()
     {
         dao = new UserAddressDaoImpl(persistenceUnit);
 
         // Find Person
         PersonnelUni1To1FK p = (PersonnelUni1To1FK) dao.findPerson(PersonnelUni1To1FK.class, "unionetoonefk_1");
-        Assert.assertNotNull(p);
-        Assert.assertEquals("unionetoonefk_1", p.getPersonId());
-        Assert.assertEquals("Amresh", p.getPersonName());
+        assertNotNull(p);
+        assertEquals("unionetoonefk_1", p.getPersonId());
+        assertEquals("Amresh", p.getPersonName());
         PersonalData pd = p.getPersonalData();
-        Assert.assertNotNull(pd);
-        Assert.assertEquals("www.amresh.com", pd.getWebsite());
+        assertNotNull(pd);
+        assertEquals("www.amresh.com", pd.getWebsite());
 
         HabitatUni1To1FK add = p.getAddress();
-        Assert.assertNotNull(add);
-        Assert.assertNotNull(add.getAddressId());
-        Assert.assertEquals("unionetoonefk_a", add.getAddressId());
-        Assert.assertEquals("123, New street", add.getStreet());
+        assertNotNull(add);
+        assertNotNull(add.getAddressId());
+        assertEquals("unionetoonefk_a", add.getAddressId());
+        assertEquals("123, New street", add.getStreet());
 
         dao.closeEntityManagerFactory();
 
     }
 
-    /**
-     * Save person uni one to one pk.
-     */
+    public void mergePersonUniOneToOneFK()
+    {
+        dao = new UserAddressDaoImpl(persistenceUnit);
+        PersonnelUni1To1FK p = (PersonnelUni1To1FK) dao.findPerson(PersonnelUni1To1FK.class, "unionetoonefk_1");
+        assertNotNull(p);
+        p.setPersonName("NewAmresh");
+        dao.merge(p);
+        p = (PersonnelUni1To1FK) dao.findPerson(PersonnelUni1To1FK.class, "unionetoonefk_1");
+        assertEquals("NewAmresh", p.getPersonName());
+        PersonalData pd = p.getPersonalData();
+        assertNotNull(pd);
+        assertEquals("www.amresh.com", pd.getWebsite());
+
+        HabitatUni1To1FK add = p.getAddress();
+        assertNotNull(add);
+        assertNotNull(add.getAddressId());
+        assertEquals("unionetoonefk_a", add.getAddressId());
+        assertEquals("123, New street", add.getStreet());
+
+        dao.closeEntityManagerFactory();
+    }
+
+    public void deletePersonUniOneToOneFK()
+    {
+        dao = new UserAddressDaoImpl(persistenceUnit);
+        PersonnelUni1To1FK p = (PersonnelUni1To1FK) dao.findPerson(PersonnelUni1To1FK.class, "unionetoonefk_1");
+        dao.removePerson(p);
+        dao.closeEntityManagerFactory();
+    }
+
+    public void queryPersonUniOneToOneFK()
+    {
+        dao = new UserAddressDaoImpl(persistenceUnit);
+        String query = "Select p from PersonnelUni1To1FK p";
+        Query q = dao.createQuery(query);
+        List<PersonnelUni1To1FK> results = q.getResultList();
+        Assert.assertNotNull(results);
+        Assert.assertFalse(results.isEmpty());
+        assertEquals(1, results.size());
+        assertEquals("unionetoonefk_1", results.get(0).getPersonId());
+        assertEquals("NewAmresh", results.get(0).getPersonName());
+        assertEquals("amry.ks@gmail.com", results.get(0).getPersonalData().getEmail());
+        assertEquals("unionetoonefk_a", results.get(0).getAddress().getAddressId());
+        assertEquals("123, New street", results.get(0).getAddress().getStreet());
+        dao.closeEntityManagerFactory();
+    }
+
     public void savePersonUniOneToOnePK()
     {
         dao = new UserAddressDaoImpl(persistenceUnit);
@@ -188,41 +247,85 @@ public class UserAddressDaoTest
         address.setStreet("123, New street");
         person.setAddress(address);
 
-        dao.savePerson(person);
+        dao.insert(person);
 
         dao.closeEntityManagerFactory();
     }
 
-    /**
-     * Find person uni one to one pk.
-     */
     public void findPersonUniOneToOnePK()
     {
         dao = new UserAddressDaoImpl(persistenceUnit);
 
         // Find Person
         PersonnelUni1To1PK p = (PersonnelUni1To1PK) dao.findPerson(PersonnelUni1To1PK.class, "unionetoonepk_1");
-        Assert.assertNotNull(p);
-        Assert.assertEquals("unionetoonepk_1", p.getPersonId());
-        Assert.assertEquals("Amresh", p.getPersonName());
+        assertNotNull(p);
+        assertEquals("unionetoonepk_1", p.getPersonId());
+        assertEquals("Amresh", p.getPersonName());
         PersonalData pd = p.getPersonalData();
-        Assert.assertNotNull(pd);
-        Assert.assertEquals("www.amresh.com", pd.getWebsite());
+        assertNotNull(pd);
+        assertEquals("www.amresh.com", pd.getWebsite());
 
         HabitatUni1To1PK add = p.getAddress();
-        Assert.assertNotNull(add);
-        Assert.assertNotNull(add.getPersonId());
-        Assert.assertNotNull(add.getAddressId());
-        Assert.assertEquals("unionetoonepk_1", add.getPersonId());
-        Assert.assertEquals("unionetoonepk_a", add.getAddressId());
-        Assert.assertEquals("123, New street", add.getStreet());
+        assertNotNull(add);
+        assertNotNull(add.getPersonId());
+        assertNotNull(add.getAddressId());
+        assertEquals("unionetoonepk_1", add.getPersonId());
+        assertEquals("unionetoonepk_a", add.getAddressId());
+        assertEquals("123, New street", add.getStreet());
 
         dao.closeEntityManagerFactory();
     }
 
-    /**
-     * Save person uni one to many.
-     */
+    public void mergePersonUniOneToOnePK()
+    {
+        dao = new UserAddressDaoImpl(persistenceUnit);
+        PersonnelUni1To1PK p = (PersonnelUni1To1PK) dao.findPerson(PersonnelUni1To1PK.class, "unionetoonepk_1");
+        assertNotNull(p);
+        p.setPersonName("NewAmresh");
+        dao.merge(p);
+        p = (PersonnelUni1To1PK) dao.findPerson(PersonnelUni1To1PK.class, "unionetoonepk_1");
+        assertEquals("NewAmresh", p.getPersonName());
+        PersonalData pd = p.getPersonalData();
+        assertNotNull(pd);
+        assertEquals("www.amresh.com", pd.getWebsite());
+
+        HabitatUni1To1PK add = p.getAddress();
+        assertNotNull(add);
+        assertNotNull(add.getPersonId());
+        assertNotNull(add.getAddressId());
+        assertEquals("unionetoonepk_1", add.getPersonId());
+        assertEquals("unionetoonepk_a", add.getAddressId());
+        assertEquals("123, New street", add.getStreet());
+
+        dao.closeEntityManagerFactory();
+    }
+
+    public void deletePersonUniOneToOnePK()
+    {
+        dao = new UserAddressDaoImpl(persistenceUnit);
+        PersonnelUni1To1PK p = (PersonnelUni1To1PK) dao.findPerson(PersonnelUni1To1PK.class, "unionetoonepk_1");
+        dao.removePerson(p);
+        dao.closeEntityManagerFactory();
+    }
+
+    public void queryPersonUniOneToOnePK()
+    {
+        dao = new UserAddressDaoImpl(persistenceUnit);
+        String query = "Select p from PersonnelUni1To1FK p";
+        Query q = dao.createQuery(query);
+        List<PersonnelUni1To1FK> results = q.getResultList();
+        Assert.assertNotNull(results);
+        Assert.assertFalse(results.isEmpty());
+        assertEquals(1, results.size());
+        assertEquals("unionetoonepk_1", results.get(0).getPersonId());
+        assertEquals("NewAmresh", results.get(0).getPersonName());
+        assertEquals("amry.ks@gmail.com", results.get(0).getPersonalData().getEmail());
+        assertEquals("unionetoonepk_a", results.get(0).getAddress().getAddressId());
+        assertEquals("123, New street", results.get(0).getAddress().getStreet());
+
+        dao.closeEntityManagerFactory();
+    }
+
     public void savePersonUniOneToMany()
     {
         dao = new UserAddressDaoImpl(persistenceUnit);
@@ -245,43 +348,88 @@ public class UserAddressDaoTest
         addresses.add(address1);
         addresses.add(address2);
         personnel.setAddresses(addresses);
-        dao.savePerson(personnel);
+        dao.insert(personnel);
 
         dao.closeEntityManagerFactory();
     }
 
-    /**
-     * Find person uni one to many.
-     */
     public void findPersonUniOneToMany()
     {
         dao = new UserAddressDaoImpl(persistenceUnit);
 
         // Find Person
         PersonnelUni1ToM p = (PersonnelUni1ToM) dao.findPerson(PersonnelUni1ToM.class, "unionetomany_1");
-        Assert.assertNotNull(p);
-        Assert.assertEquals("unionetomany_1", p.getPersonId());
-        Assert.assertEquals("Amresh", p.getPersonName());
+        assertNotNull(p);
+        assertEquals("unionetomany_1", p.getPersonId());
+        assertEquals("Amresh", p.getPersonName());
         PersonalData pd = p.getPersonalData();
-        Assert.assertNotNull(pd);
-        Assert.assertEquals("www.amresh.com", pd.getWebsite());
+        assertNotNull(pd);
+        assertEquals("www.amresh.com", pd.getWebsite());
 
         Set<HabitatUni1ToM> adds = p.getAddresses();
-        Assert.assertNotNull(adds);
-        Assert.assertFalse(adds.isEmpty());
-        Assert.assertEquals(2, adds.size());
+        assertNotNull(adds);
+        assertFalse(adds.isEmpty());
+        assertEquals(2, adds.size());
 
         for (HabitatUni1ToM address : adds)
         {
-            Assert.assertNotNull(address.getStreet());
+            assertNotNull(address.getStreet());
         }
 
         dao.closeEntityManagerFactory();
     }
 
-    /**
-     * Save person uni many to one.
-     */
+    public void mergePersonUniOneToMany()
+    {
+        dao = new UserAddressDaoImpl(persistenceUnit);
+        PersonnelUni1ToM p = (PersonnelUni1ToM) dao.findPerson(PersonnelUni1ToM.class, "unionetomany_1");
+        assertNotNull(p);
+        p.setPersonName("Kuldeep");
+        dao.merge(p);
+        p = (PersonnelUni1ToM) dao.findPerson(PersonnelUni1ToM.class, "unionetomany_1");
+        assertEquals("Kuldeep", p.getPersonName());
+        PersonalData pd = p.getPersonalData();
+        assertNotNull(pd);
+        assertEquals("www.amresh.com", pd.getWebsite());
+
+        Set<HabitatUni1ToM> adds = p.getAddresses();
+        assertNotNull(adds);
+        assertFalse(adds.isEmpty());
+        assertEquals(2, adds.size());
+
+        for (HabitatUni1ToM address : adds)
+        {
+            assertNotNull(address.getStreet());
+        }
+        dao.closeEntityManagerFactory();
+    }
+
+    public void deletePersonUniOneToMany()
+    {
+        dao = new UserAddressDaoImpl(persistenceUnit);
+        PersonnelUni1ToM p = (PersonnelUni1ToM) dao.findPerson(PersonnelUni1ToM.class, "unionetomany_1");
+        dao.removePerson(p);
+        dao.closeEntityManagerFactory();
+    }
+
+    public void queryPersonUniOneToMany()
+    {
+        dao = new UserAddressDaoImpl(persistenceUnit);
+        String query = "Select p from PersonnelUni1ToM p";
+        Query q = dao.createQuery(query);
+        List<PersonnelUni1ToM> results = q.getResultList();
+        Assert.assertNotNull(results);
+        Assert.assertFalse(results.isEmpty());
+        Assert.assertEquals(1, results.size());
+        assertEquals("Kuldeep", results.get(0).getPersonName());
+        Set<HabitatUni1ToM> adds = results.get(0).getAddresses();
+        assertEquals(2, adds.size());
+        for (HabitatUni1ToM address : adds)
+        {
+            assertNotNull(address.getStreet());
+        }
+    }
+
     public void savePersonUniManyToOne()
     {
         dao = new UserAddressDaoImpl(persistenceUnit);
@@ -312,49 +460,101 @@ public class UserAddressDaoTest
         dao.closeEntityManagerFactory();
     }
 
-    /**
-     * Find person uni many to one.
-     */
     public void findPersonUniManyToOne()
     {
         dao = new UserAddressDaoImpl(persistenceUnit);
 
         // Find Person 1
         PersonnelUniMTo1 p1 = (PersonnelUniMTo1) dao.findPerson(PersonnelUniMTo1.class, "unimanytoone_1");
-        Assert.assertNotNull(p1);
-        Assert.assertEquals("unimanytoone_1", p1.getPersonId());
-        Assert.assertEquals("Amresh", p1.getPersonName());
+        assertNotNull(p1);
+        assertEquals("unimanytoone_1", p1.getPersonId());
+        assertEquals("Amresh", p1.getPersonName());
         PersonalData pd = p1.getPersonalData();
-        Assert.assertNotNull(pd);
-        Assert.assertEquals("www.amresh.com", pd.getWebsite());
+        assertNotNull(pd);
+        assertEquals("www.amresh.com", pd.getWebsite());
 
         HabitatUniMTo1 add = p1.getAddress();
-        Assert.assertNotNull(add);
+        assertNotNull(add);
 
-        Assert.assertEquals("unimanytoone_a", add.getAddressId());
-        Assert.assertEquals("AAAAAAAAAAAAA", add.getStreet());
+        assertEquals("unimanytoone_a", add.getAddressId());
+        assertEquals("AAAAAAAAAAAAA", add.getStreet());
 
         // Find Person 2
         PersonnelUniMTo1 p2 = (PersonnelUniMTo1) dao.findPerson(PersonnelUniMTo1.class, "unimanytoone_2");
-        Assert.assertNotNull(p2);
-        Assert.assertEquals("unimanytoone_2", p2.getPersonId());
-        Assert.assertEquals("Vivek", p2.getPersonName());
+        assertNotNull(p2);
+        assertEquals("unimanytoone_2", p2.getPersonId());
+        assertEquals("Vivek", p2.getPersonName());
         PersonalData pd2 = p2.getPersonalData();
-        Assert.assertNotNull(pd2);
-        Assert.assertEquals("www.vivek.com", pd2.getWebsite());
+        assertNotNull(pd2);
+        assertEquals("www.vivek.com", pd2.getWebsite());
 
         HabitatUniMTo1 add2 = p2.getAddress();
-        Assert.assertNotNull(add2);
+        assertNotNull(add2);
 
-        Assert.assertEquals("unimanytoone_a", add2.getAddressId());
-        Assert.assertEquals("AAAAAAAAAAAAA", add2.getStreet());
+        assertEquals("unimanytoone_a", add2.getAddressId());
+        assertEquals("AAAAAAAAAAAAA", add2.getStreet());
 
         dao.closeEntityManagerFactory();
     }
 
-    /**
-     * Save person uni many to many.
-     */
+    public void mergePersonUniManyToOne()
+    {
+        dao = new UserAddressDaoImpl(persistenceUnit);
+        PersonnelUniMTo1 p1 = (PersonnelUniMTo1) dao.findPerson(PersonnelUniMTo1.class, "unimanytoone_1");
+        assertNotNull(p1);
+        p1.setPersonName("NewAmresh");
+        dao.merge(p1);
+        p1 = (PersonnelUniMTo1) dao.findPerson(PersonnelUniMTo1.class, "unimanytoone_1");
+        assertEquals("NewAmresh", p1.getPersonName());
+        assertEquals("unimanytoone_1", p1.getPersonId());
+        PersonalData pd = p1.getPersonalData();
+        assertNotNull(pd);
+        assertEquals("www.amresh.com", pd.getWebsite());
+
+        HabitatUniMTo1 add = p1.getAddress();
+        assertNotNull(add);
+
+        assertEquals("unimanytoone_a", add.getAddressId());
+        assertEquals("AAAAAAAAAAAAA", add.getStreet());
+
+        PersonnelUniMTo1 p2 = (PersonnelUniMTo1) dao.findPerson(PersonnelUniMTo1.class, "unimanytoone_2");
+        assertNotNull(p2);
+        assertEquals("unimanytoone_2", p2.getPersonId());
+        assertEquals("Vivek", p2.getPersonName());
+        PersonalData pd2 = p2.getPersonalData();
+        assertNotNull(pd2);
+        assertEquals("www.vivek.com", pd2.getWebsite());
+
+        HabitatUniMTo1 add2 = p2.getAddress();
+        assertNotNull(add2);
+
+        assertEquals("unimanytoone_a", add2.getAddressId());
+        assertEquals("AAAAAAAAAAAAA", add2.getStreet());
+        dao.closeEntityManagerFactory();
+    }
+
+    public void deletePersonUniManyToOne()
+    {
+        dao = new UserAddressDaoImpl(persistenceUnit);
+        PersonnelUniMTo1 p1 = (PersonnelUniMTo1) dao.findPerson(PersonnelUniMTo1.class, "unimanytoone_1");
+        PersonnelUniMTo1 p2 = (PersonnelUniMTo1) dao.findPerson(PersonnelUniMTo1.class, "unimanytoone_2");
+        dao.removePerson(p1);
+        dao.removePerson(p2);
+        dao.closeEntityManagerFactory();
+    }
+
+    public void queryPersonUniManyToOne()
+    {
+        dao = new UserAddressDaoImpl(persistenceUnit);
+        String query = "Select p from PersonnelUniMTo1 p";
+        Query q = dao.createQuery(query);
+        List<PersonnelUniMTo1> results = q.getResultList();
+        Assert.assertNotNull(results);
+        Assert.assertFalse(results.isEmpty());
+        assertEquals(2, results.size());
+        dao.closeEntityManagerFactory();
+    }
+
     public void savePersonUniManyToMany()
     {
         dao = new UserAddressDaoImpl(persistenceUnit);
@@ -402,52 +602,109 @@ public class UserAddressDaoTest
         dao.closeEntityManagerFactory();
     }
 
-    /**
-     * Find person uni many to many.
-     */
     public void findPersonUniManyToMany()
     {
         dao = new UserAddressDaoImpl(persistenceUnit);
 
         PersonnelUniMToM person1 = (PersonnelUniMToM) dao.findPerson(PersonnelUniMToM.class, "unimanytomany_1");
-        Assert.assertNotNull(person1);
-        Assert.assertEquals("unimanytomany_1", person1.getPersonId());
-        Assert.assertEquals("Amresh", person1.getPersonName());
+        assertNotNull(person1);
+        assertEquals("unimanytomany_1", person1.getPersonId());
+        assertEquals("Amresh", person1.getPersonName());
         PersonalData pd1 = person1.getPersonalData();
-        Assert.assertNotNull(pd1);
-        Assert.assertEquals("www.amresh.com", pd1.getWebsite());
+        assertNotNull(pd1);
+        assertEquals("www.amresh.com", pd1.getWebsite());
         Set<HabitatUniMToM> addresses1 = person1.getAddresses();
-        Assert.assertNotNull(addresses1);
-        Assert.assertFalse(addresses1.isEmpty());
-        Assert.assertEquals(2, addresses1.size());
+        assertNotNull(addresses1);
+        assertFalse(addresses1.isEmpty());
+        assertEquals(2, addresses1.size());
         HabitatUniMToM address11 = (HabitatUniMToM) addresses1.toArray()[0];
-        Assert.assertNotNull(address11);
+        assertNotNull(address11);
         HabitatUniMToM address12 = (HabitatUniMToM) addresses1.toArray()[1];
-        Assert.assertNotNull(address12);
+        assertNotNull(address12);
 
         PersonnelUniMToM person2 = (PersonnelUniMToM) dao.findPerson(PersonnelUniMToM.class, "unimanytomany_2");
-        Assert.assertNotNull(person2);
+        assertNotNull(person2);
 
-        Assert.assertEquals("unimanytomany_2", person2.getPersonId());
-        Assert.assertEquals("Vivek", person2.getPersonName());
+        assertEquals("unimanytomany_2", person2.getPersonId());
+        assertEquals("Vivek", person2.getPersonName());
         PersonalData pd2 = person2.getPersonalData();
-        Assert.assertNotNull(pd2);
-        Assert.assertEquals("www.vivek.com", pd2.getWebsite());
+        assertNotNull(pd2);
+        assertEquals("www.vivek.com", pd2.getWebsite());
         Set<HabitatUniMToM> addresses2 = person2.getAddresses();
-        Assert.assertNotNull(addresses2);
-        Assert.assertFalse(addresses2.isEmpty());
-        Assert.assertEquals(2, addresses2.size());
+        assertNotNull(addresses2);
+        assertFalse(addresses2.isEmpty());
+        assertEquals(2, addresses2.size());
         HabitatUniMToM address21 = (HabitatUniMToM) addresses2.toArray()[0];
-        Assert.assertNotNull(address21);
+        assertNotNull(address21);
         HabitatUniMToM address22 = (HabitatUniMToM) addresses2.toArray()[1];
-        Assert.assertNotNull(address22);
+        assertNotNull(address22);
 
         dao.closeEntityManagerFactory();
     }
 
-    /**
-     * Save person bi one to one fk.
-     */
+    public void mergePersonUniManyToMany()
+    {
+        dao = new UserAddressDaoImpl(persistenceUnit);
+        PersonnelUniMToM person1 = (PersonnelUniMToM) dao.findPerson(PersonnelUniMToM.class, "unimanytomany_1");
+        assertNotNull(person1);
+        person1.setPersonName("NewAmresh");
+        dao.merge(person1);
+        person1 = (PersonnelUniMToM) dao.findPerson(PersonnelUniMToM.class, "unimanytomany_1");
+        assertEquals("NewAmresh", person1.getPersonName());
+        PersonalData pd1 = person1.getPersonalData();
+        assertNotNull(pd1);
+        assertEquals("www.amresh.com", pd1.getWebsite());
+        Set<HabitatUniMToM> addresses1 = person1.getAddresses();
+        assertNotNull(addresses1);
+        assertFalse(addresses1.isEmpty());
+        assertEquals(2, addresses1.size());
+        HabitatUniMToM address11 = (HabitatUniMToM) addresses1.toArray()[0];
+        assertNotNull(address11);
+        HabitatUniMToM address12 = (HabitatUniMToM) addresses1.toArray()[1];
+        assertNotNull(address12);
+
+        PersonnelUniMToM person2 = (PersonnelUniMToM) dao.findPerson(PersonnelUniMToM.class, "unimanytomany_2");
+        assertNotNull(person2);
+
+        assertEquals("unimanytomany_2", person2.getPersonId());
+        assertEquals("Vivek", person2.getPersonName());
+        PersonalData pd2 = person2.getPersonalData();
+        assertNotNull(pd2);
+        assertEquals("www.vivek.com", pd2.getWebsite());
+        Set<HabitatUniMToM> addresses2 = person2.getAddresses();
+        assertNotNull(addresses2);
+        assertFalse(addresses2.isEmpty());
+        assertEquals(2, addresses2.size());
+        HabitatUniMToM address21 = (HabitatUniMToM) addresses2.toArray()[0];
+        assertNotNull(address21);
+        HabitatUniMToM address22 = (HabitatUniMToM) addresses2.toArray()[1];
+        assertNotNull(address22);
+
+        dao.closeEntityManagerFactory();
+    }
+
+    public void deletePersonUniManyToMany()
+    {
+        dao = new UserAddressDaoImpl(persistenceUnit);
+        PersonnelUniMToM person1 = (PersonnelUniMToM) dao.findPerson(PersonnelUniMToM.class, "unimanytomany_1");
+        PersonnelUniMToM person2 = (PersonnelUniMToM) dao.findPerson(PersonnelUniMToM.class, "unimanytomany_2");
+        dao.removePerson(person1);
+        dao.removePerson(person2);
+        dao.closeEntityManagerFactory();
+    }
+
+    public void queryPersonUniManyToMany()
+    {
+        dao = new UserAddressDaoImpl(persistenceUnit);
+        String query = "Select p from PersonnelUniMToM p";
+        Query q = dao.createQuery(query);
+        List<PersonnelUniMToM> results = q.getResultList();
+        Assert.assertNotNull(results);
+        Assert.assertFalse(results.isEmpty());
+        assertEquals(2, results.size());
+        dao.closeEntityManagerFactory();
+    }
+
     public void savePersonBiOneToOneFK()
     {
         dao = new UserAddressDaoImpl(persistenceUnit);
@@ -463,43 +720,82 @@ public class UserAddressDaoTest
         person.setAddress(address);
         address.setPerson(person);
 
-        dao.savePerson(person);
+        dao.insert(person);
 
         dao.closeEntityManagerFactory();
     }
 
-    /**
-     * Find person bi one to one fk.
-     */
     public void findPersonBiOneToOneFK()
     {
         dao = new UserAddressDaoImpl(persistenceUnit);
 
         // Find Person
         PersonnelBi1To1FK p = (PersonnelBi1To1FK) dao.findPerson(PersonnelBi1To1FK.class, "bionetoonefk_1");
-        Assert.assertNotNull(p);
-        Assert.assertEquals("bionetoonefk_1", p.getPersonId());
-        Assert.assertEquals("Amresh", p.getPersonName());
+        assertNotNull(p);
+        assertEquals("bionetoonefk_1", p.getPersonId());
+        assertEquals("Amresh", p.getPersonName());
         PersonalData pd = p.getPersonalData();
-        Assert.assertNotNull(pd);
-        Assert.assertEquals("www.amresh.com", pd.getWebsite());
+        assertNotNull(pd);
+        assertEquals("www.amresh.com", pd.getWebsite());
 
         HabitatBi1To1FK address = p.getAddress();
-        Assert.assertNotNull(address);
-        Assert.assertEquals("bionetoonefk_a", address.getAddressId());
-        Assert.assertEquals("123, New street", address.getStreet());
+        assertNotNull(address);
+        assertEquals("bionetoonefk_a", address.getAddressId());
+        assertEquals("123, New street", address.getStreet());
 
         PersonnelBi1To1FK pp = address.getPerson();
-        Assert.assertNotNull(pp);
-        Assert.assertEquals("bionetoonefk_1", pp.getPersonId());
-        Assert.assertEquals("Amresh", pp.getPersonName());
+        assertNotNull(pp);
+        assertEquals("bionetoonefk_1", pp.getPersonId());
+        assertEquals("Amresh", pp.getPersonName());
 
         dao.closeEntityManagerFactory();
     }
 
-    /**
-     * Save person bi one to one pk.
-     */
+    public void mergePersonBiOneToOneFK()
+    {
+        dao = new UserAddressDaoImpl(persistenceUnit);
+        PersonnelBi1To1FK p = (PersonnelBi1To1FK) dao.findPerson(PersonnelBi1To1FK.class, "bionetoonefk_1");
+        assertNotNull(p);
+        p.setPersonName("NewAmresh");
+        dao.merge(p);
+        p = (PersonnelBi1To1FK) dao.findPerson(PersonnelBi1To1FK.class, "bionetoonefk_1");
+        assertEquals("NewAmresh", p.getPersonName());
+        PersonalData pd = p.getPersonalData();
+        assertNotNull(pd);
+        assertEquals("www.amresh.com", pd.getWebsite());
+
+        HabitatBi1To1FK address = p.getAddress();
+        assertNotNull(address);
+        assertEquals("bionetoonefk_a", address.getAddressId());
+        assertEquals("123, New street", address.getStreet());
+
+        PersonnelBi1To1FK pp = address.getPerson();
+        assertNotNull(pp);
+        assertEquals("bionetoonefk_1", pp.getPersonId());
+        assertEquals("Amresh", pp.getPersonName());
+        dao.closeEntityManagerFactory();
+    }
+
+    public void deletePersonBiOneToOneFK()
+    {
+        dao = new UserAddressDaoImpl(persistenceUnit);
+        PersonnelBi1To1FK p = (PersonnelBi1To1FK) dao.findPerson(PersonnelBi1To1FK.class, "bionetoonefk_1");
+        dao.removePerson(p);
+        dao.closeEntityManagerFactory();
+    }
+
+    public void queryPersonBiOneToOneFK()
+    {
+        dao = new UserAddressDaoImpl(persistenceUnit);
+        String query = "Select p from PersonnelBi1To1FK p";
+        Query q = dao.createQuery(query);
+        List<PersonnelBi1To1FK> results = q.getResultList();
+        Assert.assertNotNull(results);
+        Assert.assertFalse(results.isEmpty());
+        assertEquals(1, results.size());
+        dao.closeEntityManagerFactory();
+    }
+
     public void savePersonBiOneToOnePK()
     {
         dao = new UserAddressDaoImpl(persistenceUnit);
@@ -516,44 +812,85 @@ public class UserAddressDaoTest
         person.setAddress(address);
         address.setPerson(person);
 
-        dao.savePerson(person);
+        dao.insert(person);
 
         dao.closeEntityManagerFactory();
     }
 
-    /**
-     * Find person bi one to one pk.
-     */
     public void findPersonBiOneToOnePK()
     {
         dao = new UserAddressDaoImpl(persistenceUnit);
 
         // Find Person
         PersonnelBi1To1PK p = (PersonnelBi1To1PK) dao.findPerson(PersonnelBi1To1PK.class, "bionetoonepk_1");
-        Assert.assertNotNull(p);
-        Assert.assertEquals("bionetoonepk_1", p.getPersonId());
-        Assert.assertEquals("Amresh", p.getPersonName());
+        assertNotNull(p);
+        assertEquals("bionetoonepk_1", p.getPersonId());
+        assertEquals("Amresh", p.getPersonName());
         PersonalData pd = p.getPersonalData();
-        Assert.assertNotNull(pd);
-        Assert.assertEquals("www.amresh.com", pd.getWebsite());
+        assertNotNull(pd);
+        assertEquals("www.amresh.com", pd.getWebsite());
 
         HabitatBi1To1PK address = p.getAddress();
-        Assert.assertNotNull(address);
-        Assert.assertEquals("bionetoonepk_1", address.getPersonId());
-        Assert.assertEquals("bionetoonepk_a", address.getAddressId());
-        Assert.assertEquals("123, New street", address.getStreet());
+        assertNotNull(address);
+        assertEquals("bionetoonepk_1", address.getPersonId());
+        assertEquals("bionetoonepk_a", address.getAddressId());
+        assertEquals("123, New street", address.getStreet());
 
         PersonnelBi1To1PK pp = address.getPerson();
-        Assert.assertNotNull(pp);
-        Assert.assertEquals("bionetoonepk_1", pp.getPersonId());
-        Assert.assertEquals("Amresh", pp.getPersonName());
+        assertNotNull(pp);
+        assertEquals("bionetoonepk_1", pp.getPersonId());
+        assertEquals("Amresh", pp.getPersonName());
 
         dao.closeEntityManagerFactory();
     }
 
-    /**
-     * Save person bi one to many.
-     */
+    public void mergePersonBiOneToOnePK()
+    {
+        dao = new UserAddressDaoImpl(persistenceUnit);
+        PersonnelBi1To1PK p = (PersonnelBi1To1PK) dao.findPerson(PersonnelBi1To1PK.class, "bionetoonepk_1");
+        assertNotNull(p);
+        p.setPersonName("NewAmresh");
+        dao.merge(p);
+        p = (PersonnelBi1To1PK) dao.findPerson(PersonnelBi1To1PK.class, "bionetoonepk_1");
+        assertEquals("NewAmresh", p.getPersonName());
+        PersonalData pd = p.getPersonalData();
+        assertNotNull(pd);
+        assertEquals("www.amresh.com", pd.getWebsite());
+
+        HabitatBi1To1PK address = p.getAddress();
+        assertNotNull(address);
+        assertEquals("bionetoonepk_1", address.getPersonId());
+        assertEquals("bionetoonepk_a", address.getAddressId());
+        assertEquals("123, New street", address.getStreet());
+
+        PersonnelBi1To1PK pp = address.getPerson();
+        assertNotNull(pp);
+        assertEquals("bionetoonepk_1", pp.getPersonId());
+        assertEquals("Amresh", pp.getPersonName());
+
+        dao.closeEntityManagerFactory();
+    }
+
+    public void deletePersonBiOneToOnePK()
+    {
+        dao = new UserAddressDaoImpl(persistenceUnit);
+        PersonnelBi1To1PK p = (PersonnelBi1To1PK) dao.findPerson(PersonnelBi1To1PK.class, "bionetoonepk_1");
+        dao.removePerson(p);
+        dao.closeEntityManagerFactory();
+    }
+
+    public void queryPersonBiOneToOnePK()
+    {
+        dao = new UserAddressDaoImpl(persistenceUnit);
+        String query = "Select p from PersonnelBi1To1PK p";
+        Query q = dao.createQuery(query);
+        List<PersonnelBi1To1PK> results = q.getResultList();
+        Assert.assertNotNull(results);
+        Assert.assertFalse(results.isEmpty());
+        assertEquals(1, results.size());
+        dao.closeEntityManagerFactory();
+    }
+
     public void savePersonBiOneToMany()
     {
         dao = new UserAddressDaoImpl(persistenceUnit);
@@ -575,50 +912,97 @@ public class UserAddressDaoTest
         addresses.add(address1);
         addresses.add(address2);
         personnel.setAddresses(addresses);
-        dao.savePerson(personnel);
+        dao.insert(personnel);
 
         dao.closeEntityManagerFactory();
     }
 
-    /**
-     * Find person bi one to many.
-     */
     public void findPersonBiOneToMany()
     {
         dao = new UserAddressDaoImpl(persistenceUnit);
 
         // Find Person
         PersonnelBi1ToM p = (PersonnelBi1ToM) dao.findPerson(PersonnelBi1ToM.class, "bionetomany_1");
-        Assert.assertNotNull(p);
-        Assert.assertEquals("bionetomany_1", p.getPersonId());
-        Assert.assertEquals("Amresh", p.getPersonName());
+        assertNotNull(p);
+        assertEquals("bionetomany_1", p.getPersonId());
+        assertEquals("Amresh", p.getPersonName());
         PersonalData pd = p.getPersonalData();
-        Assert.assertNotNull(pd);
-        Assert.assertEquals("www.amresh.com", pd.getWebsite());
+        assertNotNull(pd);
+        assertEquals("www.amresh.com", pd.getWebsite());
 
         Set<HabitatBi1ToM> adds = p.getAddresses();
-        Assert.assertNotNull(adds);
-        Assert.assertFalse(adds.isEmpty());
-        Assert.assertEquals(2, adds.size());
+        assertNotNull(adds);
+        assertFalse(adds.isEmpty());
+        assertEquals(2, adds.size());
 
         for (HabitatBi1ToM address : adds)
         {
-            Assert.assertNotNull(address);
+            assertNotNull(address);
             PersonnelBi1ToM person = address.getPerson();
-            Assert.assertNotNull(person);
-            Assert.assertEquals(p.getPersonId(), person.getPersonId());
-            Assert.assertEquals(p.getPersonName(), person.getPersonName());
-            Assert.assertNotNull(person.getAddresses());
-            Assert.assertFalse(person.getAddresses().isEmpty());
-            Assert.assertEquals(2, person.getAddresses().size());
+            assertNotNull(person);
+            assertEquals(p.getPersonId(), person.getPersonId());
+            assertEquals(p.getPersonName(), person.getPersonName());
+            assertNotNull(person.getAddresses());
+            assertFalse(person.getAddresses().isEmpty());
+            assertEquals(2, person.getAddresses().size());
         }
 
         dao.closeEntityManagerFactory();
     }
 
-    /**
-     * Save person bi many to one.
-     */
+    public void mergePersonBiOneToMany()
+    {
+        dao = new UserAddressDaoImpl(persistenceUnit);
+        PersonnelBi1ToM p = (PersonnelBi1ToM) dao.findPerson(PersonnelBi1ToM.class, "bionetomany_1");
+        assertNotNull(p);
+        p.setPersonName("NewAmresh");
+        dao.merge(p);
+        p = (PersonnelBi1ToM) dao.findPerson(PersonnelBi1ToM.class, "bionetomany_1");
+        assertEquals("NewAmresh", p.getPersonName());
+        PersonalData pd = p.getPersonalData();
+        assertNotNull(pd);
+        assertEquals("www.amresh.com", pd.getWebsite());
+
+        Set<HabitatBi1ToM> adds = p.getAddresses();
+        assertNotNull(adds);
+        assertFalse(adds.isEmpty());
+        assertEquals(2, adds.size());
+
+        for (HabitatBi1ToM address : adds)
+        {
+            assertNotNull(address);
+            PersonnelBi1ToM person = address.getPerson();
+            assertNotNull(person);
+            assertEquals(p.getPersonId(), person.getPersonId());
+            assertEquals(p.getPersonName(), person.getPersonName());
+            assertNotNull(person.getAddresses());
+            assertFalse(person.getAddresses().isEmpty());
+            assertEquals(2, person.getAddresses().size());
+        }
+
+        dao.closeEntityManagerFactory();
+    }
+
+    public void deletePersonBiOneToMany()
+    {
+        dao = new UserAddressDaoImpl(persistenceUnit);
+        PersonnelBi1ToM p = (PersonnelBi1ToM) dao.findPerson(PersonnelBi1ToM.class, "bionetomany_1");
+        dao.removePerson(p);
+        dao.closeEntityManagerFactory();
+    }
+
+    public void queryPersonBiOneToMany()
+    {
+        dao = new UserAddressDaoImpl(persistenceUnit);
+        String query = "Select p from PersonnelBi1ToM p";
+        Query q = dao.createQuery(query);
+        List<PersonnelBi1ToM> results = q.getResultList();
+        Assert.assertNotNull(results);
+        Assert.assertFalse(results.isEmpty());
+        assertEquals(1, results.size());
+        dao.closeEntityManagerFactory();
+    }
+
     public void savePersonBiManyToOne()
     {
         dao = new UserAddressDaoImpl(persistenceUnit);
@@ -649,176 +1033,144 @@ public class UserAddressDaoTest
         dao.closeEntityManagerFactory();
     }
 
-    /**
-     * Find person bi many to one.
-     */
     public void findPersonBiManyToOne()
     {
         dao = new UserAddressDaoImpl(persistenceUnit);
 
         // Find Person 1
         PersonnelBiMTo1 p1 = (PersonnelBiMTo1) dao.findPerson(PersonnelBiMTo1.class, "bimanytoone_1");
-        Assert.assertNotNull(p1);
-        Assert.assertEquals("bimanytoone_1", p1.getPersonId());
-        Assert.assertEquals("Amresh", p1.getPersonName());
+        assertNotNull(p1);
+        assertEquals("bimanytoone_1", p1.getPersonId());
+        assertEquals("Amresh", p1.getPersonName());
         PersonalData pd = p1.getPersonalData();
-        Assert.assertNotNull(pd);
-        Assert.assertEquals("www.amresh.com", pd.getWebsite());
+        assertNotNull(pd);
+        assertEquals("www.amresh.com", pd.getWebsite());
 
         HabitatBiMTo1 add = p1.getAddress();
-        Assert.assertNotNull(add);
+        assertNotNull(add);
 
-        Assert.assertEquals("bimanytoone_b", add.getAddressId());
+        assertEquals("bimanytoone_b", add.getAddressId());
         Set<PersonnelBiMTo1> people = add.getPeople();
-        Assert.assertNotNull(people);
-        Assert.assertFalse(people.isEmpty());
-        Assert.assertEquals(2, people.size());
+        assertNotNull(people);
+        assertFalse(people.isEmpty());
+        assertEquals(2, people.size());
 
         // Find Person 2
         PersonnelBiMTo1 p2 = (PersonnelBiMTo1) dao.findPerson(PersonnelBiMTo1.class, "bimanytoone_2");
-        Assert.assertNotNull(p2);
-        Assert.assertEquals("bimanytoone_2", p2.getPersonId());
-        Assert.assertEquals("Vivek", p2.getPersonName());
+        assertNotNull(p2);
+        assertEquals("bimanytoone_2", p2.getPersonId());
+        assertEquals("Vivek", p2.getPersonName());
         PersonalData pd2 = p2.getPersonalData();
-        Assert.assertNotNull(pd2);
-        Assert.assertEquals("www.vivek.com", pd2.getWebsite());
+        assertNotNull(pd2);
+        assertEquals("www.vivek.com", pd2.getWebsite());
 
         HabitatBiMTo1 add2 = p2.getAddress();
-        Assert.assertNotNull(add2);
+        assertNotNull(add2);
 
-        Assert.assertEquals("bimanytoone_b", add2.getAddressId());
+        assertEquals("bimanytoone_b", add2.getAddressId());
         Set<PersonnelBiMTo1> people2 = add2.getPeople();
-        Assert.assertNotNull(people2);
-        Assert.assertFalse(people2.isEmpty());
-        Assert.assertEquals(2, people2.size());
+        assertNotNull(people2);
+        assertFalse(people2.isEmpty());
+        assertEquals(2, people2.size());
 
+        dao.closeEntityManagerFactory();
+    }
+
+    public void mergePersonBiManyToOne()
+    {
+        dao = new UserAddressDaoImpl(persistenceUnit);
+        PersonnelBiMTo1 p1 = (PersonnelBiMTo1) dao.findPerson(PersonnelBiMTo1.class, "bimanytoone_1");
+        assertNotNull(p1);
+        p1.setPersonName("NewAmresh");
+        dao.merge(p1);
+        p1 = (PersonnelBiMTo1) dao.findPerson(PersonnelBiMTo1.class, "bimanytoone_1");
+        assertEquals("NewAmresh", p1.getPersonName());
+        PersonalData pd = p1.getPersonalData();
+        assertNotNull(pd);
+        assertEquals("www.amresh.com", pd.getWebsite());
+
+        HabitatBiMTo1 add = p1.getAddress();
+        assertNotNull(add);
+
+        assertEquals("bimanytoone_b", add.getAddressId());
+        Set<PersonnelBiMTo1> people = add.getPeople();
+        assertNotNull(people);
+        assertFalse(people.isEmpty());
+        assertEquals(2, people.size());
+
+        // Find Person 2
+        PersonnelBiMTo1 p2 = (PersonnelBiMTo1) dao.findPerson(PersonnelBiMTo1.class, "bimanytoone_2");
+        assertNotNull(p2);
+        assertEquals("bimanytoone_2", p2.getPersonId());
+        assertEquals("Vivek", p2.getPersonName());
+        PersonalData pd2 = p2.getPersonalData();
+        assertNotNull(pd2);
+        assertEquals("www.vivek.com", pd2.getWebsite());
+
+        HabitatBiMTo1 add2 = p2.getAddress();
+        assertNotNull(add2);
+
+        assertEquals("bimanytoone_b", add2.getAddressId());
+        Set<PersonnelBiMTo1> people2 = add2.getPeople();
+        assertNotNull(people2);
+        assertFalse(people2.isEmpty());
+        assertEquals(2, people2.size());
+
+        dao.closeEntityManagerFactory();
+    }
+
+    public void deletePersonBiManyToOne()
+    {
+        dao = new UserAddressDaoImpl(persistenceUnit);
+        PersonnelBiMTo1 p1 = (PersonnelBiMTo1) dao.findPerson(PersonnelBiMTo1.class, "bimanytoone_1");
+        PersonnelBiMTo1 p2 = (PersonnelBiMTo1) dao.findPerson(PersonnelBiMTo1.class, "bimanytoone_2");
+        dao.removePerson(p1);
+        dao.removePerson(p2);
+        dao.closeEntityManagerFactory();
+    }
+
+    public void queryPersonBiManyToOne()
+    {
+        dao = new UserAddressDaoImpl(persistenceUnit);
+        String query = "Select p from PersonnelBiMTo1 p";
+        Query q = dao.createQuery(query);
+        List<PersonnelBiMTo1> results = q.getResultList();
+        Assert.assertNotNull(results);
+        Assert.assertFalse(results.isEmpty());
+        assertEquals(2, results.size());
         dao.closeEntityManagerFactory();
     }
 
     public void savePersonBiManyToMany()
     {
-        dao = new UserAddressDaoImpl(persistenceUnit);
 
-        PersonnelBiMToM person1 = new PersonnelBiMToM();
-        person1.setPersonId("bimanytomany_1");
-        person1.setPersonName("Amresh");
-        person1.setPersonalData(new PersonalData("www.amresh.com", "amry.ks@gmail.com", "xamry"));
-
-        PersonnelBiMToM person2 = new PersonnelBiMToM();
-        person2.setPersonId("bimanytomany_2");
-        person2.setPersonName("Vivek");
-        person2.setPersonalData(new PersonalData("www.vivek.com", "vivek@gmail.com", "mevivs"));
-
-        HabitatBiMToM address1 = new HabitatBiMToM();
-        address1.setAddressId("bimanytomany_a");
-        address1.setStreet("AAAAAAAAAAAAA");
-
-        HabitatBiMToM address2 = new HabitatBiMToM();
-        address2.setAddressId("bimanytomany_b");
-        address2.setStreet("BBBBBBBBBBBBBBB");
-
-        HabitatBiMToM address3 = new HabitatBiMToM();
-        address3.setAddressId("bimanytomany_c");
-        address3.setStreet("CCCCCCCCCCC");
-
-        
-        //Set addresses into persons
-        Set<HabitatBiMToM> person1Addresses = new HashSet<HabitatBiMToM>();
-        Set<HabitatBiMToM> person2Addresses = new HashSet<HabitatBiMToM>();
-
-        person1Addresses.add(address1);
-        person1Addresses.add(address2);
-
-        person2Addresses.add(address2);
-        person2Addresses.add(address3);
-
-        person1.setAddresses(person1Addresses);
-        person2.setAddresses(person2Addresses);
-        
-        //Set people into addresses
-        Set<PersonnelBiMToM> address1People = new HashSet<PersonnelBiMToM>();
-        Set<PersonnelBiMToM> address2People = new HashSet<PersonnelBiMToM>();
-        Set<PersonnelBiMToM> address3People = new HashSet<PersonnelBiMToM>();
-        
-        address1People.add(person1);
-        address2People.add(person1);
-        address2People.add(person2);
-        address3People.add(person2);
-        
-        address1.setPeople(address1People);
-        address2.setPeople(address2People);
-        address3.setPeople(address3People);        
-
-        //Persist both persons
-        Set<PersonnelBiMToM> persons = new HashSet<PersonnelBiMToM>();
-        persons.add(person1);
-        persons.add(person2);
-
-        dao.savePersons(persons);
-
-        dao.closeEntityManagerFactory();
     }
 
     public void findPersonBiManyToMany()
     {
-        dao = new UserAddressDaoImpl(persistenceUnit);
 
-        PersonnelBiMToM person1 = (PersonnelBiMToM) dao.findPerson(PersonnelBiMToM.class, "bimanytomany_1");
-        Assert.assertNotNull(person1);
-        Assert.assertEquals("bimanytomany_1", person1.getPersonId());
-        Assert.assertEquals("Amresh", person1.getPersonName());
-        PersonalData pd1 = person1.getPersonalData();
-        Assert.assertNotNull(pd1);
-        Assert.assertEquals("www.amresh.com", pd1.getWebsite());
-        Set<HabitatBiMToM> addresses1 = person1.getAddresses();
-        Assert.assertNotNull(addresses1);
-        Assert.assertFalse(addresses1.isEmpty());
-        Assert.assertEquals(2, addresses1.size());
-        HabitatBiMToM address11 = (HabitatBiMToM) addresses1.toArray()[0];
-        Assert.assertNotNull(address11);
-        HabitatBiMToM address12 = (HabitatBiMToM) addresses1.toArray()[1];
-        Assert.assertNotNull(address12);
-
-        PersonnelBiMToM person2 = (PersonnelBiMToM) dao.findPerson(PersonnelBiMToM.class, "bimanytomany_2");
-        Assert.assertNotNull(person2);
-
-        Assert.assertEquals("bimanytomany_2", person2.getPersonId());
-        Assert.assertEquals("Vivek", person2.getPersonName());
-        PersonalData pd2 = person2.getPersonalData();
-        Assert.assertNotNull(pd2);
-        Assert.assertEquals("www.vivek.com", pd2.getWebsite());
-        Set<HabitatBiMToM> addresses2 = person2.getAddresses();
-        Assert.assertNotNull(addresses2);
-        Assert.assertFalse(addresses2.isEmpty());
-        Assert.assertEquals(2, addresses2.size());
-        HabitatBiMToM address21 = (HabitatBiMToM) addresses2.toArray()[0];
-        Assert.assertNotNull(address21);
-        HabitatBiMToM address22 = (HabitatBiMToM) addresses2.toArray()[1];
-        Assert.assertNotNull(address22);
-        
-        Set<PersonnelBiMToM> address11People = address11.getPeople();
-        Set<PersonnelBiMToM> address12People = address12.getPeople();
-        Set<PersonnelBiMToM> address21People = address21.getPeople();
-        Set<PersonnelBiMToM> address22People = address22.getPeople();
-        
-        Assert.assertNotNull(address11People);
-        Assert.assertFalse(address11People.isEmpty());
-        Assert.assertTrue(address11People.size() == 1 || address11People.size() == 2);
-        
-        Assert.assertNotNull(address12People);
-        Assert.assertFalse(address12People.isEmpty());
-        Assert.assertTrue(address12People.size() == 1 || address12People.size() == 2);
-        
-        Assert.assertNotNull(address21People);
-        Assert.assertFalse(address21People.isEmpty());
-        Assert.assertTrue(address21People.size() == 1 || address21People.size() == 2);
-        
-        Assert.assertNotNull(address22People);
-        Assert.assertFalse(address22People.isEmpty());
-        Assert.assertTrue(address22People.size() == 1 || address22People.size() == 2);
-        
-        dao.closeEntityManagerFactory();
     }
 
+    public void mergePersonBiManyToMany()
+    {
 
+    }
+
+    public void deletePersonBiManyToMany()
+    {
+
+    }
+
+    public void queryPersonBiManyToMany()
+    {
+
+    }
+    // public void query(){
+    // dao = new UserAddressDaoImpl(persistenceUnit);
+    // Query q =
+    // em.createQuery("Select p from Person p where p.PERSON_NAME = vivek");
+    // List<Person> results = q.getResultList();
+    // Assert.assertNotNull(results);
+    // Assert.assertFalse(results.isEmpty());
+    // }
 }
