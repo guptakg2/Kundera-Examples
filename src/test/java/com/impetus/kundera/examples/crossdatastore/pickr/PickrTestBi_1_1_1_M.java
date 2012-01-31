@@ -24,15 +24,17 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.impetus.kundera.examples.crossdatastore.pickr.entities.AlbumBi_1_1_1_1;
+import com.impetus.kundera.examples.crossdatastore.pickr.entities.AlbumBi_1_1_1_M;
 import com.impetus.kundera.examples.crossdatastore.pickr.entities.PersonalData;
-import com.impetus.kundera.examples.crossdatastore.pickr.entities.PhotoBi_1_1_1_1;
-import com.impetus.kundera.examples.crossdatastore.pickr.entities.PhotographerBi_1_1_1_1;
+import com.impetus.kundera.examples.crossdatastore.pickr.entities.PhotoBi_1_1_1_M;
+import com.impetus.kundera.examples.crossdatastore.pickr.entities.PhotoBi_1_M_1_M;
+import com.impetus.kundera.examples.crossdatastore.pickr.entities.PhotographerBi_1_1_1_M;
 
 /**
  * @author amresh.singh
  *
  */
-public class PickrTestBi_1_1_1_1 extends PickrBaseTest
+public class PickrTestBi_1_1_1_M extends PickrBaseTest
 {
 
     @Before
@@ -59,70 +61,88 @@ public class PickrTestBi_1_1_1_1 extends PickrBaseTest
     @Test
     public void test()
     {
-        //addPhotographer();
-        //updatePhotographer();
-        //getPhotographer();
+         //addPhotographer();
+        // updatePhotographer();
+         getPhotographer();
         //getAllPhotographers();
-        deletePhotographer();      
+        // deletePhotographer();
 
     }
 
     @Override
     public void addPhotographer()
     {
-        PhotographerBi_1_1_1_1 p = populatePhotographer();
+        PhotographerBi_1_1_1_M p = populatePhotographer();
         pickr.addPhotographer(p);
     }
-    
-    
 
     @Override
     protected void updatePhotographer()
     {
-        PhotographerBi_1_1_1_1 p = (PhotographerBi_1_1_1_1) pickr.getPhotographer(PhotographerBi_1_1_1_1.class, ""
+        PhotographerBi_1_1_1_M p = (PhotographerBi_1_1_1_M) pickr.getPhotographer(PhotographerBi_1_1_1_M.class, ""
                 + photographerId);
         assertPhotographer(p);
-        p.setPhotographerName("Vivek");       
+        p.setPhotographerName("Vivek");
 
         pickr.mergePhotographer(p);
-        
-        PhotographerBi_1_1_1_1 p2 = (PhotographerBi_1_1_1_1)pickr.getPhotographer(PhotographerBi_1_1_1_1.class, "" + photographerId);
+
+        PhotographerBi_1_1_1_M p2 = (PhotographerBi_1_1_1_M) pickr.getPhotographer(PhotographerBi_1_1_1_M.class, ""
+                + photographerId);
         Assert.assertNotNull(p2);
-        Assert.assertEquals("Vivek", p2.getPhotographerName());         
+        Assert.assertEquals("Vivek", p2.getPhotographerName());
     }
 
     @Override
     protected void getPhotographer()
     {
-        PhotographerBi_1_1_1_1 p = (PhotographerBi_1_1_1_1) pickr.getPhotographer(PhotographerBi_1_1_1_1.class, ""
+        PhotographerBi_1_1_1_M p = (PhotographerBi_1_1_1_M) pickr.getPhotographer(PhotographerBi_1_1_1_M.class, ""
                 + photographerId);
         assertPhotographer(p);
-        
+
     }
 
     @Override
     protected void getAllPhotographers()
     {
-        List<Object> ps = pickr.getAllPhotographers(PhotographerBi_1_1_1_1.class.getSimpleName());
-        PhotographerBi_1_1_1_1 p = (PhotographerBi_1_1_1_1)ps.get(0);
-        
+        List<Object> ps = pickr.getAllPhotographers(PhotographerBi_1_1_1_M.class.getSimpleName());
+        PhotographerBi_1_1_1_M p = (PhotographerBi_1_1_1_M) ps.get(0);
+
         assertPhotographer(p);
-        
+
     }
 
     @Override
     protected void deletePhotographer()
     {
-        PhotographerBi_1_1_1_1 p = (PhotographerBi_1_1_1_1)pickr.getPhotographer(PhotographerBi_1_1_1_1.class, ""+photographerId);
+        PhotographerBi_1_1_1_M p = (PhotographerBi_1_1_1_M) pickr.getPhotographer(PhotographerBi_1_1_1_M.class, ""
+                + photographerId);
         assertPhotographer(p);
         pickr.deletePhotographer(p);
-        PhotographerBi_1_1_1_1 p2 = (PhotographerBi_1_1_1_1)pickr.getPhotographer(PhotographerBi_1_1_1_1.class, ""+photographerId);
+        PhotographerBi_1_1_1_M p2 = (PhotographerBi_1_1_1_M) pickr.getPhotographer(PhotographerBi_1_1_1_M.class, ""
+                + photographerId);
         Assert.assertNull(p2);
+
+    }
+
+    private PhotographerBi_1_1_1_M populatePhotographer()
+    {
+        PhotographerBi_1_1_1_M p = new PhotographerBi_1_1_1_M();
+        p.setPhotographerId(photographerId);
+        p.setPhotographerName("Amresh");
+        p.setPersonalData(new PersonalData("www.amresh.com", "amresh.singh@impetus.co.in", "xamry"));
+
+        AlbumBi_1_1_1_M album1 = new AlbumBi_1_1_1_M("album_1", "My Phuket Vacation", "Went Phuket with friends");
+        album1.addPhoto(new PhotoBi_1_1_1_M("photo_1", "One beach", "On beach with friends"));
+        album1.addPhoto(new PhotoBi_1_1_1_M("photo_2", "In Hotel", "Chilling out in room"));
+        album1.addPhoto(new PhotoBi_1_1_1_M("photo_3", "At Airport", "So tired"));      
+
+        p.setAlbum(album1);
         
-    }   
+        return p;
 
+    }
 
-    private void assertPhotographer(PhotographerBi_1_1_1_1 p)
+    private void assertPhotographer(PhotographerBi_1_1_1_M p)
     {
         Assert.assertNotNull(p);
         Assert.assertEquals(1, p.getPhotographerId());
@@ -132,41 +152,23 @@ public class PickrTestBi_1_1_1_1 extends PickrBaseTest
         Assert.assertEquals("amresh.singh@impetus.co.in", p.getPersonalData().getEmail());
         Assert.assertEquals("xamry", p.getPersonalData().getYahooId());
 
-        Assert.assertNotNull(p.getAlbum());
-        AlbumBi_1_1_1_1 album = p.getAlbum();
+        AlbumBi_1_1_1_M album = p.getAlbum();
         Assert.assertNotNull(album);
-        Assert.assertTrue(album.getAlbumId().equals("album_1"));
+        Assert.assertEquals("album_1", album.getAlbumId());
         Assert.assertEquals("My Phuket Vacation", album.getAlbumName());
         Assert.assertEquals("Went Phuket with friends", album.getAlbumDescription());
         
-        PhotographerBi_1_1_1_1 pRev = album.getPhotographer();
-        Assert.assertNotNull(pRev);
+        List<PhotoBi_1_1_1_M> photos = album.getPhotos();
+        Assert.assertNotNull(photos);
+        Assert.assertFalse(photos.isEmpty());
+        Assert.assertEquals(3, photos.size());
 
-        PhotoBi_1_1_1_1 photo = album.getPhoto();
-        Assert.assertNotNull(photo);
-        Assert.assertEquals("photo_1", photo.getPhotoId());
-        Assert.assertEquals("One beach", photo.getPhotoCaption());       
+        PhotoBi_1_1_1_M photo1 = photos.get(0);
+        Assert.assertNotNull(photo1);
+        Assert.assertEquals(7, photo1.getPhotoId().length());
         
-        AlbumBi_1_1_1_1 albumRev = photo.getAlbum();
-        Assert.assertNotNull(albumRev);
-    }
-
-    private PhotographerBi_1_1_1_1 populatePhotographer()
-    {
-        PhotographerBi_1_1_1_1 p = new PhotographerBi_1_1_1_1();
-        p.setPhotographerId(photographerId);
-        p.setPhotographerName("Amresh");
-        p.setPersonalData(new PersonalData("www.amresh.com", "amresh.singh@impetus.co.in", "xamry"));
-
-        AlbumBi_1_1_1_1 album = new AlbumBi_1_1_1_1("album_1", "My Phuket Vacation", "Went Phuket with friends");
-
-        PhotoBi_1_1_1_1 photo = new PhotoBi_1_1_1_1("photo_1", "One beach", "On beach with friends");
-
-        album.setPhoto(photo);
-
-        p.setAlbum(album);
-        return p;
+        AlbumBi_1_1_1_M albumRev = photo1.getAlbum();
+        Assert.assertNotNull(albumRev);        
     }
     
-
 }
