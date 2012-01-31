@@ -12,7 +12,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "PERSON", schema = "KunderaExamples@addmongo")
+@Table(name = "PERSON", schema = "KunderaExamples@twingo")
 public class PersonnelUniMToM {
 	@Id
 	@Column(name = "PERSON_ID")

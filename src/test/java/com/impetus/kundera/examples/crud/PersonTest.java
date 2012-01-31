@@ -15,12 +15,9 @@
  ******************************************************************************/
 package com.impetus.kundera.examples.crud;
 
-import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.persistence.Query;
 
 import junit.framework.Assert;
 
@@ -29,11 +26,12 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Test case to perform simple CRUD operation.(insert, delete, merge, and select)
+ * Test case to perform simple CRUD operation.(insert, delete, merge, and
+ * select)
  * 
  * @author vivek.mishra
  * 
- *  Run this script to create column family in cassandra with indexes.
+ *         Run this script to create column family in cassandra with indexes.
  *         create column family PERSON with comparator=UTF8Type and
  *         column_metadata=[{column_name: PERSON_NAME, validation_class:
  *         UTF8Type, index_type: KEYS}, {column_name: AGE, validation_class:
@@ -51,121 +49,105 @@ public class PersonTest extends BaseTest
 
     /**
      * Sets the up.
-     *
-     * @throws Exception the exception
+     * 
+     * @throws Exception
+     *             the exception
      */
     @Before
     public void setUp() throws Exception
     {
-        emf = Persistence.createEntityManagerFactory("twissandra");
+        emf = Persistence.createEntityManagerFactory("twingo,twissandra");
         em = emf.createEntityManager();
     }
 
     /**
-     * On crud.
+     * On insert mongo.
      */
     @Test
-    public void onInsert()
+    public void onInsertMongo()
     {
-        em.persist(prepareData("1", 10));
-        em.persist(prepareData("2", 20));
-        em.persist(prepareData("3", 15));
-
-        // find by id.
-        PersonCassandra p = em.find(PersonCassandra.class, "1");
+        em.persist(prepareMongoInstance("1", 10));
+        em.persist(prepareMongoInstance("2", 20));
+        em.persist(prepareMongoInstance("3", 15));
+        PersonMongo p = findById(PersonMongo.class, "1", em);
         Assert.assertNotNull(p);
         Assert.assertEquals("vivek", p.getPersonName());
-
-//        // find by name.
-        Query q = em.createQuery("Select p from PersonCassandra p where p.PERSON_NAME = vivek");
-        List<PersonCassandra> results = q.getResultList();
-        Assert.assertNotNull(results);
-        Assert.assertFalse(results.isEmpty());
-        Assert.assertEquals(3, results.size());
-////
-////        // find by name and age.
-        q = em.createQuery("Select p from PersonCassandra p where p.PERSON_NAME = vivek and p.AGE > 10");
-        results = q.getResultList();
-        Assert.assertNotNull(results);
-        Assert.assertFalse(results.isEmpty());
-        Assert.assertEquals(2, results.size());
-//
-////        // find by name, age clause
-        q = em.createQuery("Select p from PersonCassandra p where p.PERSON_NAME = vivek and p.AGE > 10 and p.AGE <20");
-        results = q.getResultList();
-        Assert.assertNotNull(results);
-        Assert.assertFalse(results.isEmpty());
-        Assert.assertEquals(1, results.size());
-//
-//        // find by between clause
-        q = em.createQuery("Select p from PersonCassandra p where p.PERSON_NAME = vivek and p.AGE between 10 and 15");
-        results = q.getResultList();
-        Assert.assertNotNull(results);
-        Assert.assertFalse(results.isEmpty());
-        Assert.assertEquals(2, results.size());
-
-        // find by Range.
-        q = em.createQuery("Select p from PersonCassandra p where p.PERSON_ID Between 1 and 2");
-        results = q.getResultList();
-        Assert.assertNotNull(results);
-        Assert.assertFalse(results.isEmpty());
-        Assert.assertEquals(2, results.size());
-
-        //find by without where clause. 
-        q = em.createQuery("Select p from PersonCassandra p");
-        results = q.getResultList();
-        Assert.assertNotNull(results);
-        Assert.assertFalse(results.isEmpty());
-        Assert.assertEquals(3, results.size());
-        
+        assertFindByName(em, "PersonMongo", PersonMongo.class);
+        assertFindByNameAndAge(em, "PersonMongo", PersonMongo.class);
+        assertFindByNameAndAgeGTAndLT(em, "PersonMongo", PersonMongo.class);
+        assertFindByNameAndAgeBetween(em, "PersonMongo", PersonMongo.class);
+        assertFindByRange(em, "PersonMongo", PersonMongo.class);
+        assertFindWithoutWhereClause(em, "PersonMongo", PersonMongo.class);
     }
 
     /**
-     * On merge.
+     * On merge mongo.
      */
     @Test
-    public void onMerge()
+    public void onMergeMongo()
     {
         em.persist(prepareData("1", 10));
-        PersonCassandra p = em.find(PersonCassandra.class, "1");
+        PersonMongo p = findById(PersonMongo.class, "1", em);
         Assert.assertNotNull(p);
         Assert.assertEquals("vivek", p.getPersonName());
         // modify record.
         p.setPersonName("newvivek");
         em.merge(p);
-        emf.close();
-//
-        Query q = em.createQuery("Select p from PersonCassandra p where p.PERSON_NAME = vivek");
-        List<PersonCassandra> results = q.getResultList();
-        Assert.assertNotNull(results);
-        Assert.assertEquals(2, results.size());
-//
-        q = em.createQuery("Select p from PersonCassandra p where p.PERSON_NAME = newvivek");
-        results = q.getResultList();
-        Assert.assertNotNull(results);
-        Assert.assertEquals(1, results.size());
-        Assert.assertNotSame("vivek", results.get(0).getPersonName());
-        Assert.assertEquals("newvivek", results.get(0).getPersonName());
-
+        assertOnMerge(em, "PersonMongo", PersonMongo.class);
     }
 
     /**
+     * On insert cassandra.
+     */
+    @Test
+    public void onInsertCassandra()
+    {
+        em.persist(prepareData("1", 10));
+        em.persist(prepareData("2", 20));
+        em.persist(prepareData("3", 15));
+        PersonCassandra p = findById(PersonCassandra.class, "1", em);
+        Assert.assertNotNull(p);
+        Assert.assertEquals("vivek", p.getPersonName());
+        assertFindByName(em, "PersonCassandra", PersonCassandra.class);
+        assertFindByNameAndAge(em, "PersonCassandra", PersonCassandra.class);
+        assertFindByNameAndAgeGTAndLT(em, "PersonCassandra", PersonCassandra.class);
+        assertFindByNameAndAgeBetween(em, "PersonCassandra", PersonCassandra.class);
+        assertFindByRange(em, "PersonCassandra", PersonCassandra.class);
+        assertFindWithoutWhereClause(em, "PersonCassandra", PersonCassandra.class);
+    }
+
+    /**
+     * On merge cassandra.
+     */
+    @Test
+    public void onMergeCassandra()
+    {
+        em.persist(prepareData("1", 10));
+        PersonCassandra p = findById(PersonCassandra.class, "1", em);
+        Assert.assertNotNull(p);
+        Assert.assertEquals("vivek", p.getPersonName());
+        // modify record.
+        p.setPersonName("newvivek");
+        em.merge(p);
+
+        assertOnMerge(em, "PersonCassandra", PersonCassandra.class);
+    }
+
+
+    /**
      * Tear down.
-     *
-     * @throws Exception the exception
+     * 
+     * @throws Exception
+     *             the exception
      */
     @After
     public void tearDown() throws Exception
     {/*
-        Delete is working, but as row keys are not deleted from cassandra, so resulting in issue while reading back.
-        // Delete
-        em.remove(em.find(Person.class, "1"));
-        em.remove(em.find(Person.class, "2"));
-        em.remove(em.find(Person.class, "3"));
-        em.close();
-        emf.close();
-        em = null;
-        emf = null;*/
+      * Delete is working, but as row keys are not deleted from cassandra, so
+      * resulting in issue while reading back. // Delete
+      * em.remove(em.find(Person.class, "1")); em.remove(em.find(Person.class,
+      * "2")); em.remove(em.find(Person.class, "3")); em.close(); emf.close();
+      * em = null; emf = null;
+      */
     }
-
 }
