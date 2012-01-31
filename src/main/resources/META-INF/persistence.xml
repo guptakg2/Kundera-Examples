@@ -55,6 +55,7 @@
 		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.AlbumUni_1_M_1_M</class>
 		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.PhotoUni_1_M_1_M</class>
 		<class>com.impetus.kundera.examples.crud.Employee</class>
+		<class>com.impetus.kundera.examples.crud.student.StudentRdbms</class>
 		<properties>
 			<property name="kundera.client" value="rdbms" />
 			<property name="hibernate.hbm2ddl.auto" value="create" />
@@ -67,7 +68,7 @@
 			<property name="hibernate.connection.password" value="impetus" />
 			<property name="hibernate.current_session_context_class"
 				value="org.hibernate.context.ThreadLocalSessionContext" />
-				<property name="index_home_dir" value="/home/impadmin/lucene"/>
+			<!-- 	<property name="index_home_dir" value="/home/impadmin/lucene"/> -->
 		</properties>
 	</persistence-unit>
 	<persistence-unit name="piccandra">

@@ -96,10 +96,10 @@ public abstract class BaseTest
      * @param e
      *            the e
      */
-    protected <E extends Object> void assertFindByName(EntityManager em, String clazz, E e)
+    protected <E extends Object> void assertFindByName(EntityManager em, String clazz, E e, String name, String fieldName)
     {
 
-        String query = "Select p from " + clazz + " p where p.PERSON_NAME = vivek";
+        String query = "Select p from " + clazz + " p where p."+fieldName+" = "+name;
         // // find by name.
         Query q = em.createQuery(query);
         List<E> results = q.getResultList();
@@ -120,10 +120,11 @@ public abstract class BaseTest
      *            the clazz
      * @param e
      *            the e
+     * @param fieldName 
      */
-    protected <E extends Object> void assertFindByNameAndAge(EntityManager em, String clazz, E e)
+    protected <E extends Object> void assertFindByNameAndAge(EntityManager em, String clazz, E e, String name, String minVal, String fieldName)
     {
-        Query q = em.createQuery("Select p from " + clazz + " p where p.PERSON_NAME = vivek and p.AGE > 10");
+        Query q = em.createQuery("Select p from " + clazz + " p where p."+fieldName+" = "+name+" and p.AGE > "+ minVal);
         List<E> results = q.getResultList();
         Assert.assertNotNull(results);
         Assert.assertFalse(results.isEmpty());
@@ -141,12 +142,13 @@ public abstract class BaseTest
      *            the clazz
      * @param e
      *            the e
+     * @param fieldName 
      */
-    protected <E extends Object> void assertFindByNameAndAgeGTAndLT(EntityManager em, String clazz, E e)
+    protected <E extends Object> void assertFindByNameAndAgeGTAndLT(EntityManager em, String clazz, E e, String name, String minVal, String maxVal, String fieldName)
     {
         // // // find by name, age clause
         Query q = em.createQuery("Select p from " + clazz
-                + " p where p.PERSON_NAME = vivek and p.AGE > 10 and p.AGE <20");
+                + " p where p."+fieldName+" = " + name + " and p.AGE > "+ minVal+ " and p.AGE < " +maxVal);
         List<E> results = q.getResultList();
         Assert.assertNotNull(results);
         Assert.assertFalse(results.isEmpty());
@@ -164,12 +166,13 @@ public abstract class BaseTest
      *            the clazz
      * @param e
      *            the e
+     * @param fieldName 
      */
-    protected <E extends Object> void assertFindByNameAndAgeBetween(EntityManager em, String clazz, E e)
+    protected <E extends Object> void assertFindByNameAndAgeBetween(EntityManager em, String clazz, E e, String name, String minVal, String maxVal, String fieldName)
     {
         // // find by between clause
         Query q = em.createQuery("Select p from " + clazz
-                + " p where p.PERSON_NAME = vivek and p.AGE between 10 and 15");
+                + " p where p."+fieldName+" = "+name+" and p.AGE between "+minVal+" and "+maxVal);
         List<E> results = q.getResultList();
         Assert.assertNotNull(results);
         Assert.assertFalse(results.isEmpty());
@@ -188,12 +191,13 @@ public abstract class BaseTest
      *            the clazz
      * @param e
      *            the e
+     * @param fieldName 
      */
-    protected <E extends Object> void assertFindByRange(EntityManager em, String clazz, E e)
+    protected <E extends Object> void assertFindByRange(EntityManager em, String clazz, E e, String minVal, String maxVal, String fieldName)
 
     {
         // find by Range.
-        Query q = em.createQuery("Select p from " + clazz + " p where p.PERSON_ID Between 1 and 2");
+        Query q = em.createQuery("Select p from " + clazz + " p where p."+fieldName+" Between "+minVal+" and "+maxVal);
         List<E> results = q.getResultList();
         Assert.assertNotNull(results);
         Assert.assertFalse(results.isEmpty());
@@ -229,20 +233,21 @@ public abstract class BaseTest
      * @param em the em
      * @param clazz the clazz
      * @param e the e
+     * @param fieldName 
      */
-    protected <E extends Object> void assertOnMerge(EntityManager em, String clazz, E e)
+    protected <E extends Object> void assertOnMerge(EntityManager em, String clazz, E e, String oldName, String newName, String fieldName)
     {
-        Query q = em.createQuery("Select p from " + clazz + " p where p.PERSON_NAME = vivek");
+        Query q = em.createQuery("Select p from " + clazz + " p where p."+fieldName+" = "+oldName);
         List<E> results = q.getResultList();
         Assert.assertNotNull(results);
         Assert.assertEquals(2, results.size());
 
-        q = em.createQuery("Select p from " + clazz + " p where p.PERSON_NAME = newvivek");
+        q = em.createQuery("Select p from " + clazz + " p where p."+fieldName+" = "+newName);
         results = q.getResultList();
         Assert.assertNotNull(results);
         Assert.assertEquals(1, results.size());
-        Assert.assertNotSame("vivek", getPersonName(e, results.get(0)));
-        Assert.assertEquals("newvivek", getPersonName(e, results.get(0)));
+        Assert.assertNotSame(oldName, getPersonName(e, results.get(0)));
+        Assert.assertEquals(newName, getPersonName(e, results.get(0)));
     }
 
     
