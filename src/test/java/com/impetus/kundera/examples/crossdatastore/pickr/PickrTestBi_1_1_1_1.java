@@ -50,7 +50,7 @@ public class PickrTestBi_1_1_1_1 extends PickrBaseTest
     @After
     public void tearDown() throws Exception
     {
-        super.tearDown();
+        super.tearDown();        
     }
 
     /**
@@ -59,10 +59,10 @@ public class PickrTestBi_1_1_1_1 extends PickrBaseTest
     @Test
     public void test()
     {
-        //addPhotographer();
+        addPhotographer();
         //updatePhotographer();
-        //getPhotographer();
-        //getAllPhotographers();
+        getPhotographer();
+        getAllPhotographers();
         deletePhotographer();      
 
     }

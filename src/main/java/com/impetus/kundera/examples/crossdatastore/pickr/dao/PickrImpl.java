@@ -38,16 +38,16 @@ public class PickrImpl implements Pickr
         {
             emf = Persistence.createEntityManagerFactory(persistenceUnitName);
         }
-    }    
+    }
 
     @Override
     public void addPhotographer(Object p)
-    {   
+    {
 
         EntityManager em = emf.createEntityManager();
         em.persist(p);
         em.close();
-    }  
+    }
 
     @Override
     public Object getPhotographer(Class<?> entityClass, String photographerId)
@@ -66,23 +66,24 @@ public class PickrImpl implements Pickr
         em.close();
         return photographers;
     }
-    
-    
-	@Override
-	public void deletePhotographer(Object p) {
-		EntityManager em = emf.createEntityManager();
-		em.remove(p);
-		em.close();		
-	}
 
-	@Override
-	public void mergePhotographer(Object p) {
-		EntityManager em = emf.createEntityManager();
-		em.merge(p);
-		em.close();
-	}
+    @Override
+    public void deletePhotographer(Object p)
+    {
+        EntityManager em = emf.createEntityManager();
+        em.remove(p);
+        em.close();
+    }
 
-	@Override
+    @Override
+    public void mergePhotographer(Object p)
+    {
+        EntityManager em = emf.createEntityManager();
+        em.merge(p);
+        em.close();
+    }
+
+    @Override
     public void close()
     {
         emf.close();

@@ -60,11 +60,11 @@ public class PickrTestBi_1_M_M_M extends PickrBaseTest
     @Test
     public void test()
     {
-         //addPhotographer();
+        addPhotographer();
         // updatePhotographer();
-         //getPhotographer();
-        //getAllPhotographers();
-         deletePhotographer();
+        getPhotographer();
+        getAllPhotographers();
+        deletePhotographer();
 
     }
 

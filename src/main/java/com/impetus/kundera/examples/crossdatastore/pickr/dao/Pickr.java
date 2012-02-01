@@ -23,7 +23,7 @@ import java.util.List;
  */
 public interface Pickr
 {
-    void addPhotographer(Object p);
+    void addPhotographer(Object p);    
     
     Object getPhotographer(Class<?> entityClass, String photographerId);
 
