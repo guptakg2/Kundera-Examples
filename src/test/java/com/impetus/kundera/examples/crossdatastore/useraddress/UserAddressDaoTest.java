@@ -30,6 +30,10 @@ import com.impetus.kundera.examples.crossdatastore.useraddress.entities.Personne
 import com.impetus.kundera.examples.crossdatastore.useraddress.entities.PersonnelUni1ToM;
 import com.impetus.kundera.examples.crossdatastore.useraddress.entities.PersonnelUniMTo1;
 import com.impetus.kundera.examples.crossdatastore.useraddress.entities.PersonnelUniMToM;
+import com.impetus.kundera.metadata.KunderaMetadataManager;
+import com.impetus.kundera.metadata.model.EntityMetadata;
+import com.impetus.kundera.metadata.model.KunderaMetadata;
+import com.impetus.kundera.persistence.EntityManagerImpl;
 
 public class UserAddressDaoTest extends TestCase
 {
@@ -148,6 +152,9 @@ public class UserAddressDaoTest extends TestCase
         dao = new UserAddressDaoImpl(persistenceUnit);
 
         PersonnelUni1To1FK person = new PersonnelUni1To1FK();
+        
+        EntityMetadata m = KunderaMetadataManager.getEntityMetadata(persistenceUnit, PersonnelUni1To1FK.class);
+        m.setPersistenceUnit("twissandra");
         person.setPersonId("unionetoonefk_1");
         person.setPersonName("Amresh");
         person.setPersonalData(new PersonalData("www.amresh.com", "amry.ks@gmail.com", "xamry"));

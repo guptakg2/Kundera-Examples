@@ -233,7 +233,7 @@ public abstract class StudentBase<E extends StudentEntityDef> extends BaseTest
         
         Assert.assertEquals(Math.round(bigDecimal.doubleValue()), Math.round(s.getBigDecimal().doubleValue()));
         Assert.assertEquals(bigInteger, s.getBigInteger());
-
+        
         Assert.assertEquals(calendar.get(Calendar.YEAR), s.getCalendar().get(Calendar.YEAR));
         Assert.assertEquals(calendar.get(Calendar.MONTH), s.getCalendar().get(Calendar.MONTH));
         Assert.assertEquals(calendar.get(Calendar.WEEK_OF_YEAR), s.getCalendar().get(Calendar.WEEK_OF_YEAR));
