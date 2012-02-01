@@ -11,7 +11,27 @@ import org.junit.Test;
 
 /**
  * The Class StudentDaoTest.
- *
+ *  script to create Cassandra column family for this test case:
+ *  @see create column family STUDENT with comparator=AsciiType and key_validation_class=LongType and column_metadata=[{column_name: STUDENT_NAME, validation_class:UTF8Type, index_type: KEYS}, {column_name: AGE, validation_class:IntegerType, index_type: KEYS},
+{column_name: UNIQUE_ID, validation_class:IntegerType, index_type: KEYS},
+{column_name: IS_EXCEPTIONAL, validation_class:IntegerType, index_type: KEYS},
+{column_name: SEMESTER, validation_class:IntegerType, index_type: KEYS},
+{column_name: DIGITAL_SIGNATURE, validation_class:IntegerType, index_type: KEYS},
+{column_name: CGPA, validation_class:IntegerType, index_type: KEYS},
+{column_name: PERCENTAGE, validation_class:IntegerType, index_type: KEYS},
+{column_name: HEIGHT, validation_class:IntegerType, index_type: KEYS},
+{column_name: ENROLMENT_DATE, validation_class:IntegerType, index_type: KEYS},
+{column_name: ENROLMENT_TIME, validation_class:IntegerType, index_type: KEYS},
+{column_name: JOINING_DATE_TIME, validation_class:IntegerType, index_type: KEYS},
+{column_name: YEARS_SPENT, validation_class:IntegerType, index_type: KEYS},
+{column_name: ROLL_NUMBER, validation_class:IntegerType, index_type: KEYS},
+{column_name: MONTHLY_FEE, validation_class:IntegerType, index_type: KEYS},
+{column_name: SQL_DATE, validation_class:IntegerType, index_type: KEYS},
+{column_name: SQL_TIMESTAMP, validation_class:IntegerType, index_type: KEYS},
+{column_name: SQL_TIME, validation_class:IntegerType, index_type: KEYS},
+{column_name: BIG_INT, validation_class:IntegerType, index_type: KEYS},
+{column_name: BIG_DECIMAL, validation_class:IntegerType, index_type: KEYS},
+{column_name: CALENDAR, validation_class:UTF8Type, index_type: KEYS}];
  * @author Vivek Mishra
  */
 public class StudentCassandraTest extends StudentBase<StudentCassandra>
