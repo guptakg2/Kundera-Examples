@@ -40,7 +40,7 @@ public class UserAddressDaoTest extends TestCase
 
     // Change this as per your unit testing requirements, alongwith entity
     // definition
-    String persistenceUnit = "addcassandra";
+    String persistenceUnit = "twissandra,twingo";
 
     UserAddressDaoImpl dao;
 
@@ -63,7 +63,7 @@ public class UserAddressDaoTest extends TestCase
         savePersonUniOneToOneFK();
         // findPersonUniOneToOneFK();
         // mergePersonUniOneToOneFK();
-        queryPersonUniOneToOneFK();
+//        queryPersonUniOneToOneFK();
         // deletePersonUniOneToOneFK();
 
         // savePersonUniOneToOnePK();
@@ -152,14 +152,18 @@ public class UserAddressDaoTest extends TestCase
         dao = new UserAddressDaoImpl(persistenceUnit);
 
         PersonnelUni1To1FK person = new PersonnelUni1To1FK();
-        
+
+        dao.getEntityManager(persistenceUnit);
         EntityMetadata m = KunderaMetadataManager.getEntityMetadata(persistenceUnit, PersonnelUni1To1FK.class);
-        m.setPersistenceUnit("twissandra");
+        m.setPersistenceUnit("twingo");
+
         person.setPersonId("unionetoonefk_1");
         person.setPersonName("Amresh");
         person.setPersonalData(new PersonalData("www.amresh.com", "amry.ks@gmail.com", "xamry"));
 
         HabitatUni1To1FK address = new HabitatUni1To1FK();
+        EntityMetadata mAdd = KunderaMetadataManager.getEntityMetadata(persistenceUnit, HabitatUni1To1FK.class);
+        mAdd.setPersistenceUnit("twingo");
         address.setAddressId("unionetoonefk_a");
         address.setStreet("123, New street");
         person.setAddress(address);
