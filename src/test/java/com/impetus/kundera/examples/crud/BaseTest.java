@@ -66,6 +66,40 @@ public abstract class BaseTest
         return o;
     }
 
+    
+    /**
+     * Prepare hbase instance.
+     *
+     * @param rowKey the row key
+     * @param age the age
+     * @return the person h base
+     */
+    protected PersonHBase prepareHbaseInstance(String rowKey, int age)
+    {
+        PersonHBase o = new PersonHBase();
+        o.setPersonId(rowKey);
+        o.setPersonName("vivek");
+        o.setAge(age);
+        return o;
+    }
+    
+    
+    /**
+     * Prepare rdbms instance.
+     *
+     * @param rowKey the row key
+     * @param age the age
+     * @return the person rdbms
+     */
+    protected PersonRDBMS prepareRDBMSInstance(String rowKey, int age)
+    {
+        PersonRDBMS o = new PersonRDBMS();
+        o.setPersonId(rowKey);
+        o.setPersonName("vivek");
+        o.setAge(age);
+        return o;
+    }
+
     /**
      * Find by id.
      * 
@@ -86,15 +120,13 @@ public abstract class BaseTest
 
     /**
      * Assert find by name.
-     * 
-     * @param <E>
-     *            the element type
-     * @param em
-     *            the em
-     * @param clazz
-     *            the clazz
-     * @param e
-     *            the e
+     *
+     * @param <E> the element type
+     * @param em the em
+     * @param clazz the clazz
+     * @param e the e
+     * @param name the name
+     * @param fieldName the field name
      */
     protected <E extends Object> void assertFindByName(EntityManager em, String clazz, E e, String name, String fieldName)
     {
@@ -111,16 +143,14 @@ public abstract class BaseTest
 
     /**
      * Assert find by name and age.
-     * 
-     * @param <E>
-     *            the element type
-     * @param em
-     *            the em
-     * @param clazz
-     *            the clazz
-     * @param e
-     *            the e
-     * @param fieldName 
+     *
+     * @param <E> the element type
+     * @param em the em
+     * @param clazz the clazz
+     * @param e the e
+     * @param name the name
+     * @param minVal the min val
+     * @param fieldName the field name
      */
     protected <E extends Object> void assertFindByNameAndAge(EntityManager em, String clazz, E e, String name, String minVal, String fieldName)
     {
@@ -133,16 +163,15 @@ public abstract class BaseTest
 
     /**
      * Assert find by name and age gt and lt.
-     * 
-     * @param <E>
-     *            the element type
-     * @param em
-     *            the em
-     * @param clazz
-     *            the clazz
-     * @param e
-     *            the e
-     * @param fieldName 
+     *
+     * @param <E> the element type
+     * @param em the em
+     * @param clazz the clazz
+     * @param e the e
+     * @param name the name
+     * @param minVal the min val
+     * @param maxVal the max val
+     * @param fieldName the field name
      */
     protected <E extends Object> void assertFindByNameAndAgeGTAndLT(EntityManager em, String clazz, E e, String name, String minVal, String maxVal, String fieldName)
     {
@@ -157,16 +186,15 @@ public abstract class BaseTest
 
     /**
      * Assert find by name and age between.
-     * 
-     * @param <E>
-     *            the element type
-     * @param em
-     *            the em
-     * @param clazz
-     *            the clazz
-     * @param e
-     *            the e
-     * @param fieldName 
+     *
+     * @param <E> the element type
+     * @param em the em
+     * @param clazz the clazz
+     * @param e the e
+     * @param name the name
+     * @param minVal the min val
+     * @param maxVal the max val
+     * @param fieldName the field name
      */
     protected <E extends Object> void assertFindByNameAndAgeBetween(EntityManager em, String clazz, E e, String name, String minVal, String maxVal, String fieldName)
     {
@@ -182,16 +210,14 @@ public abstract class BaseTest
 
     /**
      * Assert find by range.
-     * 
-     * @param <E>
-     *            the element type
-     * @param em
-     *            the em
-     * @param clazz
-     *            the clazz
-     * @param e
-     *            the e
-     * @param fieldName 
+     *
+     * @param <E> the element type
+     * @param em the em
+     * @param clazz the clazz
+     * @param e the e
+     * @param minVal the min val
+     * @param maxVal the max val
+     * @param fieldName the field name
      */
     protected <E extends Object> void assertFindByRange(EntityManager em, String clazz, E e, String minVal, String maxVal, String fieldName)
 
@@ -233,7 +259,9 @@ public abstract class BaseTest
      * @param em the em
      * @param clazz the clazz
      * @param e the e
-     * @param fieldName 
+     * @param oldName the old name
+     * @param newName the new name
+     * @param fieldName the field name
      */
     protected <E extends Object> void assertOnMerge(EntityManager em, String clazz, E e, String oldName, String newName, String fieldName)
     {
