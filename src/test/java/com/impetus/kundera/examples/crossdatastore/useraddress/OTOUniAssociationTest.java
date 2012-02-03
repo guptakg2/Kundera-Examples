@@ -39,9 +39,6 @@ import com.impetus.kundera.examples.crossdatastore.useraddress.entities.Personne
 public class OTOUniAssociationTest extends TwinAssociation
 {
 
-//    private List<Map<String, Class>> combinations; 
-
-    
     @BeforeClass
     public static void init()
     {
