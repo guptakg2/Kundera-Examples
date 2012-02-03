@@ -63,7 +63,7 @@ public class UserAddressDaoTest extends TestCase
         savePersonUniOneToOneFK();
         // findPersonUniOneToOneFK();
         // mergePersonUniOneToOneFK();
-//        queryPersonUniOneToOneFK();
+        // queryPersonUniOneToOneFK();
         // deletePersonUniOneToOneFK();
 
         // savePersonUniOneToOnePK();

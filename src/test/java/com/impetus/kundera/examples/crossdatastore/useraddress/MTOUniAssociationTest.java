@@ -15,7 +15,6 @@
  ******************************************************************************/
 package com.impetus.kundera.examples.crossdatastore.useraddress;
 
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -34,11 +33,11 @@ import com.impetus.kundera.examples.crossdatastore.useraddress.entities.Personne
 
 /**
  * @author vivek.mishra
- *
+ * 
  */
 public class MTOUniAssociationTest extends TwinAssociation
 {
-	/**
+    /**
      * Inits the.
      */
     @BeforeClass
@@ -52,8 +51,9 @@ public class MTOUniAssociationTest extends TwinAssociation
 
     /**
      * Sets the up.
-     *
-     * @throws Exception the exception
+     * 
+     * @throws Exception
+     *             the exception
      */
     @Before
     public void setUp() throws Exception
@@ -70,10 +70,10 @@ public class MTOUniAssociationTest extends TwinAssociation
         tryOperation();
     }
 
-
-	@Override
-	protected void find() {
-		// Find Person 1
+    @Override
+    protected void find()
+    {
+        // Find Person 1
         PersonnelUniMTo1 p1 = (PersonnelUniMTo1) dao.findPerson(PersonnelUniMTo1.class, "unimanytoone_1");
         Assert.assertNotNull(p1);
         Assert.assertEquals("unimanytoone_1", p1.getPersonId());
@@ -103,37 +103,40 @@ public class MTOUniAssociationTest extends TwinAssociation
         Assert.assertEquals("unimanytoone_a", add2.getAddressId());
         Assert.assertEquals("AAAAAAAAAAAAA", add2.getStreet());
 
-		
-	}
+    }
 
-	@Override
-	protected void insert() {
-		 PersonnelUniMTo1 person1 = new PersonnelUniMTo1();
-	        person1.setPersonId("unimanytoone_1");
-	        person1.setPersonName("Amresh");
-	        person1.setPersonalData(new PersonalData("www.amresh.com", "amry.ks@gmail.com", "xamry"));
+    @Override
+    protected void insert()
+    {
+        PersonnelUniMTo1 person1 = new PersonnelUniMTo1();
+        person1.setPersonId("unimanytoone_1");
+        person1.setPersonName("Amresh");
+        person1.setPersonalData(new PersonalData("www.amresh.com", "amry.ks@gmail.com", "xamry"));
 
-	        PersonnelUniMTo1 person2 = new PersonnelUniMTo1();
-	        person2.setPersonId("unimanytoone_2");
-	        person2.setPersonName("Vivek");
-	        person2.setPersonalData(new PersonalData("www.vivek.com", "vivek@gmail.com", "mevivs"));
+        PersonnelUniMTo1 person2 = new PersonnelUniMTo1();
+        person2.setPersonId("unimanytoone_2");
+        person2.setPersonName("Vivek");
+        person2.setPersonalData(new PersonalData("www.vivek.com", "vivek@gmail.com", "mevivs"));
 
-	        HabitatUniMTo1 address = new HabitatUniMTo1();
-	        address.setAddressId("unimanytoone_a");
-	        address.setStreet("AAAAAAAAAAAAA");
+        HabitatUniMTo1 address = new HabitatUniMTo1();
+        address.setAddressId("unimanytoone_a");
+        address.setStreet("AAAAAAAAAAAAA");
 
-	        person1.setAddress(address);
-	        person2.setAddress(address);
+        person1.setAddress(address);
+        person2.setAddress(address);
 
-	        Set<PersonnelUniMTo1> persons = new HashSet<PersonnelUniMTo1>();
-	        persons.add(person1);
-	        persons.add(person2);
+        Set<PersonnelUniMTo1> persons = new HashSet<PersonnelUniMTo1>();
+        persons.add(person1);
+        persons.add(person2);
 
-	        dao.savePersons(persons);
+        dao.savePersons(persons);
 
-		
-	}
-	@Test
+        col.add(person1);
+        col.add(person2);
+        col.add(address);
+    }
+
+    @Test
     public void testMerge()
     {
 
@@ -141,12 +144,13 @@ public class MTOUniAssociationTest extends TwinAssociation
 
     /**
      * Tear down.
-     *
-     * @throws Exception the exception
+     * 
+     * @throws Exception
+     *             the exception
      */
     @After
     public void tearDown() throws Exception
     {
-		tearDownInternal();
+        tearDownInternal();
     }
 }

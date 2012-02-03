@@ -15,7 +15,6 @@
  ******************************************************************************/
 package com.impetus.kundera.examples.crossdatastore.useraddress;
 
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -34,43 +33,46 @@ import com.impetus.kundera.examples.crossdatastore.useraddress.entities.Personne
 
 /**
  * @author vivek.mishra
- *
+ * 
  */
 public class MTMUniAssociationTest extends TwinAssociation
 {
-	/**
-	 * Inits the.
-	 */
-	@BeforeClass
-	public static void init() {
-		List<Class> clazzz = new ArrayList<Class>(2);
-		clazzz.add(PersonnelUniMToM.class);
-		clazzz.add(HabitatUniMToM.class);
-		init(clazzz, "twingo", "twissandra"/*, "twibase"*/);
-	}
+    /**
+     * Inits the.
+     */
+    @BeforeClass
+    public static void init()
+    {
+        List<Class> clazzz = new ArrayList<Class>(2);
+        clazzz.add(PersonnelUniMToM.class);
+        clazzz.add(HabitatUniMToM.class);
+        init(clazzz, "twingo", "twissandra"/* , "twibase" */);
+    }
 
-	/**
-	 * Sets the up.
-	 * 
-	 * @throws Exception
-	 *             the exception
-	 */
-	@Before
-	public void setUp() throws Exception {
-		setUpInternal("ADDRESS", "PERSONNEL");
-	}
+    /**
+     * Sets the up.
+     * 
+     * @throws Exception
+     *             the exception
+     */
+    @Before
+    public void setUp() throws Exception
+    {
+        setUpInternal("ADDRESS", "PERSONNEL");
+    }
 
-	/**
-	 * Test insert.
-	 */
-	@Test
-	public void testInsert() {
-		tryOperation();
-	}
+    /**
+     * Test insert.
+     */
+    @Test
+    public void testInsert()
+    {
+        tryOperation();
+    }
 
-
-	@Override
-	protected void find() {
+    @Override
+    protected void find()
+    {
 
         PersonnelUniMToM person1 = (PersonnelUniMToM) dao.findPerson(PersonnelUniMToM.class, "unimanytomany_1");
         Assert.assertNotNull(person1);
@@ -105,12 +107,12 @@ public class MTMUniAssociationTest extends TwinAssociation
         HabitatUniMToM address22 = (HabitatUniMToM) addresses2.toArray()[1];
         Assert.assertNotNull(address22);
 
-		
-	}
+    }
 
-	@Override
-	protected void insert() {
-		PersonnelUniMToM person1 = new PersonnelUniMToM();
+    @Override
+    protected void insert()
+    {
+        PersonnelUniMToM person1 = new PersonnelUniMToM();
         person1.setPersonId("unimanytomany_1");
         person1.setPersonName("Amresh");
         person1.setPersonalData(new PersonalData("www.amresh.com", "amry.ks@gmail.com", "xamry"));
@@ -149,27 +151,34 @@ public class MTMUniAssociationTest extends TwinAssociation
         persons.add(person2);
 
         dao.savePersons(persons);
-		
-	}
 
-	/**
-	 * Test merge.
-	 */
-	@Test
-	public void testMerge() {
+        col.add(person1);
+        col.add(person2);
+        col.add(address1);
+        col.add(address2);
+        col.add(address3);
+    }
 
-	}
+    /**
+     * Test merge.
+     */
+    @Test
+    public void testMerge()
+    {
 
-	/**
-	 * Tear down.
-	 * 
-	 * @throws Exception
-	 *             the exception
-	 */
-	@After
-	public void tearDown() throws Exception {
-		
-		tearDownInternal();
-	}
+    }
+
+    /**
+     * Tear down.
+     * 
+     * @throws Exception
+     *             the exception
+     */
+    @After
+    public void tearDown() throws Exception
+    {
+
+        tearDownInternal();
+    }
 
 }

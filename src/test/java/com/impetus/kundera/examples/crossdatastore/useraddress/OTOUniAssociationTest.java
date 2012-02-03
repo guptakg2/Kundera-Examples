@@ -35,7 +35,9 @@ import com.impetus.kundera.examples.crossdatastore.useraddress.entities.Personne
  * 
  * Script to create super column family
  * 
- * create column family PERSONNEL with comparator=UTF8Type and default_validation_class=UTF8Type and key_validation_class=UTF8Type and column_type=Super;
+ * create column family PERSONNEL with comparator=UTF8Type and
+ * default_validation_class=UTF8Type and key_validation_class=UTF8Type and
+ * column_type=Super;
  * 
  * @author vivek.mishra
  */
@@ -52,18 +54,19 @@ public class OTOUniAssociationTest extends TwinAssociation
         List<Class> clazzz = new ArrayList<Class>(2);
         clazzz.add(PersonnelUni1To1FK.class);
         clazzz.add(HabitatUni1To1FK.class);
-        init(clazzz, "twingo", "twissandra","twibase");
+        init(clazzz, "twingo", "twissandra", "twibase");
     }
 
     /**
      * Sets the up.
-     *
-     * @throws Exception the exception
+     * 
+     * @throws Exception
+     *             the exception
      */
     @Before
     public void setUp() throws Exception
     {
-        setUpInternal("ADDRESS","PERSONNEL");
+        setUpInternal("ADDRESS", "PERSONNEL");
     }
 
     /**
@@ -75,8 +78,12 @@ public class OTOUniAssociationTest extends TwinAssociation
         tryOperation();
     }
 
-    /* (non-Javadoc)
-     * @see com.impetus.kundera.examples.crossdatastore.useraddress.TwinAssociation#insert()
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * com.impetus.kundera.examples.crossdatastore.useraddress.TwinAssociation
+     * #insert()
      */
     protected void insert()
     {
@@ -93,8 +100,12 @@ public class OTOUniAssociationTest extends TwinAssociation
         col.add(address);
     }
 
-    /* (non-Javadoc)
-     * @see com.impetus.kundera.examples.crossdatastore.useraddress.TwinAssociation#find()
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * com.impetus.kundera.examples.crossdatastore.useraddress.TwinAssociation
+     * #find()
      */
     protected void find()
     {
@@ -125,8 +136,9 @@ public class OTOUniAssociationTest extends TwinAssociation
 
     /**
      * Tear down.
-     *
-     * @throws Exception the exception
+     * 
+     * @throws Exception
+     *             the exception
      */
     @After
     public void tearDown() throws Exception

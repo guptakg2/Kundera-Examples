@@ -11,7 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "PERSON", schema = "hibernatepoc")
+@Table(name = "PERSONNEL", schema = "hibernatepoc")
 public class PersonnelBiMTo1 {
 	@Id
 	@Column(name = "PERSON_ID")

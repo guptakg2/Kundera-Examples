@@ -17,7 +17,6 @@ import com.impetus.kundera.examples.crossdatastore.useraddress.entities.HabitatB
 import com.impetus.kundera.examples.crossdatastore.useraddress.entities.PersonalData;
 import com.impetus.kundera.examples.crossdatastore.useraddress.entities.PersonnelBiMTo1;
 
-
 public class MTOBiAssociationTest extends TwinAssociation
 {
 
@@ -30,13 +29,14 @@ public class MTOBiAssociationTest extends TwinAssociation
         List<Class> clazzz = new ArrayList<Class>(2);
         clazzz.add(PersonnelBiMTo1.class);
         clazzz.add(HabitatBiMTo1.class);
-        init(clazzz, "twingo", "twissandra");
+        init(clazzz, "twingo", "twissandra", "twibase");
     }
 
     /**
      * Sets the up.
-     *
-     * @throws Exception the exception
+     * 
+     * @throws Exception
+     *             the exception
      */
     @Before
     public void setUp() throws Exception
@@ -53,11 +53,10 @@ public class MTOBiAssociationTest extends TwinAssociation
         tryOperation();
     }
 
-	
-
-	@Override
-	protected void find() {
-		 // Find Person 1
+    @Override
+    protected void find()
+    {
+        // Find Person 1
         PersonnelBiMTo1 p1 = (PersonnelBiMTo1) dao.findPerson(PersonnelBiMTo1.class, "bimanytoone_1");
         Assert.assertNotNull(p1);
         Assert.assertEquals("bimanytoone_1", p1.getPersonId());
@@ -93,36 +92,40 @@ public class MTOBiAssociationTest extends TwinAssociation
         Assert.assertFalse(people2.isEmpty());
         Assert.assertEquals(2, people2.size());
 
-		
-	}
+    }
 
-	@Override
-	protected void insert() {
-		  PersonnelBiMTo1 person1 = new PersonnelBiMTo1();
-	        person1.setPersonId("bimanytoone_1");
-	        person1.setPersonName("Amresh");
-	        person1.setPersonalData(new PersonalData("www.amresh.com", "amry.ks@gmail.com", "xamry"));
+    @Override
+    protected void insert()
+    {
+        PersonnelBiMTo1 person1 = new PersonnelBiMTo1();
+        person1.setPersonId("bimanytoone_1");
+        person1.setPersonName("Amresh");
+        person1.setPersonalData(new PersonalData("www.amresh.com", "amry.ks@gmail.com", "xamry"));
 
-	        PersonnelBiMTo1 person2 = new PersonnelBiMTo1();
-	        person2.setPersonId("bimanytoone_2");
-	        person2.setPersonName("Vivek");
-	        person2.setPersonalData(new PersonalData("www.vivek.com", "vivek@gmail.com", "mevivs"));
+        PersonnelBiMTo1 person2 = new PersonnelBiMTo1();
+        person2.setPersonId("bimanytoone_2");
+        person2.setPersonName("Vivek");
+        person2.setPersonalData(new PersonalData("www.vivek.com", "vivek@gmail.com", "mevivs"));
 
-	        HabitatBiMTo1 address = new HabitatBiMTo1();
-	        address.setAddressId("bimanytoone_b");
-	        address.setStreet("AAAAAAAAAAAAA");
+        HabitatBiMTo1 address = new HabitatBiMTo1();
+        address.setAddressId("bimanytoone_b");
+        address.setStreet("AAAAAAAAAAAAA");
 
-	        person1.setAddress(address);
-	        person2.setAddress(address);
+        person1.setAddress(address);
+        person2.setAddress(address);
 
-	        Set<PersonnelBiMTo1> persons = new HashSet<PersonnelBiMTo1>();
-	        persons.add(person1);
-	        persons.add(person2);
+        Set<PersonnelBiMTo1> persons = new HashSet<PersonnelBiMTo1>();
+        persons.add(person1);
+        persons.add(person2);
 
-	        dao.savePersons(persons);
-		
-	}
-	/**
+        dao.savePersons(persons);
+        col.add(person1);
+        col.add(person2);
+        col.add(address);
+
+    }
+
+    /**
      * Test merge.
      */
     @Test
@@ -133,12 +136,13 @@ public class MTOBiAssociationTest extends TwinAssociation
 
     /**
      * Tear down.
-     *
-     * @throws Exception the exception
+     * 
+     * @throws Exception
+     *             the exception
      */
     @After
     public void tearDown() throws Exception
     {
-		tearDownInternal();
-		}
+        tearDownInternal();
+    }
 }
