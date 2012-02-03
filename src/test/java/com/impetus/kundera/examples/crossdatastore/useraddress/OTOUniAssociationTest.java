@@ -15,7 +15,6 @@
  ******************************************************************************/
 package com.impetus.kundera.examples.crossdatastore.useraddress;
 
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -32,42 +31,50 @@ import com.impetus.kundera.examples.crossdatastore.useraddress.entities.Personal
 import com.impetus.kundera.examples.crossdatastore.useraddress.entities.PersonnelUni1To1FK;
 
 /**
- * One to one association test for {@see} cassandra, mongodb,HBase and RDBMS combination.
+ * One to one association test for {@see} cassandra, mongodb,HBase and RDBMS
+ * combination.
  * 
  * @author vivek.mishra
  */
 public class OTOUniAssociationTest extends TwinAssociation
 {
 
+    /**
+     * Inits the.
+     */
     @BeforeClass
     public static void init()
     {
         List<Class> clazzz = new ArrayList<Class>(2);
         clazzz.add(PersonnelUni1To1FK.class);
         clazzz.add(HabitatUni1To1FK.class);
-        init(clazzz,"twingo","twissandra");
+        init(clazzz, "twingo", "twissandra");
     }
+
     /**
-     * @throws java.lang.Exception
+     * Sets the up.
+     *
+     * @throws Exception the exception
      */
     @Before
     public void setUp() throws Exception
     {
-       setUpInternal();
+        setUpInternal();
     }
 
+    /**
+     * Test insert.
+     */
     @Test
     public void testInsert()
     {
-        for(Map<Class,String> c: combinations)
-        {
-            switchPersistenceUnits(c);
-            insert();
-            findPersonUniOneToOneFK();
-        }
+        tryOperation();
     }
 
-    private void insert()
+    /* (non-Javadoc)
+     * @see com.impetus.kundera.examples.crossdatastore.useraddress.TwinAssociation#insert()
+     */
+    protected void insert()
     {
         PersonnelUni1To1FK person = new PersonnelUni1To1FK();
         HabitatUni1To1FK address = new HabitatUni1To1FK();
@@ -79,8 +86,11 @@ public class OTOUniAssociationTest extends TwinAssociation
         person.setAddress(address);
         dao.insert(person);
     }
-    
-    public void findPersonUniOneToOneFK()
+
+    /* (non-Javadoc)
+     * @see com.impetus.kundera.examples.crossdatastore.useraddress.TwinAssociation#find()
+     */
+    protected void find()
     {
         // Find Person
         PersonnelUni1To1FK p = (PersonnelUni1To1FK) dao.findPerson(PersonnelUni1To1FK.class, "unionetoonefk_1");
@@ -98,15 +108,19 @@ public class OTOUniAssociationTest extends TwinAssociation
         Assert.assertEquals("123, New street", add.getStreet());
     }
 
-    
+    /**
+     * Test merge.
+     */
     @Test
     public void testMerge()
     {
-        
+
     }
-    
+
     /**
-     * @throws java.lang.Exception
+     * Tear down.
+     *
+     * @throws Exception the exception
      */
     @After
     public void tearDown() throws Exception
@@ -114,5 +128,4 @@ public class OTOUniAssociationTest extends TwinAssociation
         dao.closeEntityManagerFactory();
     }
 
-    
 }

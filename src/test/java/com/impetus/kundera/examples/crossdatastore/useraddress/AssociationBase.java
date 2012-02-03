@@ -20,6 +20,10 @@ import java.util.Map;
 
 import javax.persistence.EntityManager;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import com.impetus.client.cassandra.query.CassQuery;
 import com.impetus.kundera.examples.crossdatastore.useraddress.dao.UserAddressDaoImpl;
 import com.impetus.kundera.metadata.KunderaMetadataManager;
 import com.impetus.kundera.metadata.model.EntityMetadata;
@@ -34,6 +38,10 @@ public abstract class AssociationBase
     protected EntityManager em;
 
     protected UserAddressDaoImpl dao;
+    
+    /** the log used by this class. */
+    private static Log log = LogFactory.getLog(AssociationBase.class);
+
     
     protected void setUpInternal()
     {
@@ -52,12 +60,15 @@ public abstract class AssociationBase
         if(entityPuCol != null)
         {
             Iterator<Class> iter = entityPuCol.keySet().iterator();
+            log.info("Invocation for:");
             while(iter.hasNext())
             {
                 Class clazz = iter.next();
                 String pu = entityPuCol.get(clazz);
                 EntityMetadata mAdd = KunderaMetadataManager.getEntityMetadata(pu, clazz);
                 mAdd.setPersistenceUnit(pu);
+                
+                log.info("persistence unit:" + pu + "class::" + clazz.getCanonicalName());
             }
         }
     }

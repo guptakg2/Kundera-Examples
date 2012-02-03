@@ -21,22 +21,27 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author vivek.mishra
+ * The Class TwinAssociation.
  *
+ * @author vivek.mishra
  */
 public abstract class TwinAssociation extends AssociationBase
 {
 
+    /** The combinations. */
     protected static List<Map<Class, String>> combinations =new ArrayList<Map<Class, String>>();
 
     /**
-     * 
+     * Inits the.
+     *
+     * @param classes the classes
+     * @param persistenceUnits the persistence units
      */
     public static void init(List<Class> classes, String...persistenceUnits)
     {
         // list of PUS with class.
         Map<Class, String> puClazzMapper = null;
-//        List<Map<Class, String>> combi = new ArrayList<Map<Class, String>>();
+
         for(String pu : persistenceUnits)
         {
             for (String p : persistenceUnits)
@@ -54,6 +59,31 @@ public abstract class TwinAssociation extends AssociationBase
     }
     
 
+    /**
+     * Try operation.
+     */
+    protected void tryOperation()
+    {
+        for(Map<Class,String> c: combinations)
+        {
+            switchPersistenceUnits(c);
+            insert();
+            find();
+        }
+    }
+
+
+    /**
+     * All unit test cases must implement it. 
+     */
+    protected abstract void find();
+
+    /**
+     * All unit test cases must implement it.
+     */
+    protected abstract void insert();
+
+    
     
     
 }
