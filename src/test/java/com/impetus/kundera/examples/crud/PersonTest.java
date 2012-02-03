@@ -41,11 +41,13 @@ import org.junit.Test;
  * 
  */
 public class PersonTest extends BaseTest
-{/** The emf. */
+{
+    /** The emf. */
     private static EntityManagerFactory emf;
 
     /** The em. */
     private static EntityManager em;
+
     private Map<Object, Object> col;
 
     /**
@@ -55,149 +57,136 @@ public class PersonTest extends BaseTest
      *             the exception
      */
     @Before
-    public void setUp() throws Exception {
-    emf = Persistence
-    .createEntityManagerFactory("picmysql,twissandra,twingo,twibase");
-    em = emf.createEntityManager();
-    col = new java.util.HashMap<Object, Object>();
+    public void setUp() throws Exception
+    {
+        emf = Persistence.createEntityManagerFactory("picmysql,twissandra,twingo,twibase");
+        em = emf.createEntityManager();
+        col = new java.util.HashMap<Object, Object>();
     }
 
     /**
      * On insert mongo.
      */
     @Test
-    public void onInsertMongo() {
-    Object p1 = prepareMongoInstance("1", 10);
-    Object p2 = prepareMongoInstance("2", 20);
-    Object p3 = prepareMongoInstance("3", 15);
-    em.persist(p1);
-    em.persist(p2);
-    em.persist(p3);
-    col.put("1", p1);
-    col.put("2", p2);
-    col.put("3", p3);
-    PersonMongo p = findById(PersonMongo.class, "1", em);
-    Assert.assertNotNull(p);
-    Assert.assertEquals("vivek", p.getPersonName());
-    assertFindByName(em, "PersonMongo", PersonMongo.class, "vivek",
-    "PERSON_NAME");
-    assertFindByNameAndAge(em, "PersonMongo", PersonMongo.class, "vivek",
-    "10", "PERSON_NAME");
-    assertFindByNameAndAgeGTAndLT(em, "PersonMongo", PersonMongo.class,
-    "vivek", "10", "20", "PERSON_NAME");
-    assertFindByNameAndAgeBetween(em, "PersonMongo", PersonMongo.class,
-    "vivek", "10", "15", "PERSON_NAME");
-    assertFindByRange(em, "PersonMongo", PersonMongo.class, "10", "20",
-    "PERSON_ID");
-    assertFindWithoutWhereClause(em, "PersonMongo", PersonMongo.class);
+    public void onInsertMongo()
+    {
+        Object p1 = prepareMongoInstance("1", 10);
+        Object p2 = prepareMongoInstance("2", 20);
+        Object p3 = prepareMongoInstance("3", 15);
+        em.persist(p1);
+        em.persist(p2);
+        em.persist(p3);
+        col.put("1", p1);
+        col.put("2", p2);
+        col.put("3", p3);
+        PersonMongo p = findById(PersonMongo.class, "1", em);
+        Assert.assertNotNull(p);
+        Assert.assertEquals("vivek", p.getPersonName());
+        assertFindByName(em, "PersonMongo", PersonMongo.class, "vivek", "PERSON_NAME");
+        assertFindByNameAndAge(em, "PersonMongo", PersonMongo.class, "vivek", "10", "PERSON_NAME");
+        assertFindByNameAndAgeGTAndLT(em, "PersonMongo", PersonMongo.class, "vivek", "10", "20", "PERSON_NAME");
+        assertFindByNameAndAgeBetween(em, "PersonMongo", PersonMongo.class, "vivek", "10", "15", "PERSON_NAME");
+        assertFindByRange(em, "PersonMongo", PersonMongo.class, "10", "20", "PERSON_ID");
+        assertFindWithoutWhereClause(em, "PersonMongo", PersonMongo.class);
     }
 
     /**
      * On merge mongo.
      */
     @Test
-    public void onMergeMongo() {
-    Object p1 = prepareMongoInstance("1", 10);
-    Object p2 = prepareMongoInstance("2", 20);
-    Object p3 = prepareMongoInstance("3", 15);
-    em.persist(p1);
-    em.persist(p2);
-    em.persist(p3);
-    col.put("1", p1);
-    col.put("2", p2);
-    col.put("3", p3);
-    PersonMongo p = findById(PersonMongo.class, "1", em);
-    Assert.assertNotNull(p);
-    Assert.assertEquals("vivek", p.getPersonName());
-    // modify record.
-    p.setPersonName("newvivek");
-    em.merge(p);
-    assertOnMerge(em, "PersonMongo", PersonMongo.class, "vivek",
-    "newvivek", "PERSON_NAME");
+    public void onMergeMongo()
+    {
+        Object p1 = prepareMongoInstance("1", 10);
+        Object p2 = prepareMongoInstance("2", 20);
+        Object p3 = prepareMongoInstance("3", 15);
+        em.persist(p1);
+        em.persist(p2);
+        em.persist(p3);
+        col.put("1", p1);
+        col.put("2", p2);
+        col.put("3", p3);
+        PersonMongo p = findById(PersonMongo.class, "1", em);
+        Assert.assertNotNull(p);
+        Assert.assertEquals("vivek", p.getPersonName());
+        // modify record.
+        p.setPersonName("newvivek");
+        em.merge(p);
+        assertOnMerge(em, "PersonMongo", PersonMongo.class, "vivek", "newvivek", "PERSON_NAME");
     }
 
     /**
      * On insert cassandra.
      */
     @Test
-    public void onInsertCassandra() {
-    Object p1 = prepareData("1", 10);
-    Object p2 = prepareData("2", 20);
-    Object p3 = prepareData("3", 15);
-    em.persist(p1);
-    em.persist(p2);
-    em.persist(p3);
-    // col.put("1", p1);
-    // col.put("2", p2);
-    // col.put("3", p3);
+    public void onInsertCassandra()
+    {
+        Object p1 = prepareData("1", 10);
+        Object p2 = prepareData("2", 20);
+        Object p3 = prepareData("3", 15);
+        em.persist(p1);
+        em.persist(p2);
+        em.persist(p3);
+        // col.put("1", p1);
+        // col.put("2", p2);
+        // col.put("3", p3);
 
-    PersonCassandra p = findById(PersonCassandra.class, "1", em);
-    Assert.assertNotNull(p);
-    Assert.assertEquals("vivek", p.getPersonName());
-    assertFindByName(em, "PersonCassandra", PersonCassandra.class, "vivek",
-    "PERSON_NAME");
-    assertFindByNameAndAge(em, "PersonCassandra", PersonCassandra.class,
-    "vivek", "10", "PERSON_NAME");
-    assertFindByNameAndAgeGTAndLT(em, "PersonCassandra",
-    PersonCassandra.class, "vivek", "10", "20", "PERSON_NAME");
-    assertFindByNameAndAgeBetween(em, "PersonCassandra",
-    PersonCassandra.class, "vivek", "10", "15", "PERSON_NAME");
-    assertFindByRange(em, "PersonCassandra", PersonCassandra.class, "10",
-    "20", "PERSON_ID");
-    assertFindWithoutWhereClause(em, "PersonCassandra",
-    PersonCassandra.class);
+        PersonCassandra p = findById(PersonCassandra.class, "1", em);
+        Assert.assertNotNull(p);
+        Assert.assertEquals("vivek", p.getPersonName());
+        assertFindByName(em, "PersonCassandra", PersonCassandra.class, "vivek", "PERSON_NAME");
+        assertFindByNameAndAge(em, "PersonCassandra", PersonCassandra.class, "vivek", "10", "PERSON_NAME");
+        assertFindByNameAndAgeGTAndLT(em, "PersonCassandra", PersonCassandra.class, "vivek", "10", "20", "PERSON_NAME");
+        assertFindByNameAndAgeBetween(em, "PersonCassandra", PersonCassandra.class, "vivek", "10", "15", "PERSON_NAME");
+        assertFindByRange(em, "PersonCassandra", PersonCassandra.class, "10", "20", "PERSON_ID");
+        assertFindWithoutWhereClause(em, "PersonCassandra", PersonCassandra.class);
     }
 
     /**
      * On merge cassandra.
      */
     @Test
-    public void onMergeCassandra() {
-    Object p1 = prepareData("1", 10);
-    Object p2 = prepareData("2", 20);
-    Object p3 = prepareData("3", 15);
-    em.persist(p1);
-    em.persist(p2);
-    em.persist(p3);
-    // col.put("1", p1);
-    // col.put("2", p2);
-    // col.put("3", p3);
-    PersonCassandra p = findById(PersonCassandra.class, "1", em);
-    Assert.assertNotNull(p);
-    Assert.assertEquals("vivek", p.getPersonName());
-    // modify record.
-    p.setPersonName("newvivek");
-    em.merge(p);
+    public void onMergeCassandra()
+    {
+        Object p1 = prepareData("1", 10);
+        Object p2 = prepareData("2", 20);
+        Object p3 = prepareData("3", 15);
+        em.persist(p1);
+        em.persist(p2);
+        em.persist(p3);
+        // col.put("1", p1);
+        // col.put("2", p2);
+        // col.put("3", p3);
+        PersonCassandra p = findById(PersonCassandra.class, "1", em);
+        Assert.assertNotNull(p);
+        Assert.assertEquals("vivek", p.getPersonName());
+        // modify record.
+        p.setPersonName("newvivek");
+        em.merge(p);
 
-    assertOnMerge(em, "PersonCassandra", PersonCassandra.class, "vivek",
-    "newvivek", "PERSON_NAME");
+        assertOnMerge(em, "PersonCassandra", PersonCassandra.class, "vivek", "newvivek", "PERSON_NAME");
     }
 
     @Test
-    public void onInsertHbase() {
-    Object p1 = prepareHbaseInstance("1", 10);
-    Object p2 = prepareHbaseInstance("2", 20);
-    Object p3 = prepareHbaseInstance("3", 15);
-    em.persist(p1);
-    em.persist(p2);
-    em.persist(p3);
-    col.put("1", p1);
-    col.put("2", p2);
-    col.put("3", p3);
-    PersonHBase personHBase = findById(PersonHBase.class, "1", em);
-    Assert.assertNotNull(personHBase);
-    Assert.assertEquals("vivek", personHBase.getPersonName());
-    assertFindByName(em, "PersonHBase", PersonHBase.class, "vivek",
-    "PERSON_NAME");
-    assertFindByNameAndAge(em, "PersonHBase", PersonHBase.class, "vivek",
-    "10", "PERSON_NAME");
-    assertFindByNameAndAgeGTAndLT(em, "PersonHBase", PersonHBase.class,
-    "vivek", "10", "20", "PERSON_NAME");
-    assertFindByNameAndAgeBetween(em, "PersonHBase", PersonHBase.class,
-    "vivek", "10", "15", "PERSON_NAME");
-    assertFindByRange(em, "PersonHBase", PersonHBase.class, "10", "20",
-    "PERSON_ID");
-    assertFindWithoutWhereClause(em, "PersonHBase", PersonHBase.class);
+    public void onInsertHbase()
+    {
+        Object p1 = prepareHbaseInstance("1", 10);
+        Object p2 = prepareHbaseInstance("2", 20);
+        Object p3 = prepareHbaseInstance("3", 15);
+        em.persist(p1);
+        em.persist(p2);
+        em.persist(p3);
+        col.put("1", p1);
+        col.put("2", p2);
+        col.put("3", p3);
+        PersonHBase personHBase = findById(PersonHBase.class, "1", em);
+        Assert.assertNotNull(personHBase);
+        Assert.assertEquals("vivek", personHBase.getPersonName());
+        assertFindByName(em, "PersonHBase", PersonHBase.class, "vivek", "PERSON_NAME");
+        assertFindByNameAndAge(em, "PersonHBase", PersonHBase.class, "vivek", "10", "PERSON_NAME");
+        assertFindByNameAndAgeGTAndLT(em, "PersonHBase", PersonHBase.class, "vivek", "10", "20", "PERSON_NAME");
+        assertFindByNameAndAgeBetween(em, "PersonHBase", PersonHBase.class, "vivek", "10", "15", "PERSON_NAME");
+        assertFindByRange(em, "PersonHBase", PersonHBase.class, "10", "20", "PERSON_ID");
+        assertFindWithoutWhereClause(em, "PersonHBase", PersonHBase.class);
     }
 
     // @Test
@@ -214,33 +203,29 @@ public class PersonTest extends BaseTest
     // }
 
     @Test
-    public void onInsertRdbms() {
-    Object p1 = prepareRDBMSInstance("1", 10);
-    Object p2 = prepareRDBMSInstance("2", 20);
-    Object p3 = prepareRDBMSInstance("3", 15);
-    em.persist(p1);
-    em.persist(p2);
-    em.persist(p3);
-    col.put("1", p1);
-    col.put("2", p2);
-    col.put("3", p3);
-    em.persist(prepareRDBMSInstance("1", 10));
-    em.persist(prepareRDBMSInstance("2", 15));
-    em.persist(prepareRDBMSInstance("3", 20));
-    PersonRDBMS personRDBMS = findById(PersonRDBMS.class, "1", em);
-    Assert.assertNotNull(personRDBMS);
-    Assert.assertEquals("vivek", personRDBMS.getPersonName());
-    assertFindByName(em, "PersonRDBMS", PersonRDBMS.class, "vivek",
-    "PERSON_NAME");
-    assertFindByNameAndAge(em, "PersonRDBMS", PersonRDBMS.class, "vivek",
-    "10", "PERSON_NAME");
-    assertFindByNameAndAgeGTAndLT(em, "PersonRDBMS", PersonRDBMS.class,
-    "vivek", "10", "20", "PERSON_NAME");
-    assertFindByNameAndAgeBetween(em, "PersonRDBMS", PersonRDBMS.class,
-    "vivek", "10", "15", "PERSON_NAME");
-    assertFindByRange(em, "PersonRDBMS", PersonRDBMS.class, "10", "20",
-    "PERSON_ID");
-    assertFindWithoutWhereClause(em, "PersonRDBMS", PersonRDBMS.class);
+    public void onInsertRdbms()
+    {
+        Object p1 = prepareRDBMSInstance("1", 10);
+        Object p2 = prepareRDBMSInstance("2", 20);
+        Object p3 = prepareRDBMSInstance("3", 15);
+        em.persist(p1);
+        em.persist(p2);
+        em.persist(p3);
+        col.put("1", p1);
+        col.put("2", p2);
+        col.put("3", p3);
+        em.persist(prepareRDBMSInstance("1", 10));
+        em.persist(prepareRDBMSInstance("2", 15));
+        em.persist(prepareRDBMSInstance("3", 20));
+        PersonRDBMS personRDBMS = findById(PersonRDBMS.class, "1", em);
+        Assert.assertNotNull(personRDBMS);
+        Assert.assertEquals("vivek", personRDBMS.getPersonName());
+        assertFindByName(em, "PersonRDBMS", PersonRDBMS.class, "vivek", "PERSON_NAME");
+        assertFindByNameAndAge(em, "PersonRDBMS", PersonRDBMS.class, "vivek", "10", "PERSON_NAME");
+        assertFindByNameAndAgeGTAndLT(em, "PersonRDBMS", PersonRDBMS.class, "vivek", "10", "20", "PERSON_NAME");
+        assertFindByNameAndAgeBetween(em, "PersonRDBMS", PersonRDBMS.class, "vivek", "10", "15", "PERSON_NAME");
+        assertFindByRange(em, "PersonRDBMS", PersonRDBMS.class, "10", "20", "PERSON_ID");
+        assertFindWithoutWhereClause(em, "PersonRDBMS", PersonRDBMS.class);
     }
 
     // @Test
@@ -263,24 +248,20 @@ public class PersonTest extends BaseTest
      *             the exception
      */
     @After
-    public void tearDown() throws Exception {/*
-     * Delete is working, but as row
-     * keys are not deleted from
-     * cassandra, so resulting in issue
-     * while reading back. // Delete
-     * em.remove(em.find(Person.class,
-     * "1"));
-     * em.remove(em.find(Person.class,
-     * "2"));
-     * em.remove(em.find(Person.class,
-     * "3")); em.close(); emf.close();
-     * em = null; emf = null;
-     */
-    for (Object val : col.values()) {
-    em.remove(val);
-    }
-    // em.remove(em.find((Class<Object>) o.get(0), "1"));
-    // em.remove(em.find((Class<Object>) o.get(0), "2"));
-    // em.remove(em.find((Class<Object>) o.get(0), "3"));
+    public void tearDown() throws Exception
+    {/*
+      * Delete is working, but as row keys are not deleted from cassandra, so
+      * resulting in issue while reading back. // Delete
+      * em.remove(em.find(Person.class, "1")); em.remove(em.find(Person.class,
+      * "2")); em.remove(em.find(Person.class, "3")); em.close(); emf.close();
+      * em = null; emf = null;
+      */
+        for (Object val : col.values())
+        {
+            em.remove(val);
+        }
+        // em.remove(em.find((Class<Object>) o.get(0), "1"));
+        // em.remove(em.find((Class<Object>) o.get(0), "2"));
+        // em.remove(em.find((Class<Object>) o.get(0), "3"));
     }
 }

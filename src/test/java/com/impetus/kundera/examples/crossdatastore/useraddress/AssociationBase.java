@@ -15,7 +15,9 @@
  ******************************************************************************/
 package com.impetus.kundera.examples.crossdatastore.useraddress;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import javax.persistence.EntityManager;
@@ -30,21 +32,32 @@ import com.impetus.kundera.metadata.KunderaMetadataManager;
 import com.impetus.kundera.metadata.model.EntityMetadata;
 
 /**
- * @author vivek.mishra
+ * The Class AssociationBase.
  *
+ * @author vivek.mishra
  */
 public abstract class AssociationBase
 {
    
+    /** The em. */
     protected EntityManager em;
 
+    /** The dao. */
     protected UserAddressDaoImpl dao;
     
     /** the log used by this class. */
     private static Log log = LogFactory.getLog(AssociationBase.class);
 
+    /** The col families. */
     private String[] colFamilies;
     
+    protected List<Object> col = new ArrayList<Object>();
+
+    /**
+     * Sets the up internal.
+     *
+     * @param colFamilies the new up internal
+     */
     protected void setUpInternal(String...colFamilies)
     {
         String persistenceUnits="twissandra,twibase,twingo";
@@ -56,14 +69,15 @@ public abstract class AssociationBase
 
     /**
      * Switch over persistence units.
-     * @param entityPuCol
+     *
+     * @param entityPuCol the entity pu col
      */
     protected void switchPersistenceUnits(Map<Class, String> entityPuCol)
     {
         if(entityPuCol != null)
         {
             Iterator<Class> iter = entityPuCol.keySet().iterator();
-            log.info("Invocation for:");
+            log.warn("Invocation for:");
             while(iter.hasNext())
             {
                 Class clazz = iter.next();
@@ -71,20 +85,40 @@ public abstract class AssociationBase
                 EntityMetadata mAdd = KunderaMetadataManager.getEntityMetadata(pu, clazz);
                 mAdd.setPersistenceUnit(pu);
                 
-                log.info("persistence unit:" + pu + "class::" + clazz.getCanonicalName());
+                log.warn("persistence unit:" + pu + "class::" + clazz.getCanonicalName());
             }
         }
     }
 
     /**
-     * @throws SchemaDisagreementException 
-     * @throws InvalidRequestException 
-     * 
+     * Tear down internal.
+     *
+     * @throws InvalidRequestException the invalid request exception
+     * @throws SchemaDisagreementException the schema disagreement exception
      */
     protected void tearDownInternal() throws InvalidRequestException, SchemaDisagreementException
     {
+
+        for (Object o : col)
+        {
+            em.remove(o);
+        }
+        truncateSchema();
        dao.closeEntityManagerFactory();
-       CassandraCli.truncate("KunderaExamples", "localhost", 9160,colFamilies);
+       
+    }
+
+
+    /**
+     * Truncates schema.
+     *
+     * @throws InvalidRequestException the invalid request exception
+     * @throws SchemaDisagreementException the schema disagreement exception
+     */
+    protected void truncateSchema() throws InvalidRequestException, SchemaDisagreementException
+    {
+        log.warn("Truncating....");
+           CassandraCli.truncate("KunderaExamples", "localhost", 9160,colFamilies);
     }
     
 }

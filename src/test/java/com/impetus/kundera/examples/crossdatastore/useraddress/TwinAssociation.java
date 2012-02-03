@@ -20,6 +20,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.cassandra.thrift.InvalidRequestException;
+import org.apache.cassandra.thrift.SchemaDisagreementException;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.junit.Assert;
+
 /**
  * The Class TwinAssociation.
  *
@@ -31,6 +37,9 @@ public abstract class TwinAssociation extends AssociationBase
     /** The combinations. */
     protected static List<Map<Class, String>> combinations =new ArrayList<Map<Class, String>>();
 
+    /** the log used by this class. */
+    private static Log log = LogFactory.getLog(TwinAssociation.class);
+    
     /**
      * Inits the.
      *
@@ -72,7 +81,6 @@ public abstract class TwinAssociation extends AssociationBase
         }
     }
 
-
     /**
      * All unit test cases must implement it. 
      */
@@ -83,7 +91,6 @@ public abstract class TwinAssociation extends AssociationBase
      */
     protected abstract void insert();
 
-    
     
     
 }

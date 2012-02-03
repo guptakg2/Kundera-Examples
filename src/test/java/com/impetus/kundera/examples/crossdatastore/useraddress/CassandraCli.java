@@ -73,7 +73,7 @@ public final class CassandraCli
             {
                 client = getClient(host, port);
                 client.send_set_keyspace(keyspace);
-                log.info("truncate " + colFamily);
+                log.warn("truncate " + colFamily);
                 client.send_truncate(colFamily);
 
             client = null;

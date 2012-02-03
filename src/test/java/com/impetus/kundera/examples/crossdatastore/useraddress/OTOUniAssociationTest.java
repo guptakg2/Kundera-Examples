@@ -39,6 +39,7 @@ import com.impetus.kundera.examples.crossdatastore.useraddress.entities.Personne
  * 
  * @author vivek.mishra
  */
+
 public class OTOUniAssociationTest extends TwinAssociation
 {
 
@@ -51,7 +52,7 @@ public class OTOUniAssociationTest extends TwinAssociation
         List<Class> clazzz = new ArrayList<Class>(2);
         clazzz.add(PersonnelUni1To1FK.class);
         clazzz.add(HabitatUni1To1FK.class);
-        init(clazzz, "twingo", "twissandra");
+        init(clazzz, "twingo", "twissandra","twibase");
     }
 
     /**
@@ -88,6 +89,8 @@ public class OTOUniAssociationTest extends TwinAssociation
         address.setStreet("123, New street");
         person.setAddress(address);
         dao.insert(person);
+        col.add(person);
+        col.add(address);
     }
 
     /* (non-Javadoc)
