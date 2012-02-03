@@ -20,10 +20,11 @@ import java.util.Map;
 
 import javax.persistence.EntityManager;
 
+import org.apache.cassandra.thrift.InvalidRequestException;
+import org.apache.cassandra.thrift.SchemaDisagreementException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.impetus.client.cassandra.query.CassQuery;
 import com.impetus.kundera.examples.crossdatastore.useraddress.dao.UserAddressDaoImpl;
 import com.impetus.kundera.metadata.KunderaMetadataManager;
 import com.impetus.kundera.metadata.model.EntityMetadata;
@@ -73,5 +74,15 @@ public abstract class AssociationBase
         }
     }
 
-
+    /**
+     * @throws SchemaDisagreementException 
+     * @throws InvalidRequestException 
+     * 
+     */
+    protected void tearDownInternal() throws InvalidRequestException, SchemaDisagreementException
+    {
+       dao.closeEntityManagerFactory();
+       CassandraCli.truncate("KunderaExamples", "localhost", 9160,"ADDRESS","PERSONNEL");
+    }
+    
 }
