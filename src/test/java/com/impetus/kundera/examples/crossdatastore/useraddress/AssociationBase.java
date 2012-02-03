@@ -43,12 +43,14 @@ public abstract class AssociationBase
     /** the log used by this class. */
     private static Log log = LogFactory.getLog(AssociationBase.class);
 
+    private String[] colFamilies;
     
-    protected void setUpInternal()
+    protected void setUpInternal(String...colFamilies)
     {
         String persistenceUnits="twissandra,twibase,twingo";
         dao = new UserAddressDaoImpl(persistenceUnits);
         em = dao.getEntityManager(persistenceUnits);
+        this.colFamilies = colFamilies;
     }
 
 
@@ -82,7 +84,7 @@ public abstract class AssociationBase
     protected void tearDownInternal() throws InvalidRequestException, SchemaDisagreementException
     {
        dao.closeEntityManagerFactory();
-       CassandraCli.truncate("KunderaExamples", "localhost", 9160,"ADDRESS","PERSONNEL");
+       CassandraCli.truncate("KunderaExamples", "localhost", 9160,colFamilies);
     }
     
 }

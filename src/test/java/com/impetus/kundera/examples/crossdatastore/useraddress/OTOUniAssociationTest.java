@@ -17,7 +17,6 @@ package com.impetus.kundera.examples.crossdatastore.useraddress;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import junit.framework.Assert;
 
@@ -63,7 +62,7 @@ public class OTOUniAssociationTest extends TwinAssociation
     @Before
     public void setUp() throws Exception
     {
-        setUpInternal();
+        setUpInternal("ADDRESS","PERSONNEL");
     }
 
     /**
