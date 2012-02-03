@@ -34,6 +34,10 @@ import com.impetus.kundera.examples.crossdatastore.useraddress.entities.Personne
  * One to one association test for {@see} cassandra, mongodb,HBase and RDBMS
  * combination.
  * 
+ * Script to create super column family
+ * 
+ * create column family PERSONNEL with comparator=UTF8Type and default_validation_class=UTF8Type and key_validation_class=UTF8Type and column_type=Super;
+ * 
  * @author vivek.mishra
  */
 public class OTOUniAssociationTest extends TwinAssociation
