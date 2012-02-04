@@ -61,9 +61,9 @@ public class PickrTestUni_M_M_M_M extends PickrBaseTest
     {
         addPhotographer();
         //updatePhotographer();
-        getPhotographer();
-        getAllPhotographers();
-        deletePhotographer();      
+        //getPhotographer();
+        //getAllPhotographers();
+        //deletePhotographer();      
 
     }
     

@@ -33,7 +33,7 @@ import javax.persistence.Table;
  */
 
 @Entity
-@Table(name = "PHOTOGRAPHER", schema = "Pickr@piccandra")
+@Table(name = "PHOTOGRAPHER", schema = "Pickr")
 public class PhotographerUni_M_M_1_1
 {
     @Id
