@@ -12,7 +12,7 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name="PERSON", schema="hibernatepoc")
+@Table(name="PERSONNEL", schema="hibernatepoc")
 public class PersonnelUni1To1PK
 {
     @Id   

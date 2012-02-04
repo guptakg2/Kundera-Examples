@@ -15,7 +15,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "PERSON", schema = "hibernatepoc")
+@Table(name = "PERSONNEL", schema = "hibernatepoc")
 public class PersonnelBiMToM
 {
     @Id
@@ -29,7 +29,7 @@ public class PersonnelBiMToM
     PersonalData personalData;
 
     @ManyToMany
-    @JoinTable(name = "PERSON_ADDRESS", 
+    @JoinTable(name = "PERSONNEL_ADDRESS", 
       joinColumns = {
         @JoinColumn(name="PERSON_ID")           
       },

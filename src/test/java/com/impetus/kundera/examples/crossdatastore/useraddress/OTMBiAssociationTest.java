@@ -1,18 +1,3 @@
-/*******************************************************************************
- * * Copyright 2011 Impetus Infotech.
- *  *
- *  * Licensed under the Apache License, Version 2.0 (the "License");
- *  * you may not use this file except in compliance with the License.
- *  * You may obtain a copy of the License at
- *  *
- *  *      http://www.apache.org/licenses/LICENSE-2.0
- *  *
- *  * Unless required by applicable law or agreed to in writing, software
- *  * distributed under the License is distributed on an "AS IS" BASIS,
- *  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  * See the License for the specific language governing permissions and
- *  * limitations under the License.
- ******************************************************************************/
 package com.impetus.kundera.examples.crossdatastore.useraddress;
 
 import java.util.ArrayList;
@@ -27,17 +12,12 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.impetus.kundera.examples.crossdatastore.useraddress.entities.HabitatUni1To1FK;
-import com.impetus.kundera.examples.crossdatastore.useraddress.entities.HabitatUni1ToM;
-import com.impetus.kundera.examples.crossdatastore.useraddress.entities.PersonalData;
-import com.impetus.kundera.examples.crossdatastore.useraddress.entities.PersonnelUni1To1FK;
-import com.impetus.kundera.examples.crossdatastore.useraddress.entities.PersonnelUni1ToM;
+import com.impetus.kundera.examples.crossdatastore.useraddress.entities.HabitatBi1ToM;
 
-/**
- * @author vivek.mishra
- * 
- */
-public class OTMUniAssociationTest extends TwinAssociation
+import com.impetus.kundera.examples.crossdatastore.useraddress.entities.PersonalData;
+import com.impetus.kundera.examples.crossdatastore.useraddress.entities.PersonnelBi1ToM;
+
+public class OTMBiAssociationTest extends TwinAssociation
 {
     /**
      * Inits the.
@@ -46,8 +26,8 @@ public class OTMUniAssociationTest extends TwinAssociation
     public static void init()
     {
         List<Class> clazzz = new ArrayList<Class>(2);
-        clazzz.add(PersonnelUni1ToM.class);
-        clazzz.add(HabitatUni1ToM.class);
+        clazzz.add(PersonnelBi1ToM.class);
+        clazzz.add(HabitatBi1ToM.class);
         init(clazzz, "twingo", "twissandra", "twibase");
     }
 
@@ -60,7 +40,7 @@ public class OTMUniAssociationTest extends TwinAssociation
     @Before
     public void setUp() throws Exception
     {
-        setUpInternal("ADDRESS", "PERSONNEL");
+        setUpInternal();
     }
 
     /**
@@ -76,22 +56,29 @@ public class OTMUniAssociationTest extends TwinAssociation
     protected void find()
     {
         // Find Person
-        PersonnelUni1ToM p = (PersonnelUni1ToM) dao.findPerson(PersonnelUni1ToM.class, "unionetomany_1");
+        PersonnelBi1ToM p = (PersonnelBi1ToM) dao.findPerson(PersonnelBi1ToM.class, "bionetomany_1");
         Assert.assertNotNull(p);
-        Assert.assertEquals("unionetomany_1", p.getPersonId());
+        Assert.assertEquals("bionetomany_1", p.getPersonId());
         Assert.assertEquals("Amresh", p.getPersonName());
         PersonalData pd = p.getPersonalData();
         Assert.assertNotNull(pd);
         Assert.assertEquals("www.amresh.com", pd.getWebsite());
 
-        Set<HabitatUni1ToM> adds = p.getAddresses();
+        Set<HabitatBi1ToM> adds = p.getAddresses();
         Assert.assertNotNull(adds);
         Assert.assertFalse(adds.isEmpty());
         Assert.assertEquals(2, adds.size());
 
-        for (HabitatUni1ToM address : adds)
+        for (HabitatBi1ToM address : adds)
         {
-            Assert.assertNotNull(address.getStreet());
+            Assert.assertNotNull(address);
+            PersonnelBi1ToM person = address.getPerson();
+            Assert.assertNotNull(person);
+            Assert.assertEquals(p.getPersonId(), person.getPersonId());
+            Assert.assertEquals(p.getPersonName(), person.getPersonName());
+            Assert.assertNotNull(person.getAddresses());
+            Assert.assertFalse(person.getAddresses().isEmpty());
+            Assert.assertEquals(2, person.getAddresses().size());
         }
 
     }
@@ -99,19 +86,18 @@ public class OTMUniAssociationTest extends TwinAssociation
     @Override
     protected void insert()
     {
-        // Save Person
-        PersonnelUni1ToM personnel = new PersonnelUni1ToM();
-        personnel.setPersonId("unionetomany_1");
+        PersonnelBi1ToM personnel = new PersonnelBi1ToM();
+        personnel.setPersonId("bionetomany_1");
         personnel.setPersonName("Amresh");
         personnel.setPersonalData(new PersonalData("www.amresh.com", "amry.ks@gmail.com", "xamry"));
 
-        Set<HabitatUni1ToM> addresses = new HashSet<HabitatUni1ToM>();
-        HabitatUni1ToM address1 = new HabitatUni1ToM();
-        address1.setAddressId("unionetomany_a");
+        Set<HabitatBi1ToM> addresses = new HashSet<HabitatBi1ToM>();
+        HabitatBi1ToM address1 = new HabitatBi1ToM();
+        address1.setAddressId("bionetomany_a");
         address1.setStreet("AAAAAAAAAAAAA");
 
-        HabitatUni1ToM address2 = new HabitatUni1ToM();
-        address2.setAddressId("unionetomany_b");
+        HabitatBi1ToM address2 = new HabitatBi1ToM();
+        address2.setAddressId("bionetomany_b");
         address2.setStreet("BBBBBBBBBBB");
 
         addresses.add(address1);

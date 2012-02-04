@@ -24,15 +24,15 @@ public final class CassandraCli
 
     /** the log used by this class. */
     private static Log log = LogFactory.getLog(CassandraCli.class);
-    
+
     private static TTransport tr;
-     
-//     public static void main(String[] args) throws Exception
-//     {
-//         CassandraCli.truncate("KunderaExamples", "localhost", 9160,"ADDRESS","PERSONNEL");
-//      
-//     }
-     
+
+    // public static void main(String[] args) throws Exception
+    // {
+    // CassandraCli.truncate("KunderaExamples", "localhost",
+    // 9160,"ADDRESS","PERSONNEL");
+    //
+    // }
 
     /**
      * Gets the client.
@@ -62,22 +62,23 @@ public final class CassandraCli
      * 
      * @param colFamilies
      *            the col family
-     * @throws SchemaDisagreementException 
-     * @throws InvalidRequestException 
+     * @throws SchemaDisagreementException
+     * @throws InvalidRequestException
      */
-    public static void truncate(String keyspace, String host, int port, String...colFamilies) throws InvalidRequestException, SchemaDisagreementException
+    public static void truncate(String keyspace, String host, int port, String... colFamilies)
+            throws InvalidRequestException, SchemaDisagreementException
     {
         try
         {
-            for(String colFamily:colFamilies)
+            for (String colFamily : colFamilies)
             {
                 client = getClient(host, port);
                 client.send_set_keyspace(keyspace);
-                log.info("truncate " + colFamily);
+                log.warn("truncate " + colFamily);
                 client.send_truncate(colFamily);
 
-            client = null;
-            tr.close();
+                client = null;
+                tr.close();
             }
         }
         catch (TTransportException e)

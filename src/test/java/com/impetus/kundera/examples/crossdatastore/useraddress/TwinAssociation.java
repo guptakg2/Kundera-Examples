@@ -20,36 +20,47 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.cassandra.thrift.InvalidRequestException;
+import org.apache.cassandra.thrift.SchemaDisagreementException;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.junit.Assert;
+
 /**
  * The Class TwinAssociation.
- *
+ * 
  * @author vivek.mishra
  */
 public abstract class TwinAssociation extends AssociationBase
 {
 
     /** The combinations. */
-    protected static List<Map<Class, String>> combinations =new ArrayList<Map<Class, String>>();
+    protected static List<Map<Class, String>> combinations = new ArrayList<Map<Class, String>>();
+
+    /** the log used by this class. */
+    private static Log log = LogFactory.getLog(TwinAssociation.class);
 
     /**
      * Inits the.
-     *
-     * @param classes the classes
-     * @param persistenceUnits the persistence units
+     * 
+     * @param classes
+     *            the classes
+     * @param persistenceUnits
+     *            the persistence units
      */
-    public static void init(List<Class> classes, String...persistenceUnits)
+    public static void init(List<Class> classes, String... persistenceUnits)
     {
         // list of PUS with class.
         Map<Class, String> puClazzMapper = null;
 
-        for(String pu : persistenceUnits)
+        for (String pu : persistenceUnits)
         {
             for (String p : persistenceUnits)
             {
                 puClazzMapper = new HashMap<Class, String>();
                 puClazzMapper.put(classes.get(0), pu);
-                
-                for(Class c : classes.subList(1, classes.size()))
+
+                for (Class c : classes.subList(1, classes.size()))
                 {
                     puClazzMapper.put(c, p);
                 }
@@ -57,14 +68,13 @@ public abstract class TwinAssociation extends AssociationBase
             }
         }
     }
-    
 
     /**
      * Try operation.
      */
     protected void tryOperation()
     {
-        for(Map<Class,String> c: combinations)
+        for (Map<Class, String> c : combinations)
         {
             switchPersistenceUnits(c);
             insert();
@@ -72,9 +82,8 @@ public abstract class TwinAssociation extends AssociationBase
         }
     }
 
-
     /**
-     * All unit test cases must implement it. 
+     * All unit test cases must implement it.
      */
     protected abstract void find();
 
@@ -83,7 +92,4 @@ public abstract class TwinAssociation extends AssociationBase
      */
     protected abstract void insert();
 
-    
-    
-    
 }

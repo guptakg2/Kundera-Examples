@@ -12,7 +12,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "PERSON", schema = "KunderaExamples@twingo")
+@Table(name = "PERSONNEL", schema = "KunderaExamples@twingo")
 public class PersonnelUniMToM {
 	@Id
 	@Column(name = "PERSON_ID")
@@ -25,7 +25,7 @@ public class PersonnelUniMToM {
 	PersonalData personalData;
 
 	@ManyToMany
-	  @JoinTable(name = "PERSON_ADDRESS", 
+	  @JoinTable(name = "PERSONNEL_ADDRESS", 
 	    joinColumns = {
 	      @JoinColumn(name="PERSON_ID")           
 	    },
