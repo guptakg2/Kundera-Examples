@@ -39,8 +39,8 @@ import org.junit.runners.Suite.SuiteClasses;
     //PickrTestBi_1_M_1_M.class,
     //PickrTestBi_1_M_M_M.class,
     //PickrTestBi_M_1_1_M.class,
-    //PickrTestBi_M_M_1_1.class,
-    PickrTestBi_M_M_M_M.class
+    PickrTestBi_M_M_1_1.class,
+    //PickrTestBi_M_M_M_M.class
     
 })
 public class PickrTestSuite

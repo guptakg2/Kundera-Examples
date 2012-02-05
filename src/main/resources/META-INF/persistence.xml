@@ -1,7 +1,7 @@
 <persistence xmlns="http://java.sun.com/xml/ns/persistence"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence
-	/home/impadmin/development/Kundera/Kundera-Examples/src/main/resources/META-INF/persistence_2_0.xsd"
+	/home/amresh/development/Kundera/Kundera-Examples/src/main/resources/META-INF/persistence_2_0.xsd"
 	version="2.0">
 	<!-- Persistence Units for Twitter application -->
 	<persistence-unit name="twissandra">
@@ -14,7 +14,7 @@
 			<property name="kundera.client" value="Pelops"/>
 			<property name="kundera.cache.provider.class" value="com.impetus.kundera.cache.ehcache.EhCacheProvider"/>
             <property name="kundera.cache.config.resource" value="/ehcache-test.xml"/>   
-            <!-- <property name="index_home_dir" value="/home/impadmin/lucene"/> -->
+            <!-- <property name="index_home_dir" value="/home/amresh/lucene"/> -->
  		</properties>	
 
 	</persistence-unit>
@@ -49,69 +49,69 @@
 	<persistence-unit name="picmysql">
 		<provider>com.impetus.kundera.KunderaPersistence</provider>
 		
-		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.PhotographerUni_1_1_1_1</class>
-		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.PhotographerUni_1_1_1_M</class>
-		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.PhotographerUni_1_M_1_M</class>
-		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.PhotographerUni_1_M_M_M</class>
-		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.PhotographerUni_M_1_1_M</class>
-		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.PhotographerUni_M_M_1_1</class>
-		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.PhotographerUni_M_M_M_M</class>
-		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.PhotographerBi_1_1_1_1</class>
-		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.PhotographerBi_1_1_1_M</class>
-		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.PhotographerBi_1_M_1_M</class>
-		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.PhotographerBi_1_M_M_M</class>
-		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.PhotographerBi_M_1_1_M</class>
-		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.PhotographerBi_M_M_1_1</class>
-		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.PhotographerBi_M_M_M_M</class>
+		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.photographer.PhotographerUni_1_1_1_1</class>
+		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.photographer.PhotographerUni_1_1_1_M</class>
+		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.photographer.PhotographerUni_1_M_1_M</class>
+		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.photographer.PhotographerUni_1_M_M_M</class>
+		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.photographer.PhotographerUni_M_1_1_M</class>
+		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.photographer.PhotographerUni_M_M_1_1</class>
+		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.photographer.PhotographerUni_M_M_M_M</class>
+		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.photographer.PhotographerBi_1_1_1_1</class>
+		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.photographer.PhotographerBi_1_1_1_M</class>
+		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.photographer.PhotographerBi_1_M_1_M</class>
+		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.photographer.PhotographerBi_1_M_M_M</class>
+		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.photographer.PhotographerBi_M_1_1_M</class>
+		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.photographer.PhotographerBi_M_M_1_1</class>
+		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.photographer.PhotographerBi_M_M_M_M</class>
 		
 		
-		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.AlbumUni_1_1_1_1</class>
-		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.AlbumUni_1_1_1_M</class>
-		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.AlbumUni_1_M_1_M</class>
-		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.AlbumUni_1_M_M_M</class>
-		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.AlbumUni_M_1_1_M</class>
-		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.AlbumUni_M_M_1_1</class>
-		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.AlbumUni_M_M_M_M</class>
-		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.AlbumBi_1_1_1_1</class>
-		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.AlbumBi_1_1_1_M</class>
-		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.AlbumBi_1_M_1_M</class>
-		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.AlbumBi_1_M_M_M</class>
-		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.AlbumBi_M_1_1_M</class>
-		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.AlbumBi_M_M_1_1</class>
-		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.AlbumBi_M_M_M_M</class>
+		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.album.AlbumUni_1_1_1_1</class>
+		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.album.AlbumUni_1_1_1_M</class>
+		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.album.AlbumUni_1_M_1_M</class>
+		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.album.AlbumUni_1_M_M_M</class>
+		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.album.AlbumUni_M_1_1_M</class>
+		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.album.AlbumUni_M_M_1_1</class>
+		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.album.AlbumUni_M_M_M_M</class>
+		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.album.AlbumBi_1_1_1_1</class>
+		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.album.AlbumBi_1_1_1_M</class>
+		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.album.AlbumBi_1_M_1_M</class>
+		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.album.AlbumBi_1_M_M_M</class>
+		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.album.AlbumBi_M_1_1_M</class>
+		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.album.AlbumBi_M_M_1_1</class>
+		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.album.AlbumBi_M_M_M_M</class>
 		
 				
-		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.PhotoUni_1_1_1_1</class>
-		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.PhotoUni_1_1_1_M</class>
-		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.PhotoUni_1_M_1_M</class>
-		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.PhotoUni_1_M_M_M</class>
-		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.PhotoUni_M_1_1_M</class>
-		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.PhotoUni_M_M_1_1</class>
-		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.PhotoUni_M_M_M_M</class>
-		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.PhotoBi_1_1_1_1</class>
-		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.PhotoBi_1_1_1_M</class>
-		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.PhotoBi_1_M_1_M</class>
-		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.PhotoBi_1_M_M_M</class>
-		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.PhotoBi_M_1_1_M</class>
-		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.PhotoBi_M_M_1_1</class>
-		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.PhotoBi_M_M_M_M</class>		
+		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.photo.PhotoUni_1_1_1_1</class>
+		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.photo.PhotoUni_1_1_1_M</class>
+		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.photo.PhotoUni_1_M_1_M</class>
+		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.photo.PhotoUni_1_M_M_M</class>
+		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.photo.PhotoUni_M_1_1_M</class>
+		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.photo.PhotoUni_M_M_1_1</class>
+		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.photo.PhotoUni_M_M_M_M</class>
+		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.photo.PhotoBi_1_1_1_1</class>
+		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.photo.PhotoBi_1_1_1_M</class>
+		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.photo.PhotoBi_1_M_1_M</class>
+		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.photo.PhotoBi_1_M_M_M</class>
+		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.photo.PhotoBi_M_1_1_M</class>
+		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.photo.PhotoBi_M_M_1_1</class>
+		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.photo.PhotoBi_M_M_M_M</class>		
 		
 		<class>com.impetus.kundera.examples.crud.Employee</class>
 		<class>com.impetus.kundera.examples.crud.student.StudentRdbms</class>
 		
 		<properties>
 			<property name="kundera.client" value="rdbms" />
-			<!--<property name="hibernate.hbm2ddl.auto" value="create" />-->
+<!-- 			<property name="hibernate.hbm2ddl.auto" value="create" /> -->
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.format_sql" value="true" />
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect" />
 			<property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
 			<property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/Pickr" />
 			<property name="hibernate.connection.username" value="root" />
-			<property name="hibernate.connection.password" value="impetus" />
+			<property name="hibernate.connection.password" value="dragon@123" />
 			<property name="hibernate.current_session_context_class"
 				value="org.hibernate.context.ThreadLocalSessionContext" />
-			<property name="index_home_dir" value="/home/impadmin/lucene"/>
+			<property name="index_home_dir" value="/home/amresh/lucene"/>
 		</properties>
 	</persistence-unit>
 	<persistence-unit name="piccandra">
@@ -125,7 +125,7 @@
 			<property name="kundera.cache.provider.class"
 				value="com.impetus.kundera.cache.ehcache.EhCacheProvider" />
 			<property name="kundera.cache.config.resource" value="/ehcache-test.xml" />
-			<property name="index_home_dir" value="/home/impadmin/lucene"/>
+			<property name="index_home_dir" value="/home/amresh/lucene"/>
 		</properties>
 	</persistence-unit>
 	<persistence-unit name="picbase">
@@ -139,7 +139,7 @@
 			<property name="kundera.cache.provider.class"
 				value="com.impetus.kundera.cache.ehcache.EhCacheProvider" />
 			<property name="kundera.cache.config.resource" value="/ehcache-test.xml" />
-			<property name="index_home_dir" value="/home/impadmin/lucene"/>
+			<property name="index_home_dir" value="/home/amresh/lucene"/>
 		</properties>
 	</persistence-unit>
 	<persistence-unit name="picongo">
@@ -153,7 +153,7 @@
 			<property name="kundera.cache.provider.class"
 				value="com.impetus.kundera.cache.ehcache.EhCacheProvider" />
 			<property name="kundera.cache.config.resource" value="/ehcache-test.xml" />
-			<property name="index_home_dir" value="/home/impadmin/lucene"/>
+			<property name="index_home_dir" value="/home/amresh/lucene"/>
 		</properties>
 	</persistence-unit>
 

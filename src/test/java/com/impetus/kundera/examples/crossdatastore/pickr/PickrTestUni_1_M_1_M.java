@@ -23,10 +23,10 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.impetus.kundera.examples.crossdatastore.pickr.entities.AlbumUni_1_M_1_M;
 import com.impetus.kundera.examples.crossdatastore.pickr.entities.PersonalData;
-import com.impetus.kundera.examples.crossdatastore.pickr.entities.PhotoUni_1_M_1_M;
-import com.impetus.kundera.examples.crossdatastore.pickr.entities.PhotographerUni_1_M_1_M;
+import com.impetus.kundera.examples.crossdatastore.pickr.entities.album.AlbumUni_1_M_1_M;
+import com.impetus.kundera.examples.crossdatastore.pickr.entities.photo.PhotoUni_1_M_1_M;
+import com.impetus.kundera.examples.crossdatastore.pickr.entities.photographer.PhotographerUni_1_M_1_M;
 
 /**
  * @author amresh.singh

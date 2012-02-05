@@ -24,10 +24,10 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.impetus.kundera.examples.crossdatastore.pickr.entities.AlbumBi_M_M_1_1;
 import com.impetus.kundera.examples.crossdatastore.pickr.entities.PersonalData;
-import com.impetus.kundera.examples.crossdatastore.pickr.entities.PhotoBi_M_M_1_1;
-import com.impetus.kundera.examples.crossdatastore.pickr.entities.PhotographerBi_M_M_1_1;
+import com.impetus.kundera.examples.crossdatastore.pickr.entities.album.AlbumBi_M_M_1_1;
+import com.impetus.kundera.examples.crossdatastore.pickr.entities.photo.PhotoBi_M_M_1_1;
+import com.impetus.kundera.examples.crossdatastore.pickr.entities.photographer.PhotographerBi_M_M_1_1;
 
 /**
  * @author amresh.singh
@@ -60,9 +60,9 @@ public class PickrTestBi_M_M_1_1 extends PickrBaseTest
     @Test
     public void test()
     {
-        addPhotographer();
+        //addPhotographer();
         // updatePhotographer();
-        //getPhotographer();
+        getPhotographer();
         //getAllPhotographers();
         //deletePhotographer();
 
