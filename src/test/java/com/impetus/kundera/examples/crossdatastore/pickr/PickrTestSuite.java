@@ -22,7 +22,24 @@ import org.junit.runners.Suite.SuiteClasses;
 
 /**
  * Test suite for Pickr application
+ * DDL for running test suite with in-built secondary indexes:
+ * ----------------------------------------------------------------
+ *  use Pickr;	
+	create column family PHOTOGRAPHER with comparator=UTF8Type and default_validation_class=UTF8Type and key_validation_class=UTF8Type and column_metadata=[{column_name: PHOTOGRAPHER_NAME, validation_class:UTF8Type, index_type: KEYS}];
+	create column family ALBUM with comparator=UTF8Type and default_validation_class=UTF8Type and key_validation_class=UTF8Type and column_metadata=[{column_name: ALBUM_NAME, validation_class:UTF8Type, index_type: KEYS},{column_name: ALBUM_DESC, validation_class:UTF8Type, index_type: KEYS}];
+	create column family PHOTO with comparator=UTF8Type and default_validation_class=UTF8Type and key_validation_class=UTF8Type and column_metadata=[{column_name: PHOTO_CAPTION, validation_class:UTF8Type, index_type: KEYS},{column_name: PHOTO_DESC, validation_class:UTF8Type, index_type: KEYS}];
+	create column family PHOTOGRAPHER_ALBUM with comparator=UTF8Type and default_validation_class=UTF8Type and key_validation_class=UTF8Type;
+	create column family ALBUM_PHOTO with comparator=UTF8Type and default_validation_class=UTF8Type and key_validation_class=UTF8Type;
  * 
+ * DDL for running test suite with Lucene Indexing
+ * ----------------------------------------------------------------
+ 	use Pickr;
+	create column family PHOTOGRAPHER with comparator=UTF8Type and default_validation_class=UTF8Type and key_validation_class=UTF8Type;
+	create column family ALBUM with comparator=UTF8Type and default_validation_class=UTF8Type and key_validation_class=UTF8Type;
+	create column family PHOTO with comparator=UTF8Type and default_validation_class=UTF8Type and key_validation_class=UTF8Type;
+	create column family PHOTOGRAPHER_ALBUM with comparator=UTF8Type and default_validation_class=UTF8Type and key_validation_class=UTF8Type;
+	create column family ALBUM_PHOTO with comparator=UTF8Type and default_validation_class=UTF8Type and key_validation_class=UTF8Type;
+ *
  * @author amresh.singh
  */
 @RunWith(Suite.class)
@@ -39,7 +56,7 @@ import org.junit.runners.Suite.SuiteClasses;
     //PickrTestBi_1_M_1_M.class,
     //PickrTestBi_1_M_M_M.class,
     //PickrTestBi_M_1_1_M.class,
-    PickrTestBi_M_M_1_1.class,
+    //PickrTestBi_M_M_1_1.class,
     //PickrTestBi_M_M_M_M.class
     
 })

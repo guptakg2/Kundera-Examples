@@ -35,7 +35,7 @@ public abstract class PickrBaseTest
     protected void setUp() throws Exception
     {
         photographerId = 1;
-        pickr = new PickrImpl("picmysql");
+        pickr = new PickrImpl("piccandra");
     }
 
     public void test()

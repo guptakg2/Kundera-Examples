@@ -34,7 +34,7 @@ import com.impetus.kundera.examples.crossdatastore.pickr.entities.photo.PhotoUni
  */
 
 @Entity
-@Table(name = "ALBUM", schema = "Pickr")
+@Table(name = "ALBUM", schema = "Pickr@piccandra")
 public class AlbumUni_1_M_M_M
 {
     @Id

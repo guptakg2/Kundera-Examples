@@ -19,7 +19,6 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
@@ -27,7 +26,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.impetus.kundera.examples.crossdatastore.pickr.entities.PersonalData;
 import com.impetus.kundera.examples.crossdatastore.pickr.entities.album.AlbumUni_1_M_1_M;
 
 /**
@@ -37,7 +35,7 @@ import com.impetus.kundera.examples.crossdatastore.pickr.entities.album.AlbumUni
  */
 
 @Entity
-@Table(name = "PHOTOGRAPHER", schema = "Pickr")
+@Table(name = "PHOTOGRAPHER", schema = "Pickr@piccandra")
 public class PhotographerUni_1_M_1_M
 {
     @Id
@@ -46,10 +44,6 @@ public class PhotographerUni_1_M_1_M
 
     @Column(name = "PHOTOGRAPHER_NAME")
     private String photographerName;
-
-    // Will be persisted locally
-    @Embedded
-    private PersonalData personalData;
 
     // One to many, will be persisted separately
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -88,23 +82,6 @@ public class PhotographerUni_1_M_1_M
     public void setPhotographerName(String photographerName)
     {
         this.photographerName = photographerName;
-    }
-
-    /**
-     * @return the personalData
-     */
-    public PersonalData getPersonalData()
-    {
-        return personalData;
-    }
-
-    /**
-     * @param personalData
-     *            the personalData to set
-     */
-    public void setPersonalData(PersonalData personalData)
-    {
-        this.personalData = personalData;
     }
 
     /**

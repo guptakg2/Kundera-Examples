@@ -24,7 +24,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.impetus.kundera.examples.crossdatastore.pickr.entities.PersonalData;
 import com.impetus.kundera.examples.crossdatastore.pickr.entities.album.AlbumUni_M_1_1_M;
 import com.impetus.kundera.examples.crossdatastore.pickr.entities.photo.PhotoUni_M_1_1_M;
 import com.impetus.kundera.examples.crossdatastore.pickr.entities.photographer.PhotographerUni_M_1_1_M;
@@ -154,11 +153,7 @@ public class PickrTestUni_M_1_1_M extends PickrBaseTest
             Assert.assertNotNull(p);
             Assert.assertEquals(1, p.getPhotographerId());
             Assert.assertEquals("Amresh", p.getPhotographerName());
-            Assert.assertNotNull(p.getPersonalData());
-            Assert.assertEquals("www.amresh.com", p.getPersonalData().getWebsite());
-            Assert.assertEquals("amresh.singh@impetus.co.in", p.getPersonalData().getEmail());
-            Assert.assertEquals("xamry", p.getPersonalData().getYahooId());
-
+            
             Assert.assertNotNull(p.getAlbum());
             AlbumUni_M_1_1_M album = p.getAlbum();
             Assert.assertNotNull(album);
@@ -185,11 +180,7 @@ public class PickrTestUni_M_1_1_M extends PickrBaseTest
             Assert.assertNotNull(p);
             Assert.assertEquals(2, p.getPhotographerId());
             Assert.assertEquals("Vivek", p.getPhotographerName());
-            Assert.assertNotNull(p.getPersonalData());
-            Assert.assertEquals("www.vivek.com", p.getPersonalData().getWebsite());
-            Assert.assertEquals("vivek.mishra@impetus.co.in", p.getPersonalData().getEmail());
-            Assert.assertEquals("mevivs", p.getPersonalData().getYahooId());
-
+        
             Assert.assertNotNull(p.getAlbum());
             AlbumUni_M_1_1_M album = p.getAlbum();
             Assert.assertNotNull(album);
@@ -226,8 +217,7 @@ public class PickrTestUni_M_1_1_M extends PickrBaseTest
         PhotographerUni_M_1_1_M p1 = new PhotographerUni_M_1_1_M();
         p1.setPhotographerId(1);
         p1.setPhotographerName("Amresh");
-        p1.setPersonalData(new PersonalData("www.amresh.com", "amresh.singh@impetus.co.in", "xamry"));
-
+        
         AlbumUni_M_1_1_M album = new AlbumUni_M_1_1_M("album_1", "My Phuket Vacation", "Went Phuket with friends");
 
         album.addPhoto(new PhotoUni_M_1_1_M("photo_1", "One beach", "On beach with friends"));
@@ -239,8 +229,7 @@ public class PickrTestUni_M_1_1_M extends PickrBaseTest
         //Photographer 2
         PhotographerUni_M_1_1_M p2 = new PhotographerUni_M_1_1_M();
         p2.setPhotographerId(2);
-        p2.setPhotographerName("Vivek");
-        p2.setPersonalData(new PersonalData("www.vivek.com", "vivek.mishra@impetus.co.in", "mevivs"));            
+        p2.setPhotographerName("Vivek");                 
         
         p2.setAlbum(album);        
         

@@ -24,7 +24,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.impetus.kundera.examples.crossdatastore.pickr.entities.PersonalData;
 import com.impetus.kundera.examples.crossdatastore.pickr.entities.album.AlbumBi_M_M_1_1;
 import com.impetus.kundera.examples.crossdatastore.pickr.entities.photo.PhotoBi_M_M_1_1;
 import com.impetus.kundera.examples.crossdatastore.pickr.entities.photographer.PhotographerBi_M_M_1_1;
@@ -164,11 +163,7 @@ public class PickrTestBi_M_M_1_1 extends PickrBaseTest
             Assert.assertNotNull(p);
             Assert.assertEquals(1, p.getPhotographerId());
             Assert.assertEquals("Amresh", p.getPhotographerName());
-            Assert.assertNotNull(p.getPersonalData());
-            Assert.assertEquals("www.amresh.com", p.getPersonalData().getWebsite());
-            Assert.assertEquals("amresh.singh@impetus.co.in", p.getPersonalData().getEmail());
-            Assert.assertEquals("xamry", p.getPersonalData().getYahooId());
-
+        
             Assert.assertNotNull(p.getAlbums());
             Assert.assertFalse(p.getAlbums().isEmpty());
             Assert.assertEquals(2, p.getAlbums().size());
@@ -193,11 +188,7 @@ public class PickrTestBi_M_M_1_1 extends PickrBaseTest
             Assert.assertNotNull(p);
             Assert.assertEquals(2, p.getPhotographerId());
             Assert.assertEquals("Vivek", p.getPhotographerName());
-            Assert.assertNotNull(p.getPersonalData());
-            Assert.assertEquals("www.vivek.com", p.getPersonalData().getWebsite());
-            Assert.assertEquals("vivek.mishra@impetus.co.in", p.getPersonalData().getEmail());
-            Assert.assertEquals("mevivs", p.getPersonalData().getYahooId());
-
+        
             Assert.assertNotNull(p.getAlbums());
             Assert.assertFalse(p.getAlbums().isEmpty());
             Assert.assertEquals(2, p.getAlbums().size());
@@ -231,14 +222,12 @@ public class PickrTestBi_M_M_1_1 extends PickrBaseTest
         PhotographerBi_M_M_1_1 p1 = new PhotographerBi_M_M_1_1();
         p1.setPhotographerId(1);
         p1.setPhotographerName("Amresh");
-        p1.setPersonalData(new PersonalData("www.amresh.com", "amresh.singh@impetus.co.in", "xamry"));
-
+        
         // Photographer 2
         PhotographerBi_M_M_1_1 p2 = new PhotographerBi_M_M_1_1();
         p2.setPhotographerId(2);
         p2.setPhotographerName("Vivek");
-        p2.setPersonalData(new PersonalData("www.vivek.com", "vivek.mishra@impetus.co.in", "mevivs"));
-
+        
         AlbumBi_M_M_1_1 album1 = new AlbumBi_M_M_1_1("album_1", "My Phuket Vacation", "Went Phuket with friends");
         AlbumBi_M_M_1_1 album2 = new AlbumBi_M_M_1_1("album_2", "My Shimla Vacation", "Went Shimla with friends");
         AlbumBi_M_M_1_1 album3 = new AlbumBi_M_M_1_1("album_3", "My Zurik Vacation", "Went Zurik with friends");
