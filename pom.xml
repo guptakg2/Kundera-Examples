@@ -69,6 +69,14 @@
 			<name>Morphia Repo at Google Code</name>
 			<url>http://morphia.googlecode.com/svn/mavenrepo</url>
 		</repository>
+                <repository>
+                        <id>maven.scale7.org</id>
+                        <name>Scale7 Maven Repo</name>
+                        <url>https://github.com/s7/mvnrepo/raw/master</url>
+                        <snapshots>
+                           <enabled>true</enabled>
+                       </snapshots>
+               </repository>
 	</repositories>
 	<reporting>
 		<plugins>
