@@ -1,7 +1,7 @@
 <persistence xmlns="http://java.sun.com/xml/ns/persistence"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence
-	/home/amresh/development/Kundera/Kundera-Examples/src/main/resources/META-INF/persistence_2_0.xsd"
+	/home/impadmin/development/Kundera/Kundera-Examples/src/main/resources/META-INF/persistence_2_0.xsd"
 	version="2.0">
 	<!-- Persistence Units for Twitter application -->
 	<persistence-unit name="twissandra">
@@ -14,7 +14,7 @@
 			<property name="kundera.client" value="Pelops"/>
 			<property name="kundera.cache.provider.class" value="com.impetus.kundera.cache.ehcache.EhCacheProvider"/>
             <property name="kundera.cache.config.resource" value="/ehcache-test.xml"/>   
-            <!-- <property name="index_home_dir" value="/home/amresh/lucene"/> -->
+            <property name="index_home_dir" value="/home/impadmin/lucene"/>
  		</properties>	
 
 	</persistence-unit>
@@ -108,10 +108,10 @@
 			<property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
 			<property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/Pickr" />
 			<property name="hibernate.connection.username" value="root" />
-			<property name="hibernate.connection.password" value="dragon@123" />
+			<property name="hibernate.connection.password" value="impetus" />
 			<property name="hibernate.current_session_context_class"
 				value="org.hibernate.context.ThreadLocalSessionContext" />
-			<property name="index_home_dir" value="/home/amresh/lucene"/>
+			<property name="index_home_dir" value="/home/impadmin/lucene"/>
 		</properties>
 	</persistence-unit>
 	<persistence-unit name="piccandra">
@@ -125,7 +125,7 @@
 			<property name="kundera.cache.provider.class"
 				value="com.impetus.kundera.cache.ehcache.EhCacheProvider" />
 			<property name="kundera.cache.config.resource" value="/ehcache-test.xml" />
-<!-- 			<property name="index_home_dir" value="/home/amresh/lucene"/> -->
+ 			<property name="index_home_dir" value="/home/impadmin/lucene"/>
 		</properties>
 	</persistence-unit>
 	<persistence-unit name="picbase">
@@ -139,7 +139,7 @@
 			<property name="kundera.cache.provider.class"
 				value="com.impetus.kundera.cache.ehcache.EhCacheProvider" />
 			<property name="kundera.cache.config.resource" value="/ehcache-test.xml" />
-			<property name="index_home_dir" value="/home/amresh/lucene"/>
+			<property name="index_home_dir" value="/home/impadmin/lucene"/>
 		</properties>
 	</persistence-unit>
 	<persistence-unit name="picongo">
@@ -153,7 +153,7 @@
 			<property name="kundera.cache.provider.class"
 				value="com.impetus.kundera.cache.ehcache.EhCacheProvider" />
 			<property name="kundera.cache.config.resource" value="/ehcache-test.xml" />
-			<property name="index_home_dir" value="/home/amresh/lucene"/>
+			<property name="index_home_dir" value="/home/impadmin/lucene"/>
 		</properties>
 	</persistence-unit>
 
@@ -186,12 +186,12 @@
 		<class>com.impetus.kundera.examples.student.Student</class>
 		<properties>
 			<property name="kundera.client" value="rdbms" />
-			<!-- <property name="hibernate.hbm2ddl.auto" value="create" /> -->
+<!--			<property name="hibernate.hbm2ddl.auto" value="create" />-->
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.format_sql" value="true" />
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect" />
 			<property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
-			<property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/hibernatepoc" />
+			<property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/KunderaExamples" />
 			<property name="hibernate.connection.username" value="root" />
 			<property name="hibernate.connection.password" value="impetus" />
 			<property name="hibernate.current_session_context_class"

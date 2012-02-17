@@ -49,8 +49,8 @@ public class SimpleComment
         this.id = commentId;
         this.userName = userName;
         this.commentText = commentText;
-    }
-
+    }  
+    
     /**
      * @return the id
      */
@@ -66,6 +66,23 @@ public class SimpleComment
     {
         this.id = id;
     }
+
+    /**
+     * @return the userName
+     */
+    public String getUserName()
+    {
+        return userName;
+    }
+
+    /**
+     * @param userName the userName to set
+     */
+    public void setUserName(String userName)
+    {
+        this.userName = userName;
+    }
+    
 
     /**
      * @return the commentText

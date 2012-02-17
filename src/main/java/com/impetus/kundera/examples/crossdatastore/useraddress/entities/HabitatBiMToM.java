@@ -10,7 +10,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "ADDRESS", schema = "KunderaExamples@addcassandra")
+@Table(name = "ADDRESS", schema = "KunderaExamples@addmongo")
 public class HabitatBiMToM
 {
     @Id

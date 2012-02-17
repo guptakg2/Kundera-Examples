@@ -39,7 +39,7 @@ public class SpringExampleDaoTest
     {
         XmlBeanFactory beanFactory = new XmlBeanFactory(new ClassPathResource("applicationContext.xml"));
 
-        dao = (SpringExampleDao) beanFactory.getBean("springExampleDao");
+        dao = (SpringExampleDao) beanFactory.getBean("springExampleDao");      
         
     }
 
@@ -54,16 +54,9 @@ public class SpringExampleDaoTest
     
     @Test
     public void testAddComment() {
-        addComment();
-    }
-
-    
-    public void addComment()
-    {
         dao.addComment(1, "xamry", "No comment!");
-    }
-
-    
+    }   
+        
     public void getCommentById()
     {
         SimpleComment comment = dao.getCommentById("1");

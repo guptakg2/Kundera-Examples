@@ -60,7 +60,6 @@ public class Student {
 	private java.util.Date joiningDateAndTime;
 
 	// Wrapper types
-
 	@Column(name = "YEARS_SPENT")
 	private Integer yearsSpent;
 
@@ -87,6 +86,9 @@ public class Student {
 
 	@Column(name = "CALENDAR")
 	private Calendar calendar;
+	
+	
+	
 	/**
 	 * @return the studentId
 	 */
@@ -408,5 +410,4 @@ public class Student {
 	public void setCalendar(Calendar calendar) {
 		this.calendar = calendar;
 	}
-
 }

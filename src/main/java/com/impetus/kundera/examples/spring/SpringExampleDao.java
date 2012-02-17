@@ -18,6 +18,7 @@ package com.impetus.kundera.examples.spring;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
 import javax.persistence.Query;
@@ -33,13 +34,13 @@ import org.springframework.stereotype.Service;
 public class SpringExampleDao
 {
 
-    @PersistenceContext(type = PersistenceContextType.EXTENDED)
-    private EntityManager entityManager;
+    EntityManagerFactory entityManagerFactory;
 
     public SimpleComment addComment(int id, String userName, String commentText)
     {
         SimpleComment simpleComment = new SimpleComment(id, userName, commentText);
-
+        
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
         entityManager.persist(simpleComment);
         entityManager.close();
 
@@ -48,24 +49,42 @@ public class SpringExampleDao
 
     public SimpleComment getCommentById(String Id)
     {
-
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
         SimpleComment simpleComment = entityManager.find(SimpleComment.class, Id);
         return simpleComment;
     }
 
     public List<SimpleComment> getAllComments()
     {
-
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
         Query query = entityManager.createQuery("SELECT c from SimpleComment c");
         List<SimpleComment> list = query.getResultList();
 
         return list;
     }
 
-    @PersistenceContext
+    /**
+     * @return the entityManagerFactory
+     */
+    public EntityManagerFactory getEntityManagerFactory()
+    {
+        return entityManagerFactory;
+    }
+
+    /**
+     * @param entityManagerFactory the entityManagerFactory to set
+     */
+    public void setEntityManagerFactory(EntityManagerFactory entityManagerFactory)
+    {
+        this.entityManagerFactory = entityManagerFactory;
+    }
+
+    /*@PersistenceContext
     public void setEntityManager(EntityManager em)
     {
         this.entityManager = em;
-    }
+    }*/
+    
+    
 
 }

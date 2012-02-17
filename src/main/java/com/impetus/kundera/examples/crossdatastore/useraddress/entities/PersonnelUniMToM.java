@@ -12,7 +12,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "PERSONNEL", schema = "KunderaExamples@twingo")
+@Table(name = "PERSONNEL", schema = "KunderaExamples@addcassandra")
 public class PersonnelUniMToM {
 	@Id
 	@Column(name = "PERSON_ID")
@@ -21,9 +21,6 @@ public class PersonnelUniMToM {
 	@Column(name = "PERSON_NAME")
 	private String personName;
 	
-	@Embedded
-	PersonalData personalData;
-
 	@ManyToMany
 	  @JoinTable(name = "PERSONNEL_ADDRESS", 
 	    joinColumns = {
@@ -49,14 +46,6 @@ public class PersonnelUniMToM {
 
 	public void setPersonId(String personId) {
 		this.personId = personId;
-	}
-
-	public PersonalData getPersonalData() {
-		return personalData;
-	}
-
-	public void setPersonalData(PersonalData personalData) {
-		this.personalData = personalData;
 	}
 
 	public Set<HabitatUniMToM> getAddresses() {

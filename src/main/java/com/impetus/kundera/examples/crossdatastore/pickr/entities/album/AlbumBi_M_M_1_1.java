@@ -35,7 +35,7 @@ import com.impetus.kundera.examples.crossdatastore.pickr.entities.photographer.P
  * 
  */
 @Entity
-@Table(name = "ALBUM", schema = "Pickr@piccandra")
+@Table(name = "ALBUM", schema = "Pickr")
 public class AlbumBi_M_M_1_1
 {
     @Id

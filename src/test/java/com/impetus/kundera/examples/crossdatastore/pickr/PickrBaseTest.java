@@ -30,12 +30,12 @@ public abstract class PickrBaseTest
 {
     Pickr pickr;
     int photographerId;
-
+    String pu = "picmysql";
     
     protected void setUp() throws Exception
     {
         photographerId = 1;
-        pickr = new PickrImpl("piccandra");
+        pickr = new PickrImpl(pu);
     }
 
     public void test()
@@ -46,7 +46,7 @@ public abstract class PickrBaseTest
     protected void tearDown() throws Exception
     {
         pickr.close();
-        //cleanLuceneDirectory();
+        cleanLuceneDirectory();
     }
     
     protected abstract void addPhotographer();
@@ -57,7 +57,7 @@ public abstract class PickrBaseTest
     
     
     private void cleanLuceneDirectory() {
-        PersistenceUnitMetadata puMetadata = KunderaMetadata.INSTANCE.getApplicationMetadata().getPersistenceUnitMetadata("piccandra");
+        PersistenceUnitMetadata puMetadata = KunderaMetadata.INSTANCE.getApplicationMetadata().getPersistenceUnitMetadata(pu);
         if(puMetadata != null ) {
             String luceneDir = puMetadata.getProperty("index_home_dir");
             if (luceneDir != null && luceneDir.length() > 0)
