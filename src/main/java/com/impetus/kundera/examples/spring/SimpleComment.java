@@ -42,13 +42,23 @@ public class SimpleComment
     @Column(name = "COMMENT_TEXT")
     private String commentText;
 
+    enum Day
+    {
+        MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY
+    }
+    
+    @Column(name = "DAY_OF_COMMENT")
+    Day dayOfComment;   
+    
+    
     public SimpleComment() {
     }
     
-    public SimpleComment(int commentId, String userName, String commentText) {
+    public SimpleComment(int commentId, String userName, String commentText, Day dayOfComment) {
         this.id = commentId;
         this.userName = userName;
         this.commentText = commentText;
+        this.dayOfComment = dayOfComment;
     }
 
     /**
@@ -65,9 +75,23 @@ public class SimpleComment
     public void setId(int id)
     {
         this.id = id;
-    }
+    }   
 
     /**
+	 * @return the userName
+	 */
+	public String getUserName() {
+		return userName;
+	}
+
+	/**
+	 * @param userName the userName to set
+	 */
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	/**
      * @return the commentText
      */
     public String getCommentText()
@@ -81,6 +105,20 @@ public class SimpleComment
     public void setCommentText(String commentText)
     {
         this.commentText = commentText;
-    }  
+    }
+
+	/**
+	 * @return the dayOfComment
+	 */
+	public Day getDayOfComment() {
+		return dayOfComment;
+	}
+
+	/**
+	 * @param dayOfComment the dayOfComment to set
+	 */
+	public void setDayOfComment(Day dayOfComment) {
+		this.dayOfComment = dayOfComment;
+	}  
 
 }

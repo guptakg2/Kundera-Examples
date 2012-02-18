@@ -18,11 +18,12 @@ package com.impetus.kundera.examples.spring;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceContextType;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 
 import org.springframework.stereotype.Service;
+
+import com.impetus.kundera.examples.spring.SimpleComment.Day;
 
 /**
  * @author amresh.singh
@@ -33,13 +34,13 @@ import org.springframework.stereotype.Service;
 public class SpringExampleDao
 {
 
-    @PersistenceContext(type = PersistenceContextType.EXTENDED)
-    private EntityManager entityManager;
 
-    public SimpleComment addComment(int id, String userName, String commentText)
+    private EntityManagerFactory entityManagerFactory;
+
+    public SimpleComment addComment(int id, String userName, String commentText, Day dayOfComment)
     {
-        SimpleComment simpleComment = new SimpleComment(id, userName, commentText);
-
+        SimpleComment simpleComment = new SimpleComment(id, userName, commentText, dayOfComment);
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
         entityManager.persist(simpleComment);
         entityManager.close();
 
@@ -48,24 +49,32 @@ public class SpringExampleDao
 
     public SimpleComment getCommentById(String Id)
     {
-
+    	EntityManager entityManager = entityManagerFactory.createEntityManager();
         SimpleComment simpleComment = entityManager.find(SimpleComment.class, Id);
         return simpleComment;
     }
 
     public List<SimpleComment> getAllComments()
     {
-
+    	EntityManager entityManager = entityManagerFactory.createEntityManager();
         Query query = entityManager.createQuery("SELECT c from SimpleComment c");
         List<SimpleComment> list = query.getResultList();
 
         return list;
     }
 
-    @PersistenceContext
-    public void setEntityManager(EntityManager em)
-    {
-        this.entityManager = em;
-    }
+	/**
+	 * @return the entityManagerFactory
+	 */
+	public EntityManagerFactory getEntityManagerFactory() {
+		return entityManagerFactory;
+	}
+
+	/**
+	 * @param entityManagerFactory the entityManagerFactory to set
+	 */
+	public void setEntityManagerFactory(EntityManagerFactory entityManagerFactory) {
+		this.entityManagerFactory = entityManagerFactory;
+	}  
 
 }
