@@ -1,0 +1,9 @@
+Project is all about how to use kundera for:
+1) Performing CRUD operation.
+2) Association Handling.
+3) Cross data store persistence.
+
+References:
+Please refer to our wiki site for brief description and blog written about them.
+
+https://github.com/impetus-opensource/Kundera/wiki/Sample-Codes-and-Examples

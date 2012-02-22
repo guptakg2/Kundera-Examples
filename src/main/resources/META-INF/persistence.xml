@@ -1,7 +1,11 @@
 <persistence xmlns="http://java.sun.com/xml/ns/persistence"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence
+<<<<<<< HEAD
 	/home/impadmin/development/Kundera/Kundera-Examples/src/main/resources/META-INF/persistence_2_0.xsd"
+=======
+	https://raw.github.com/impetus-opensource/Kundera/Kundera-2.0.4/kundera-core/src/test/resources/META-INF/persistence_2_0.xsd"
+>>>>>>> branch 'Kundera-Examples-2.0.5' of https://xamry@github.com/impetus-opensource/Kundera-Examples.git
 	version="2.0">
 	<!-- Persistence Units for Twitter application -->
 	<persistence-unit name="twissandra">

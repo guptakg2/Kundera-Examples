@@ -1140,7 +1140,7 @@ public class UserAddressDaoTest extends TestCase
 
     public void savePersonBiManyToMany()
     {
-    	dao = new UserAddressDaoImpl(persistenceUnit);
+    dao = new UserAddressDaoImpl(persistenceUnit);
 
         PersonnelBiMToM person1 = new PersonnelBiMToM();
         person1.setPersonId("bimanytomany_1");
@@ -1186,7 +1186,7 @@ public class UserAddressDaoTest extends TestCase
     public void findPersonBiManyToMany()
     {
 
-    	dao = new UserAddressDaoImpl(persistenceUnit);
+    dao = new UserAddressDaoImpl(persistenceUnit);
 
         // Find Person 1
         PersonnelBiMToM p1 = (PersonnelBiMToM) dao.findPerson(PersonnelBiMToM.class, "bimanytomany_1");
@@ -1200,14 +1200,14 @@ public class UserAddressDaoTest extends TestCase
         assertEquals(2, adds1.size());       
         
         for(HabitatBiMToM add : adds1) {
-        	assertNotNull(add);
-        	assertTrue(add.getAddressId().startsWith("bimanytomany_"));
-        	assertTrue(add.getStreet().length() > 0);
-        	
-        	Set<PersonnelBiMToM> people = add.getPeople();
-        	assertNotNull(people);
-        	assertFalse(people.isEmpty());
-        	assertTrue(people.size() > 0 && people.size() < 3);        	
+        assertNotNull(add);
+        assertTrue(add.getAddressId().startsWith("bimanytomany_"));
+        assertTrue(add.getStreet().length() > 0);
+        
+        Set<PersonnelBiMToM> people = add.getPeople();
+        assertNotNull(people);
+        assertFalse(people.isEmpty());
+        assertTrue(people.size() > 0 && people.size() < 3);        
         }
         
 
@@ -1223,14 +1223,14 @@ public class UserAddressDaoTest extends TestCase
         assertEquals(2, adds2.size());  
         
         for(HabitatBiMToM add : adds2) {
-        	assertNotNull(add);
-        	assertTrue(add.getAddressId().startsWith("bimanytomany_"));
-        	assertTrue(add.getStreet().length() > 0);
-        	
-        	Set<PersonnelBiMToM> people = add.getPeople();
-        	assertNotNull(people);
-        	assertFalse(people.isEmpty());
-        	assertTrue(people.size() > 0 && people.size() < 3);        	
+        assertNotNull(add);
+        assertTrue(add.getAddressId().startsWith("bimanytomany_"));
+        assertTrue(add.getStreet().length() > 0);
+        
+        Set<PersonnelBiMToM> people = add.getPeople();
+        assertNotNull(people);
+        assertFalse(people.isEmpty());
+        assertTrue(people.size() > 0 && people.size() < 3);        
         }
 
         dao.closeEntityManagerFactory();

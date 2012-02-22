@@ -13,48 +13,66 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "PERSONNEL", schema = "KunderaExamples@addcassandra")
-public class PersonnelUniMToM {
-	@Id
-	@Column(name = "PERSON_ID")
-	private String personId;
+public class PersonnelUniMToM
+{
+    @Id
+    @Column(name = "PERSON_ID")
+    private String personId;
 
-	@Column(name = "PERSON_NAME")
-	private String personName;
-	
-	@ManyToMany
-	  @JoinTable(name = "PERSONNEL_ADDRESS", 
-	    joinColumns = {
-	      @JoinColumn(name="PERSON_ID")           
-	    },
-	    inverseJoinColumns = {
-	      @JoinColumn(name="ADDRESS_ID")
-	    }
-	  )
-	private Set<HabitatUniMToM> addresses;
+    @Column(name = "PERSON_NAME")
+    private String personName;
 
-	public String getPersonId() {
-		return personId;
-	}
+    @Embedded
+    PersonalData personalData;
 
-	public String getPersonName() {
-		return personName;
-	}
+    @ManyToMany
+    @JoinTable(name = "PERSONNEL_ADDRESS", joinColumns = { @JoinColumn(name = "PERSON_ID") }, inverseJoinColumns = { @JoinColumn(name = "ADDRESS_ID") })
+    private Set<HabitatUniMToM> addresses;
 
-	public void setPersonName(String personName) {
-		this.personName = personName;
-	}
+    public String getPersonId()
+    {
+        return personId;
+    }
 
-	public void setPersonId(String personId) {
-		this.personId = personId;
-	}
+    public String getPersonName()
+    {
+        return personName;
+    }
 
-	public Set<HabitatUniMToM> getAddresses() {
-		return addresses;
-	}
+    public void setPersonName(String personName)
+    {
+        this.personName = personName;
+    }
 
-	public void setAddresses(Set<HabitatUniMToM> addresses) {
-		this.addresses = addresses;
-	}
+    public void setPersonId(String personId)
+    {
+        this.personId = personId;
+    }
+
+    public Set<HabitatUniMToM> getAddresses()
+    {
+        return addresses;
+    }
+
+    public void setAddresses(Set<HabitatUniMToM> addresses)
+    {
+        this.addresses = addresses;
+    }
+
+    /**
+     * @return the personalData
+     */
+    public PersonalData getPersonalData()
+    {
+        return personalData;
+    }
+
+    /**
+     * @param personalData the personalData to set
+     */
+    public void setPersonalData(PersonalData personalData)
+    {
+        this.personalData = personalData;
+    }  
+    
 }
-
-	

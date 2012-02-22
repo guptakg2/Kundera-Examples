@@ -15,7 +15,9 @@
  ******************************************************************************/
 package com.impetus.kundera.examples.spring;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
 
 import org.junit.After;
 import org.junit.Before;
@@ -54,15 +56,24 @@ public class SpringExampleDaoTest
     
     @Test
     public void testAddComment() {
+
         dao.addComment(1, "xamry", "No comment!");
     }   
         
     public void getCommentById()
     {
+    	
+    }   
+      
+    @Test
+    public void testGetCommentById()
+    {
         SimpleComment comment = dao.getCommentById("1");
         
         assertNotNull(comment);
-        assertEquals("1", comment.getId());
+        assertEquals(1, comment.getId());
+        assertEquals("xamry", comment.getUserName());
+        assertEquals("No comment!", comment.getCommentText());
     }
 
     

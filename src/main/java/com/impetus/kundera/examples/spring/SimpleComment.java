@@ -40,8 +40,8 @@ public class SimpleComment
     private String userName;
 
     @Column(name = "COMMENT_TEXT")
-    private String commentText;
-
+    private String commentText;       
+    
     public SimpleComment() {
     }
     
@@ -49,8 +49,10 @@ public class SimpleComment
         this.id = commentId;
         this.userName = userName;
         this.commentText = commentText;
-    }  
-    
+
+    }
+
+
     /**
      * @return the id
      */
@@ -82,7 +84,6 @@ public class SimpleComment
     {
         this.userName = userName;
     }
-    
 
     /**
      * @return the commentText
@@ -98,6 +99,6 @@ public class SimpleComment
     public void setCommentText(String commentText)
     {
         this.commentText = commentText;
-    }  
+    }     
 
 }
