@@ -10,6 +10,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 @Entity
 @Table(name = "PERSONNEL", schema = "hibernatepoc")
 public class PersonnelBiMTo1 {
@@ -25,6 +28,7 @@ public class PersonnelBiMTo1 {
 
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name="ADDRESS_ID")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private HabitatBiMTo1 address;
 
 	public String getPersonId() {

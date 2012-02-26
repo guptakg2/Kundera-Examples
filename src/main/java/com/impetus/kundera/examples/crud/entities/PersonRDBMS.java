@@ -1,4 +1,4 @@
-package com.impetus.kundera.examples.crud;
+package com.impetus.kundera.examples.crud.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,8 +10,8 @@ import javax.persistence.Table;
  * The Class Person.
  */
 @Entity
-@Table(name = "PERSON", schema = "KunderaExamples@twissandra")
-public class PersonCassandra
+@Table(name = "PERSON", schema = "kunderaexamples")
+public class PersonRDBMS
 {
     
     /** The person id. */

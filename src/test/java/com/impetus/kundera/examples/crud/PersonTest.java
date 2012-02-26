@@ -27,6 +27,11 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.impetus.kundera.examples.crud.entities.PersonCassandra;
+import com.impetus.kundera.examples.crud.entities.PersonHBase;
+import com.impetus.kundera.examples.crud.entities.PersonMongo;
+import com.impetus.kundera.examples.crud.entities.PersonRDBMS;
+
 /**
  * Test case to perform simple CRUD operation.(insert, delete, merge, and
  * select)
@@ -59,7 +64,7 @@ public class PersonTest extends BaseTest
     @Before
     public void setUp() throws Exception
     {
-        emf = Persistence.createEntityManagerFactory("twissandra,twingo,twibase");
+        emf = Persistence.createEntityManagerFactory("twissandra,twingo,twibase,picmysql");
         em = emf.createEntityManager();
         col = new java.util.HashMap<Object, Object>();
     }
@@ -67,7 +72,7 @@ public class PersonTest extends BaseTest
     /**
      * On insert mongo.
      */
-    @Test
+//    @Test
     public void onInsertMongo()
     {
         Object p1 = prepareMongoInstance("1", 10);
@@ -93,7 +98,7 @@ public class PersonTest extends BaseTest
     /**
      * On merge mongo.
      */
-    @Test
+//    @Test
     public void onMergeMongo()
     {
         Object p1 = prepareMongoInstance("1", 10);
@@ -117,7 +122,7 @@ public class PersonTest extends BaseTest
     /**
      * On insert cassandra.
      */
-    @Test
+//    @Test
     public void onInsertCassandra()
     {
         Object p1 = prepareData("1", 10);
@@ -144,7 +149,7 @@ public class PersonTest extends BaseTest
     /**
      * On merge cassandra.
      */
-    @Test
+//    @Test
     public void onMergeCassandra()
     {
         Object p1 = prepareData("1", 10);
@@ -166,7 +171,7 @@ public class PersonTest extends BaseTest
         assertOnMerge(em, "PersonCassandra", PersonCassandra.class, "vivek", "newvivek", "PERSON_NAME");
     }
 
-    @Test
+//    @Test
     public void onInsertHbase()
     {
         Object p1 = prepareHbaseInstance("1", 10);

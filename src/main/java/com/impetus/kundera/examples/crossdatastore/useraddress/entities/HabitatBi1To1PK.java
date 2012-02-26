@@ -2,6 +2,7 @@ package com.impetus.kundera.examples.crossdatastore.useraddress.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -22,7 +23,7 @@ public class HabitatBi1To1PK
     @Column(name = "STREET")
     private String street;  
     
-    @OneToOne(mappedBy="address")
+    @OneToOne(mappedBy="address", fetch=FetchType.LAZY)
     private PersonnelBi1To1PK person;  
     
 

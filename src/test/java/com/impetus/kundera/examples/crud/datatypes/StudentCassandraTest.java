@@ -9,6 +9,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.impetus.kundera.examples.crud.datatype.entities.StudentCassandra;
+import com.impetus.kundera.examples.crud.datatype.entities.StudentEntityDef;
+
 /**
  * The Class StudentDaoTest.
  *  script to create Cassandra column family for this test case:
@@ -65,7 +68,7 @@ public class StudentCassandraTest extends StudentBase<StudentCassandra>
      *
      * @throws InstantiationException the instantiation exception
      * @throws IllegalAccessException the illegal access exception
-     * {@link com.impetus.kundera.examples.student.StudentDao#saveStudent(com.impetus.kundera.examples.student.StudentCassandra)}
+     * {@link com.impetus.kundera.examples.student.StudentDao#saveStudent(com.impetus.kundera.examples.crud.datatype.entities.StudentCassandra)}
      * .
      */
     @SuppressWarnings("deprecation")

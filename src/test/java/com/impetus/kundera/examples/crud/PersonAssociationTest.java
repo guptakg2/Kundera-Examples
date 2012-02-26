@@ -28,6 +28,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.impetus.kundera.examples.crud.entities.Employee;
+
 /**
  * Test case to perform simple SelfAssociation.
  * 

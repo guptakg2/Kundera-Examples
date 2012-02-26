@@ -12,6 +12,7 @@ import javax.persistence.Persistence;
 import junit.framework.Assert;
 
 import com.impetus.kundera.examples.crud.BaseTest;
+import com.impetus.kundera.examples.crud.datatype.entities.StudentEntityDef;
 import com.impetus.kundera.examples.student.StudentDao;
 
 /**

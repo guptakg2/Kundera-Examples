@@ -1,16 +1,17 @@
-package com.impetus.kundera.examples.crud;
+package com.impetus.kundera.examples.crud.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class Person.
  */
 @Entity
-@Table(name = "PERSON", schema = "KunderaExamples@twingo")
-public class PersonMongo
+@Table(name = "PERSON", schema = "KunderaExamples@twibase")
+public class PersonHBase
 {
     
     /** The person id. */

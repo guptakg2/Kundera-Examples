@@ -9,6 +9,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.impetus.kundera.examples.crud.datatype.entities.StudentEntityDef;
+import com.impetus.kundera.examples.crud.datatype.entities.StudentHbase;
+
 /**
  * The Class Student test case for HBase.
  * 
@@ -46,7 +49,7 @@ public class StudentHbaseTest extends StudentBase<StudentHbase> {
 	 *             the instantiation exception
 	 * @throws IllegalAccessException
 	 *             the illegal access exception
-	 *             {@link com.impetus.kundera.examples.student.StudentDao#saveStudent(com.impetus.kundera.examples.student.StudentHbase)}
+	 *             {@link com.impetus.kundera.examples.student.StudentDao#saveStudent(com.impetus.kundera.examples.crud.datatype.entities.StudentHbase)}
 	 *             .
 	 */
 	@SuppressWarnings("deprecation")

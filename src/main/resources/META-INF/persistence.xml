@@ -1,12 +1,7 @@
 <persistence xmlns="http://java.sun.com/xml/ns/persistence"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence
-<<<<<<< HEAD
-	/home/impadmin/development/Kundera/Kundera-Examples/src/main/resources/META-INF/persistence_2_0.xsd"
-=======
-	https://raw.github.com/impetus-opensource/Kundera/Kundera-2.0.4/kundera-core/src/test/resources/META-INF/persistence_2_0.xsd"
->>>>>>> branch 'Kundera-Examples-2.0.5' of https://xamry@github.com/impetus-opensource/Kundera-Examples.git
-	version="2.0">
+	https://raw.github.com/impetus-opensource/Kundera/Kundera-2.0.4/kundera-core/src/test/resources/META-INF/persistence_2_0.xsd" version="2.0">
 	<!-- Persistence Units for Twitter application -->
 	<persistence-unit name="twissandra">
 		<provider>com.impetus.kundera.KunderaPersistence</provider>		
@@ -53,7 +48,7 @@
 	<persistence-unit name="picmysql">
 		<provider>com.impetus.kundera.KunderaPersistence</provider>
 		
-		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.photographer.PhotographerUni_1_1_1_1</class>
+<!-- 		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.photographer.PhotographerUni_1_1_1_1</class>
 		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.photographer.PhotographerUni_1_1_1_M</class>
 		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.photographer.PhotographerUni_1_M_1_M</class>
 		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.photographer.PhotographerUni_1_M_M_M</class>
@@ -100,17 +95,18 @@
 		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.photo.PhotoBi_M_M_1_1</class>
 		<class>com.impetus.kundera.examples.crossdatastore.pickr.entities.photo.PhotoBi_M_M_M_M</class>		
 		
-		<class>com.impetus.kundera.examples.crud.Employee</class>
+ -->		<class>com.impetus.kundera.examples.crud.Employee</class>
 		<class>com.impetus.kundera.examples.crud.student.StudentRdbms</class>
 		
 		<properties>
 			<property name="kundera.client" value="rdbms" />
-<!-- 			<property name="hibernate.hbm2ddl.auto" value="create" /> -->
+ 			<!-- <property name="hibernate.hbm2ddl.auto" value="create" /> -->
+ 			<property name="hibernate.max_fetch_depth" value="0" />
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.format_sql" value="true" />
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect" />
 			<property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
-			<property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/Pickr" />
+			<property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/test" />
 			<property name="hibernate.connection.username" value="root" />
 			<property name="hibernate.connection.password" value="impetus" />
 			<property name="hibernate.current_session_context_class"

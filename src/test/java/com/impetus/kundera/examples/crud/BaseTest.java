@@ -20,6 +20,11 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
+import com.impetus.kundera.examples.crud.entities.PersonCassandra;
+import com.impetus.kundera.examples.crud.entities.PersonHBase;
+import com.impetus.kundera.examples.crud.entities.PersonMongo;
+import com.impetus.kundera.examples.crud.entities.PersonRDBMS;
+
 import junit.framework.Assert;
 
 /**

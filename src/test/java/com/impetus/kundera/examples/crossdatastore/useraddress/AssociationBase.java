@@ -27,9 +27,11 @@ import org.apache.cassandra.thrift.SchemaDisagreementException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.impetus.kundera.PersistenceProperties;
 import com.impetus.kundera.examples.crossdatastore.useraddress.dao.UserAddressDaoImpl;
 import com.impetus.kundera.metadata.KunderaMetadataManager;
 import com.impetus.kundera.metadata.model.EntityMetadata;
+import com.impetus.kundera.metadata.model.PersistenceUnitMetadata;
 
 /**
  * The Class AssociationBase.
@@ -61,7 +63,7 @@ public abstract class AssociationBase
      */
     protected void setUpInternal(String... colFamilies)
     {
-        String persistenceUnits = "twissandra,twibase,twingo";
+        String persistenceUnits = "twissandra,twibase,twingo,picmysql";
         dao = new UserAddressDaoImpl(persistenceUnits);
         em = dao.getEntityManager(persistenceUnits);
         this.colFamilies = colFamilies;
@@ -83,8 +85,13 @@ public abstract class AssociationBase
             {
                 Class clazz = iter.next();
                 String pu = entityPuCol.get(clazz);
-                EntityMetadata mAdd = KunderaMetadataManager.getEntityMetadata(pu, clazz);
+                EntityMetadata mAdd = KunderaMetadataManager.getEntityMetadata(clazz);
                 mAdd.setPersistenceUnit(pu);
+                PersistenceUnitMetadata puMetadata = KunderaMetadataManager.getPersistenceUnitMetadata(pu);
+                String schema = puMetadata.getProperty(PersistenceProperties.KUNDERA_KEYSPACE);
+//                System.out.println(schema);
+                mAdd.setSchema(schema != null? schema:"test");
+//                mAdd.setSchema(schema)
 
                 log.warn("persistence unit:" + pu + "class::" + clazz.getCanonicalName());
             }

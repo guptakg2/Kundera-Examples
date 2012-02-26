@@ -9,6 +9,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.impetus.kundera.examples.crud.datatype.entities.StudentEntityDef;
+import com.impetus.kundera.examples.crud.datatype.entities.StudentRdbms;
+
 /**
  * The Class StudentDaoTest.
  *
@@ -45,7 +48,7 @@ public class StudentRdbmsTest extends StudentBase<StudentRdbms>
      *
      * @throws InstantiationException the instantiation exception
      * @throws IllegalAccessException the illegal access exception
-     * {@link com.impetus.kundera.examples.student.StudentDao#saveStudent(com.impetus.kundera.examples.student.StudentRdbms)}
+     * {@link com.impetus.kundera.examples.student.StudentDao#saveStudent(com.impetus.kundera.examples.crud.datatype.entities.StudentRdbms)}
      * .
      */
     @SuppressWarnings("deprecation")

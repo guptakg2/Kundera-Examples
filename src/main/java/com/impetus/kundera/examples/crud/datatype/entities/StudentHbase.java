@@ -1,4 +1,4 @@
-package com.impetus.kundera.examples.crud.datatypes;
+package com.impetus.kundera.examples.crud.datatype.entities;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -12,8 +12,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "STUDENT", schema = "KunderaExamples@twissandra")
-public class StudentCassandra  implements StudentEntityDef{
+@Table(name = "STUDENT", schema = "KunderaExamples@twibase")
+public class StudentHbase  implements StudentEntityDef{
 	// Primitive Types
 	@Id
 	@Column(name = "STUDENT_ID")

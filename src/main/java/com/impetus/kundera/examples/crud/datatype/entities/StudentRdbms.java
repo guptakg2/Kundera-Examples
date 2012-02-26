@@ -1,4 +1,4 @@
-package com.impetus.kundera.examples.crud.datatypes;
+package com.impetus.kundera.examples.crud.datatype.entities;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;

@@ -17,6 +17,7 @@ package com.impetus.kundera.examples.crossdatastore.pickr.entities.photo;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -41,7 +42,7 @@ public class PhotoBi_M_M_1_1
     @Column(name = "PHOTO_DESC")
     private String photoDescription;
     
-    @OneToOne(mappedBy = "photo")
+    @OneToOne(mappedBy = "photo", fetch=FetchType.LAZY)
     private AlbumBi_M_M_1_1 album;
 
     public PhotoBi_M_M_1_1()
