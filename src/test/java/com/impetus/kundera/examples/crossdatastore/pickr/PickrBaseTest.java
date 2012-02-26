@@ -17,6 +17,7 @@ package com.impetus.kundera.examples.crossdatastore.pickr;
 
 import java.io.File;
 
+import com.impetus.kundera.PersistenceProperties;
 import com.impetus.kundera.examples.crossdatastore.pickr.dao.Pickr;
 import com.impetus.kundera.examples.crossdatastore.pickr.dao.PickrImpl;
 import com.impetus.kundera.metadata.model.KunderaMetadata;
@@ -59,7 +60,7 @@ public abstract class PickrBaseTest
     private void cleanLuceneDirectory() {
         PersistenceUnitMetadata puMetadata = KunderaMetadata.INSTANCE.getApplicationMetadata().getPersistenceUnitMetadata(pu);
         if(puMetadata != null ) {
-            String luceneDir = puMetadata.getProperty("index_home_dir");
+            String luceneDir = puMetadata.getProperty(PersistenceProperties.KUNDERA_INDEX_HOME_DIR);
             if (luceneDir != null && luceneDir.length() > 0)
             {
                 System.out.println("Cleaning up lucene folder " + luceneDir);
