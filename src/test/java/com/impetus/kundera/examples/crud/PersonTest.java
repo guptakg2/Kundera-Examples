@@ -15,11 +15,13 @@
  ******************************************************************************/
 package com.impetus.kundera.examples.crud;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 
 import junit.framework.Assert;
 
@@ -72,7 +74,7 @@ public class PersonTest extends BaseTest
     /**
      * On insert mongo.
      */
-//    @Test
+    @Test
     public void onInsertMongo()
     {
         Object p1 = prepareMongoInstance("1", 10);
@@ -93,6 +95,11 @@ public class PersonTest extends BaseTest
         assertFindByNameAndAgeBetween(em, "PersonMongo", PersonMongo.class, "vivek", "10", "15", "PERSON_NAME");
         assertFindByRange(em, "PersonMongo", PersonMongo.class, "1", "2", "PERSON_ID");
         assertFindWithoutWhereClause(em, "PersonMongo", PersonMongo.class);
+        
+        Query query = em.createNamedQuery("mongo.named.query");
+        query.setParameter("name", "vivek");
+        List<PersonMongo> results = query.getResultList();
+        Assert.assertEquals(3,results.size());
     }
 
     /**
@@ -122,7 +129,7 @@ public class PersonTest extends BaseTest
     /**
      * On insert cassandra.
      */
-    @Test
+//    @Test
     public void onInsertCassandra()
     {
         Object p1 = prepareData("1", 10);
@@ -149,7 +156,7 @@ public class PersonTest extends BaseTest
     /**
      * On merge cassandra.
      */
-    @Test
+//    @Test
     public void onMergeCassandra()
     {
         Object p1 = prepareData("1", 10);
