@@ -29,6 +29,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.impetus.kundera.examples.cli.HBaseCli;
 import com.impetus.kundera.examples.crud.entities.PersonCassandra;
 import com.impetus.kundera.examples.crud.entities.PersonHBase;
 import com.impetus.kundera.examples.crud.entities.PersonMongo;
@@ -74,7 +75,7 @@ public class PersonTest extends BaseTest
     /**
      * On insert mongo.
      */
-    @Test
+//    @Test
     public void onInsertMongo()
     {
         Object p1 = prepareMongoInstance("1", 10);
@@ -178,9 +179,12 @@ public class PersonTest extends BaseTest
         assertOnMerge(em, "PersonCassandra", PersonCassandra.class, "vivek", "newvivek", "PERSON_NAME");
     }
 
-//    @Test
-    public void onInsertHbase()
+    @Test
+    public void onInsertHbase() throws Exception
     {
+        HBaseCli.startCluster();
+        HBaseCli.createTable("KunderaExamples");
+        HBaseCli.addColumnFamily("KunderaExamples", "PERSON");
         Object p1 = prepareHbaseInstance("1", 10);
         Object p2 = prepareHbaseInstance("2", 20);
         Object p3 = prepareHbaseInstance("3", 15);
@@ -272,8 +276,6 @@ public class PersonTest extends BaseTest
         {
             em.remove(val);
         }
-        // em.remove(em.find((Class<Object>) o.get(0), "1"));
-        // em.remove(em.find((Class<Object>) o.get(0), "2"));
-        // em.remove(em.find((Class<Object>) o.get(0), "3"));
+        HBaseCli.stopCluster();
     }
 }
