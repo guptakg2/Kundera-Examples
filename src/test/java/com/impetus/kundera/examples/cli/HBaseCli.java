@@ -87,9 +87,9 @@ public class HBaseCli
             zkCluster.startup(utility.setupClusterTestBuildDir());
             utility.setZkCluster(zkCluster);
             utility.startMiniCluster();
-            System.out.println(utility.getZkCluster().getClientPort());
+//            System.out.println(utility.getZkCluster().getClientPort());
             utility.getHbaseCluster().startMaster();
-            System.out.println(utility.getHbaseCluster().getMaster().getConfiguration().get("hbase.master"));
+//            System.out.println(utility.getHbaseCluster().getMaster().getConfiguration().get("hbase.master"));
         }
         catch (Exception e)
         {
@@ -148,6 +148,7 @@ public class HBaseCli
             if (utility != null)
             {
                 utility.shutdownMiniCluster();
+                utility=null;
             }
         }
         catch (IOException e)

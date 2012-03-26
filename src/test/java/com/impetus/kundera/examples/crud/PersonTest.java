@@ -75,7 +75,7 @@ public class PersonTest extends BaseTest
     /**
      * On insert mongo.
      */
-//    @Test
+    @Test
     public void onInsertMongo()
     {
         Object p1 = prepareMongoInstance("1", 10);
@@ -106,7 +106,7 @@ public class PersonTest extends BaseTest
     /**
      * On merge mongo.
      */
-//    @Test
+    @Test
     public void onMergeMongo()
     {
         Object p1 = prepareMongoInstance("1", 10);
