@@ -15,6 +15,8 @@
  ******************************************************************************/
 package com.impetus.kundera.examples.crud;
 
+import java.nio.ByteBuffer;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -25,10 +27,21 @@ import javax.persistence.Query;
 
 import junit.framework.Assert;
 
+import org.apache.cassandra.thrift.CfDef;
+import org.apache.cassandra.thrift.ColumnDef;
+import org.apache.cassandra.thrift.IndexType;
+import org.apache.cassandra.thrift.InvalidRequestException;
+import org.apache.cassandra.thrift.KsDef;
+import org.apache.cassandra.thrift.NotFoundException;
+import org.apache.cassandra.thrift.SchemaDisagreementException;
+import org.apache.cassandra.thrift.TimedOutException;
+import org.apache.cassandra.thrift.UnavailableException;
+import org.apache.thrift.TException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.impetus.kundera.examples.cli.CassandraCli;
 import com.impetus.kundera.examples.cli.HBaseCli;
 import com.impetus.kundera.examples.crud.entities.PersonCassandra;
 import com.impetus.kundera.examples.crud.entities.PersonHBase;
@@ -96,11 +109,11 @@ public class PersonTest extends BaseTest
         assertFindByNameAndAgeBetween(em, "PersonMongo", PersonMongo.class, "vivek", "10", "15", "PERSON_NAME");
         assertFindByRange(em, "PersonMongo", PersonMongo.class, "1", "2", "PERSON_ID");
         assertFindWithoutWhereClause(em, "PersonMongo", PersonMongo.class);
-        
+
         Query query = em.createNamedQuery("mongo.named.query");
         query.setParameter("name", "vivek");
         List<PersonMongo> results = query.getResultList();
-        Assert.assertEquals(3,results.size());
+        Assert.assertEquals(3, results.size());
     }
 
     /**
@@ -130,9 +143,13 @@ public class PersonTest extends BaseTest
     /**
      * On insert cassandra.
      */
-//    @Test
-    public void onInsertCassandra()
+     @Test
+    public void onInsertCassandra() throws Exception 
     {
+//        cassandraSetUp();
+        CassandraCli.cassandraSetUp();
+        loadData();
+
         Object p1 = prepareData("1", 10);
         Object p2 = prepareData("2", 20);
         Object p3 = prepareData("3", 15);
@@ -157,9 +174,11 @@ public class PersonTest extends BaseTest
     /**
      * On merge cassandra.
      */
-//    @Test
-    public void onMergeCassandra()
+     @Test
+    public void onMergeCassandra() throws Exception
     {
+         CassandraCli.cassandraSetUp();
+         loadData();
         Object p1 = prepareData("1", 10);
         Object p2 = prepareData("2", 20);
         Object p3 = prepareData("3", 15);
@@ -218,7 +237,7 @@ public class PersonTest extends BaseTest
     // o.add(PersonHBase.class);
     // }
 
-//    @Test
+    // @Test
     public void onInsertRdbms()
     {
         Object p1 = prepareRDBMSInstance("1", 10);
@@ -277,5 +296,66 @@ public class PersonTest extends BaseTest
             em.remove(val);
         }
         HBaseCli.stopCluster();
+        CassandraCli.dropKeySpace("KunderaExamples");
+    }
+
+    /**
+     * Load cassandra specific data.
+     * @throws TException
+     * @throws InvalidRequestException
+     * @throws UnavailableException
+     * @throws TimedOutException
+     * @throws SchemaDisagreementException
+     */
+    private void loadData() throws TException, InvalidRequestException, UnavailableException, TimedOutException,
+            SchemaDisagreementException
+    {
+
+        KsDef ksDef = null;
+        CfDef user_Def = new CfDef();
+        user_Def.name = "PERSON";
+        user_Def.keyspace = "KunderaExamples";
+        user_Def.setComparator_type("UTF8Type");
+        user_Def.setDefault_validation_class("UTF8Type");
+        ColumnDef columnDef = new ColumnDef(ByteBuffer.wrap("PERSON_NAME".getBytes()), "UTF8Type");
+        columnDef.index_type = IndexType.KEYS;
+        user_Def.addToColumn_metadata(columnDef);
+        ColumnDef columnDef1 = new ColumnDef(ByteBuffer.wrap("AGE".getBytes()), "UTF8Type");
+        columnDef1.index_type = IndexType.KEYS;
+        user_Def.addToColumn_metadata(columnDef1);
+
+        List<CfDef> cfDefs = new ArrayList<CfDef>();
+        cfDefs.add(user_Def);
+
+        try
+        {
+            ksDef = CassandraCli.client.describe_keyspace("KunderaExamples");
+            CassandraCli.client.set_keyspace("KunderaExamples");
+
+            List<CfDef> cfDefn = ksDef.getCf_defs();
+
+            for (CfDef cfDef1 : cfDefn)
+            {
+
+                if (cfDef1.getName().equalsIgnoreCase("PERSONNEL"))
+                {
+
+                    CassandraCli.client.system_drop_column_family("PERSONNEL");
+
+                }
+            }
+            CassandraCli.client.system_add_column_family(user_Def);
+
+        }
+        catch (NotFoundException e)
+        {
+
+            ksDef = new KsDef("KunderaExamples", "org.apache.cassandra.locator.SimpleStrategy", cfDefs);
+            ksDef.setReplication_factor(1);
+            CassandraCli.client.system_add_keyspace(ksDef);
+        }
+
+        CassandraCli.client.set_keyspace("KunderaExamples");
+
     }
 }

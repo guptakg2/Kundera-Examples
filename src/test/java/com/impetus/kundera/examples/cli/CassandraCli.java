@@ -10,14 +10,12 @@ import org.apache.cassandra.locator.SimpleStrategy;
 import org.apache.cassandra.service.EmbeddedCassandraService;
 import org.apache.cassandra.thrift.Cassandra;
 import org.apache.cassandra.thrift.CfDef;
-import org.apache.cassandra.thrift.Compression;
 import org.apache.cassandra.thrift.InvalidRequestException;
 import org.apache.cassandra.thrift.KsDef;
 import org.apache.cassandra.thrift.NotFoundException;
 import org.apache.cassandra.thrift.SchemaDisagreementException;
 import org.apache.cassandra.thrift.TimedOutException;
 import org.apache.cassandra.thrift.UnavailableException;
-import org.apache.cassandra.utils.ByteBufferUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.thrift.TException;
@@ -39,7 +37,7 @@ public final class CassandraCli {
 	private static EmbeddedCassandraService cassandra;
 
 	/** The client. */
-	protected static Cassandra.Client client;
+	public static Cassandra.Client client;
 
 	/** the log used by this class. */
 	private static Log log = LogFactory.getLog(CassandraCli.class);
@@ -123,7 +121,10 @@ public final class CassandraCli {
         {
           try
           {
-              client.system_drop_keyspace(keyspaceName);
+              if(keyspaceExist(keyspaceName))
+              {
+                  client.system_drop_keyspace(keyspaceName);
+              }
           }
           catch (InvalidRequestException e)
           {

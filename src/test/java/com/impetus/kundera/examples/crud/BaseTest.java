@@ -15,17 +15,34 @@
  ******************************************************************************/
 package com.impetus.kundera.examples.crud;
 
+import java.io.IOException;
+import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
+import junit.framework.Assert;
+
+import org.apache.cassandra.service.EmbeddedCassandraService;
+import org.apache.cassandra.thrift.Cassandra;
+import org.apache.cassandra.thrift.InvalidRequestException;
+import org.apache.cassandra.thrift.SchemaDisagreementException;
+import org.apache.cassandra.thrift.TBinaryProtocol;
+import org.apache.cassandra.thrift.TimedOutException;
+import org.apache.cassandra.thrift.UnavailableException;
+import org.apache.thrift.TException;
+import org.apache.thrift.protocol.TProtocol;
+import org.apache.thrift.transport.TFramedTransport;
+import org.apache.thrift.transport.TSocket;
+import org.apache.thrift.transport.TTransport;
+import org.apache.thrift.transport.TTransportException;
+
 import com.impetus.kundera.examples.crud.entities.PersonCassandra;
 import com.impetus.kundera.examples.crud.entities.PersonHBase;
 import com.impetus.kundera.examples.crud.entities.PersonMongo;
 import com.impetus.kundera.examples.crud.entities.PersonRDBMS;
-
-import junit.framework.Assert;
 
 /**
  * The Class BaseTest.
@@ -35,6 +52,7 @@ import junit.framework.Assert;
 public abstract class BaseTest
 {
 
+    
     /**
      * Prepare data.
      * 
@@ -304,4 +322,5 @@ public abstract class BaseTest
         
         throw new RuntimeException("Support for " + e + "is not yet supported");
     }
+
 }

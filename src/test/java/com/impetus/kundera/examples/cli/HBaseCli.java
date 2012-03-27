@@ -24,7 +24,6 @@ import org.apache.hadoop.hbase.HBaseConfiguration;
 import org.apache.hadoop.hbase.HBaseTestingUtility;
 import org.apache.hadoop.hbase.HColumnDescriptor;
 import org.apache.hadoop.hbase.HConstants;
-import org.apache.hadoop.hbase.MiniHBaseCluster;
 import org.apache.hadoop.hbase.zookeeper.MiniZooKeeperCluster;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -87,9 +86,7 @@ public class HBaseCli
             zkCluster.startup(utility.setupClusterTestBuildDir());
             utility.setZkCluster(zkCluster);
             utility.startMiniCluster();
-//            System.out.println(utility.getZkCluster().getClientPort());
             utility.getHbaseCluster().startMaster();
-//            System.out.println(utility.getHbaseCluster().getMaster().getConfiguration().get("hbase.master"));
         }
         catch (Exception e)
         {

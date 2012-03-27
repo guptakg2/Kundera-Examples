@@ -243,6 +243,11 @@
 			<artifactId>javassist</artifactId>
 			<version>3.9.0.GA</version>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.cassandra</groupId>
+			<artifactId>cassandra-all</artifactId>
+			<version>1.0.6</version>
+		</dependency>
 
 		<!-- Cassandra Dependencies -->
 		<dependency>
@@ -268,10 +273,22 @@
 		</dependency>
 
 		<!-- HBase depndencies -->
+
+
+
 		<dependency>
 			<groupId>org.apache.hbase</groupId>
-			<artifactId>hbase-core</artifactId>
-			<version>0.20.6</version>
+			<artifactId>hbase</artifactId>
+			<version>0.90.4</version>
+			<type>test-jar</type>
+			<scope>test</scope>
+		</dependency>
+	
+	<dependency>
+			<groupId>org.apache.hadoop</groupId>
+			<artifactId> hadoop-test </artifactId>
+			<version>0.20.2</version>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.hadoop</groupId>
@@ -284,21 +301,6 @@
 			<version>3.2.2</version>
 		</dependency>
  -->
- 		<!-- Test Dependencies -->
-		<dependency>
-			<groupId>org.apache.hbase</groupId>
-			<artifactId>hbase</artifactId>
-			<version>0.90.4</version>
-			<type>test-jar</type>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.hadoop</groupId>
-			<artifactId>hadoop-test</artifactId>
-			<version>0.20.2</version>
-			<scope>test</scope>
-		</dependency>
-
 		<!-- MongoDB depndencies -->
 		<dependency>
 			<groupId>com.mongodb</groupId>
@@ -334,6 +336,12 @@
 			<groupId>me.prettyprint</groupId>
 			<artifactId>hector-core</artifactId>
 			<version>0.8.0-2</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.apache.cassandra</groupId>
+					<artifactId>cassandra-all</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<!-- Spring data dependencies -->
@@ -381,11 +389,11 @@
 			<artifactId>datanucleus-api-jpa</artifactId>
 			<version>3.0.2</version>
 		</dependency>
-<!--		<dependency>-->
-<!--			<groupId>org.datanucleus</groupId>-->
-<!--			<artifactId>datanucleus-api-jdo</artifactId>-->
-<!--			<version>3.0.2</version>-->
-<!--		</dependency>-->
+		<!-- <dependency> -->
+		<!-- <groupId>org.datanucleus</groupId> -->
+		<!-- <artifactId>datanucleus-api-jdo</artifactId> -->
+		<!-- <version>3.0.2</version> -->
+		<!-- </dependency> -->
 		<dependency>
 			<groupId>javax.jdo</groupId>
 			<artifactId>jdo-api</artifactId>
