@@ -74,7 +74,7 @@ public class OTOUniAssociationTest extends TwinAssociation
         List<Class> clazzz = new ArrayList<Class>(2);
         clazzz.add(PersonnelUni1To1FK.class);
         clazzz.add(HabitatUni1To1FK.class);
-        init(clazzz, /*"rdbms", */"twingo", "twissandra");
+        init(clazzz, /* "rdbms", */"twingo", "twissandra", "twibase");
     }
 
     /**
@@ -107,18 +107,25 @@ public class OTOUniAssociationTest extends TwinAssociation
      */
     protected void insert()
     {
-        PersonnelUni1To1FK person = new PersonnelUni1To1FK();
-        HabitatUni1To1FK address = new HabitatUni1To1FK();
-        person.setPersonId("unionetoonefk_1");
-        person.setPersonName("Amresh");
-        // person.setPersonalData(new PersonalData("www.amresh.com",
-        // "amry.ks@gmail.com", "xamry"));
-        address.setAddressId("unionetoonefk_a");
-        address.setStreet("123, New street");
-        person.setAddress(address);
-        dao.insert(person);
-        col.add(person);
-        col.add(address);
+        try
+        {
+            PersonnelUni1To1FK person = new PersonnelUni1To1FK();
+            HabitatUni1To1FK address = new HabitatUni1To1FK();
+            person.setPersonId("unionetoonefk_1");
+            person.setPersonName("Amresh");
+            // person.setPersonalData(new PersonalData("www.amresh.com",
+            // "amry.ks@gmail.com", "xamry"));
+            address.setAddressId("unionetoonefk_a");
+            address.setStreet("123, New street");
+            person.setAddress(address);
+            dao.insert(person);
+            col.add(person);
+            col.add(address);
+        }
+        catch (Exception e)
+        {
+            Assert.fail();
+        }
     }
 
     /*
@@ -131,19 +138,27 @@ public class OTOUniAssociationTest extends TwinAssociation
     protected void find()
     {
         // Find Person
-        PersonnelUni1To1FK p = (PersonnelUni1To1FK) dao.findPerson(PersonnelUni1To1FK.class, "unionetoonefk_1");
-        Assert.assertNotNull(p);
-        Assert.assertEquals("unionetoonefk_1", p.getPersonId());
-        Assert.assertEquals("Amresh", p.getPersonName());
-        // PersonalData pd = p.getPersonalData();
-        // Assert.assertNotNull(pd);
-        // Assert.assertEquals("www.amresh.com", pd.getWebsite());
+        try
+        {
+            PersonnelUni1To1FK p = (PersonnelUni1To1FK) dao.findPerson(PersonnelUni1To1FK.class, "unionetoonefk_1");
+            Assert.assertNotNull(p);
+            Assert.assertEquals("unionetoonefk_1", p.getPersonId());
+            Assert.assertEquals("Amresh", p.getPersonName());
+            // PersonalData pd = p.getPersonalData();
+            // Assert.assertNotNull(pd);
+            // Assert.assertEquals("www.amresh.com", pd.getWebsite());
 
-        HabitatUni1To1FK add = p.getAddress();
-        Assert.assertNotNull(add);
-        Assert.assertNotNull(add.getAddressId());
-        Assert.assertEquals("unionetoonefk_a", add.getAddressId());
-        Assert.assertEquals("123, New street", add.getStreet());
+            HabitatUni1To1FK add = p.getAddress();
+            Assert.assertNotNull(add);
+            Assert.assertNotNull(add.getAddressId());
+            Assert.assertEquals("unionetoonefk_a", add.getAddressId());
+            Assert.assertEquals("123, New street", add.getStreet());
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            Assert.fail();
+        }
     }
 
     /**

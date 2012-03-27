@@ -34,6 +34,7 @@ import org.apache.thrift.TException;
 
 import com.impetus.kundera.PersistenceProperties;
 import com.impetus.kundera.examples.cli.CassandraCli;
+import com.impetus.kundera.examples.cli.HBaseCli;
 import com.impetus.kundera.examples.crossdatastore.useraddress.dao.UserAddressDaoImpl;
 import com.impetus.kundera.metadata.model.EntityMetadata;
 import com.impetus.kundera.metadata.model.KunderaMetadata;
@@ -152,6 +153,17 @@ public abstract class AssociationBase
                     {
                         loadDataForPERSONNEL();
                     }
+                } else if(client.equalsIgnoreCase("hbase"))
+                {
+                    if(!HBaseCli.isStarted())
+                    {
+                        String tableName = puMetadata.getProperties().getProperty(
+                                PersistenceProperties.KUNDERA_KEYSPACE);
+                        HBaseCli.startCluster();
+                        HBaseCli.createTable(tableName);
+                        HBaseCli.addColumnFamily(tableName, "ADDRESS");
+                        HBaseCli.addColumnFamily(tableName, "PERSONNEL");
+                    }
                 }
 
                 String schema = puMetadata.getProperty(PersistenceProperties.KUNDERA_KEYSPACE);
@@ -182,6 +194,7 @@ public abstract class AssociationBase
         }
         truncateSchema();
         dao.closeEntityManagerFactory();
+        HBaseCli.stopCluster();
 
     }
 
