@@ -32,7 +32,7 @@ import com.impetus.kundera.examples.perf.dto.UserMongoDTO;
 // @RunWith(ConcurrentRunner.class)
 // @Concurrent(threads=40000)
 // @Repeat(times=40000)
-public class UserDaoTest extends TestCase {
+public class UserDaoTest /*extends TestCase */{
 	UserDao userDao;
 	List<UserMongoDTO> users = new ArrayList<UserMongoDTO>();;
 

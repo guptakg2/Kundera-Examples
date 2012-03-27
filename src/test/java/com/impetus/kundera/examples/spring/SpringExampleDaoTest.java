@@ -25,6 +25,8 @@ import org.junit.Test;
 import org.springframework.beans.factory.xml.XmlBeanFactory;
 import org.springframework.core.io.ClassPathResource;
 
+import com.impetus.kundera.examples.cli.CassandraCli;
+
 /**
  * @author amresh.singh
  *
@@ -39,6 +41,9 @@ public class SpringExampleDaoTest
     @Before
     public void setUp() throws Exception
     {
+        CassandraCli.cassandraSetUp();
+        CassandraCli.createKeySpace("KunderaExamples");
+        CassandraCli.columnFamilyExist("SIMPLE_COMMENT", "KunderaExamples");
         XmlBeanFactory beanFactory = new XmlBeanFactory(new ClassPathResource("applicationContext.xml"));
 
         dao = (SpringExampleDao) beanFactory.getBean("springExampleDao");      
@@ -52,6 +57,7 @@ public class SpringExampleDaoTest
     public void tearDown() throws Exception
     {
         dao = null;
+        CassandraCli.dropKeySpace("KunderaExamples");
     }
     
     @Test
@@ -68,6 +74,7 @@ public class SpringExampleDaoTest
     @Test
     public void testGetCommentById()
     {
+        dao.addComment(1, "xamry", "No comment!");
         SimpleComment comment = dao.getCommentById("1");
         
         assertNotNull(comment);
