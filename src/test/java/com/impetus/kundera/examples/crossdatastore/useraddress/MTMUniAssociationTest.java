@@ -53,8 +53,9 @@ public class MTMUniAssociationTest extends TwinAssociation
      * Inits the.
      */
     @BeforeClass
-    public static void init()
+    public static void init() throws Exception
     {
+        CassandraCli.cassandraSetUp();        
         List<Class> clazzz = new ArrayList<Class>(2);
         clazzz.add(PersonnelUniMToM.class);
         clazzz.add(HabitatUniMToM.class);
@@ -191,6 +192,7 @@ public class MTMUniAssociationTest extends TwinAssociation
     {
 
         tearDownInternal();
+        CassandraCli.dropKeySpace("KunderaExamples");
     }
 
     @Override

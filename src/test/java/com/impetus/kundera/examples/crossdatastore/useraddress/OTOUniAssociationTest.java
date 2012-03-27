@@ -68,12 +68,13 @@ public class OTOUniAssociationTest extends TwinAssociation
      * Inits the.
      */
     @BeforeClass
-    public static void init()
+    public static void init() throws Exception
     {
+        CassandraCli.cassandraSetUp();
         List<Class> clazzz = new ArrayList<Class>(2);
         clazzz.add(PersonnelUni1To1FK.class);
         clazzz.add(HabitatUni1To1FK.class);
-        init(clazzz, "rdbms", "twingo", "twissandra");
+        init(clazzz, /*"rdbms", */"twingo", "twissandra");
     }
 
     /**
@@ -164,6 +165,7 @@ public class OTOUniAssociationTest extends TwinAssociation
     public void tearDown() throws Exception
     {
         tearDownInternal();
+        CassandraCli.dropKeySpace("KunderaExamples");
     }
 
     @Override

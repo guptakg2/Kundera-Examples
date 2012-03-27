@@ -23,21 +23,25 @@ import org.junit.Test;
 
 import com.impetus.kundera.examples.cli.CassandraCli;
 import com.impetus.kundera.examples.crossdatastore.useraddress.entities.HabitatBi1To1FK;
+import com.impetus.kundera.examples.crossdatastore.useraddress.entities.HabitatUni1To1FK;
 import com.impetus.kundera.examples.crossdatastore.useraddress.entities.PersonalData;
 import com.impetus.kundera.examples.crossdatastore.useraddress.entities.PersonnelBi1To1FK;
+import com.impetus.kundera.examples.crossdatastore.useraddress.entities.PersonnelUni1To1FK;
 
 public class OTOBiAssociationTest extends TwinAssociation
 {
+
     /**
      * Inits the.
      */
     @BeforeClass
-    public static void init()
+    public static void init() throws Exception
     {
+        CassandraCli.cassandraSetUp();
         List<Class> clazzz = new ArrayList<Class>(2);
         clazzz.add(PersonnelBi1To1FK.class);
         clazzz.add(HabitatBi1To1FK.class);
-        init(clazzz, "twingo", "twissandra", "twibase");
+        init(clazzz, "twingo", "twissandra");
     }
 
     /**
@@ -123,7 +127,9 @@ public class OTOBiAssociationTest extends TwinAssociation
     public void tearDown() throws Exception
     {
         tearDownInternal();
+        CassandraCli.dropKeySpace("KunderaExamples");
     }
+
 
     @Override
     protected void loadDataForPERSONNEL() throws TException, InvalidRequestException, UnavailableException,

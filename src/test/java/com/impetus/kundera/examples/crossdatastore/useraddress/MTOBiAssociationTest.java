@@ -35,12 +35,13 @@ public class MTOBiAssociationTest extends TwinAssociation
      * Inits the.
      */
     @BeforeClass
-    public static void init()
+    public static void init() throws Exception
     {
+        CassandraCli.cassandraSetUp();
         List<Class> clazzz = new ArrayList<Class>(2);
         clazzz.add(PersonnelBiMTo1.class);
         clazzz.add(HabitatBiMTo1.class);
-        init(clazzz, "twingo", "twissandra", "twibase");
+        init(clazzz, "twingo", "twissandra"/*, "twibase"*/);
     }
 
     /**
@@ -155,6 +156,7 @@ public class MTOBiAssociationTest extends TwinAssociation
     public void tearDown() throws Exception
     {
         tearDownInternal();
+        CassandraCli.dropKeySpace("KunderaExamples");
     }
 
     @Override
