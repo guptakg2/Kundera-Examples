@@ -72,13 +72,19 @@ public abstract class TwinAssociation extends AssociationBase
     /**
      * Try operation.
      */
-    protected void tryOperation()
+    protected void tryOperation() 
     {
+        try
+        {
         for (Map<Class, String> c : combinations)
         {
             switchPersistenceUnits(c);
             insert();
             find();
+        }
+        } catch(Exception e)
+        {
+            log.error(e);
         }
     }
 
