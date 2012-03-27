@@ -145,7 +145,11 @@ public final class CassandraCli {
         {
             try
             {
-                return client.describe_keyspace(keySpaceName)!=null;
+                if(client != null)
+                {
+                    return client.describe_keyspace(keySpaceName)!=null;
+                }
+                return false;
             }
             catch (NotFoundException e)
             {
