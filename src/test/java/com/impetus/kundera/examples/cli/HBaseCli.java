@@ -24,6 +24,7 @@ import org.apache.hadoop.hbase.HBaseConfiguration;
 import org.apache.hadoop.hbase.HBaseTestingUtility;
 import org.apache.hadoop.hbase.HColumnDescriptor;
 import org.apache.hadoop.hbase.HConstants;
+import org.apache.hadoop.hbase.InvalidFamilyOperationException;
 import org.apache.hadoop.hbase.zookeeper.MiniZooKeeperCluster;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,7 +35,7 @@ import org.slf4j.LoggerFactory;
  * @author vivek.mishra
  * 
  */
-public class HBaseCli
+public final class HBaseCli
 {
 
     /** The Constant logger. */
@@ -42,6 +43,8 @@ public class HBaseCli
 
     /** The utility. */
     private static HBaseTestingUtility utility;
+
+    private static Boolean isStarted = false;
 
     /**
      * The main method.
@@ -59,39 +62,43 @@ public class HBaseCli
      */
     public static void startCluster()
     {
-        File workingDirectory = new File("./");
-        Configuration conf = new Configuration();
-        System.setProperty("test.build.data", workingDirectory.getAbsolutePath());
-        conf.set("test.build.data", new File(workingDirectory, "zookeeper").getAbsolutePath());
-        conf.set("fs.default.name", "file:///");
-        conf.set("zookeeper.session.timeout", "180000");
-        conf.set("hbase.zookeeper.peerport", "2888");
-        conf.set("hbase.zookeeper.property.clientPort", "2181");
-        try
+        if (!isStarted)
         {
-            conf.set(HConstants.HBASE_DIR, new File(workingDirectory, "hbase").toURI().toURL().toString());
-        }
-        catch (MalformedURLException e1)
-        {
-            logger.error(e1.getMessage());
-        }
+            File workingDirectory = new File("./");
+            Configuration conf = new Configuration();
+            System.setProperty("test.build.data", workingDirectory.getAbsolutePath());
+            conf.set("test.build.data", new File(workingDirectory, "zookeeper").getAbsolutePath());
+            conf.set("fs.default.name", "file:///");
+            conf.set("zookeeper.session.timeout", "180000");
+            conf.set("hbase.zookeeper.peerport", "2888");
+            conf.set("hbase.zookeeper.property.clientPort", "2181");
+            try
+            {
+                conf.set(HConstants.HBASE_DIR, new File(workingDirectory, "hbase").toURI().toURL().toString());
+            }
+            catch (MalformedURLException e1)
+            {
+                logger.error(e1.getMessage());
+            }
 
-        Configuration hbaseConf = HBaseConfiguration.create(conf);
-        utility = new HBaseTestingUtility(hbaseConf);
-        try
-        {
-            MiniZooKeeperCluster zkCluster = new MiniZooKeeperCluster(conf);
-            zkCluster.setClientPort(2181);
-            zkCluster.setTickTime(18000);
-            zkCluster.startup(utility.setupClusterTestBuildDir());
-            utility.setZkCluster(zkCluster);
-            utility.startMiniCluster();
-            utility.getHbaseCluster().startMaster();
-        }
-        catch (Exception e)
-        {
-            logger.error(e.getMessage());
-            throw new RuntimeException(e);
+            Configuration hbaseConf = HBaseConfiguration.create(conf);
+            utility = new HBaseTestingUtility(hbaseConf);
+            try
+            {
+                MiniZooKeeperCluster zkCluster = new MiniZooKeeperCluster(conf);
+                zkCluster.setClientPort(2181);
+                zkCluster.setTickTime(18000);
+                zkCluster.startup(utility.setupClusterTestBuildDir());
+                utility.setZkCluster(zkCluster);
+                utility.startMiniCluster();
+                utility.getHbaseCluster().startMaster();
+            }
+            catch (Exception e)
+            {
+                logger.error(e.getMessage());
+                throw new RuntimeException(e);
+            }
+            isStarted = true;
         }
     }
 
@@ -105,7 +112,14 @@ public class HBaseCli
     {
         try
         {
-            utility.createTable(tableName.getBytes(), tableName.getBytes());
+            if (!utility.getHBaseAdmin().tableExists(tableName))
+            {
+                utility.createTable(tableName.getBytes(), tableName.getBytes());
+            }
+            else
+            {
+                logger.info("Table:" + tableName + " already exist:");
+            }
         }
         catch (IOException e)
         {
@@ -129,6 +143,10 @@ public class HBaseCli
             utility.getHBaseAdmin().addColumn(tableName, new HColumnDescriptor(columnFamily));
             utility.getHBaseAdmin().enableTable(tableName);
         }
+        catch (InvalidFamilyOperationException ife)
+        {
+            logger.info("Column family:" + columnFamily + " already exist!");
+        }
         catch (IOException e)
         {
             logger.error(e.getMessage());
@@ -145,7 +163,7 @@ public class HBaseCli
             if (utility != null)
             {
                 utility.shutdownMiniCluster();
-                utility=null;
+                utility = null;
             }
         }
         catch (IOException e)
@@ -176,4 +194,8 @@ public class HBaseCli
          */
     }
 
+    public static boolean isStarted()
+    {
+        return isStarted;
+    }
 }
