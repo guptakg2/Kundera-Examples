@@ -84,54 +84,45 @@ public class TwitterTestSuite extends TestCase
      */
     protected void executeTestSuite()
     {
-        /*addUsers();
-        addTweets();
-        savePreference();
-        addExternalLinks();        
-        user1FollowsUser2();
-        getAllTweets();*/
-    	
-    	addAllUserInfo();
-    	getAllUsers();
-    	getAllTweets();
-    }
-    
-    
-    
-    
-    
-    protected void addAllUserInfo() {
-    	User user1 = new User(userId1, "Amresh", "password1", "married");
-    	
-    	user1.setPreference(new Preference("Motif", "2"));
-    	
-    	user1.addExternalLink(new ExternalLink("Facebook", "http://facebook.com/coolnerd"));
-    	user1.addExternalLink(new ExternalLink("LinkedIn", "http://linkedin.com/in/devilmate"));
-    	
-    	user1.addTweet(new Tweet("Here is my first tweet", "Web"));
-    	user1.addTweet(new Tweet("Second Tweet from me", "Mobile"));
-    	
-    	
-    	
-    	User user2 = new User(userId2, "Saurabh", "password2", "single");
-    	
-    	user2.setPreference(new Preference("High Contrast", "3"));
-    	
-    	user2.addExternalLink(new ExternalLink("GooglePlus", "http://plus.google.com/inviteme"));
-    	user2.addExternalLink(new ExternalLink("Yahoo", "http://yahoo.com/profiles/itsmeamry"));
+        /*
+         * addUsers(); addTweets(); savePreference(); addExternalLinks();
+         * user1FollowsUser2(); getAllTweets();
+         */
 
-    	user2.addTweet(new Tweet("Saurabh tweets for the first time", "Phone"));
-    	user2.addTweet(new Tweet("Another tweet from Saurabh", "text"));
-    	
-    	
-    	twitter.addUser(user1);
-    	twitter.addUser(user2);
+        // addAllUserInfo();
+        // getUserById();
+        removeUser();
+        // getAllUsers();
+        // getAllTweets();
+    }
+
+    protected void addAllUserInfo()
+    {
+        User user1 = buildUser1();
+        User user2 = buildUser2();
+
+        twitter.addUser(user1);
+        twitter.addUser(user2);
+    }
+
+    protected void getUserById()
+    {
+        User user1 = twitter.findUserById(userId1);
+        System.out.println(user1);
+        User user2 = twitter.findUserById(userId2);
+        System.out.println(user2);
     }
     
-    
-    protected void getAllUsers() {
-    	List<User> users = twitter.getAllUsers();
-    	System.out.println(users);
+    protected void removeUser() {
+        User user1 = twitter.findUserById(userId2);
+        twitter.removeUser(user1);
+        System.out.println("Removed");
+    }
+
+    protected void getAllUsers()
+    {
+        List<User> users = twitter.getAllUsers();
+        System.out.println(users);
     }
 
     /**
@@ -224,5 +215,39 @@ public class TwitterTestSuite extends TestCase
 
         assertNull(follower1);
         assertNotNull(follower2);
+    }
+
+    /**
+     * @return
+     */
+    private User buildUser2()
+    {
+        User user2 = new User(userId2, "Saurabh", "password2", "single");
+
+        user2.setPreference(new Preference("High Contrast", "3"));
+
+        user2.addExternalLink(new ExternalLink("GooglePlus", "http://plus.google.com/inviteme"));
+        user2.addExternalLink(new ExternalLink("Yahoo", "http://yahoo.com/profiles/itsmeamry"));
+
+        user2.addTweet(new Tweet("Saurabh tweets for the first time", "Phone"));
+        user2.addTweet(new Tweet("Another tweet from Saurabh", "text"));
+        return user2;
+    }
+
+    /**
+     * @return
+     */
+    private User buildUser1()
+    {
+        User user1 = new User(userId1, "Amresh", "password1", "married");
+
+        user1.setPreference(new Preference("Motif", "2"));
+
+        user1.addExternalLink(new ExternalLink("Facebook", "http://facebook.com/coolnerd"));
+        user1.addExternalLink(new ExternalLink("LinkedIn", "http://linkedin.com/in/devilmate"));
+
+        user1.addTweet(new Tweet("Here is my first tweet", "Web"));
+        user1.addTweet(new Tweet("Second Tweet from me", "Mobile"));
+        return user1;
     }
 }

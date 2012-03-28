@@ -85,13 +85,17 @@ public interface Twitter
      */
     void addFollower(String userId, String followerUserId);
 
+    User findUserById(String userId);
+    
+    void removeUser(User user);
+    
     /**
      * Retrieves all tweets for a given user
      * 
      * @param userId
      *            the user id
      * @return the all tweets
-     */
+     */   
     List<User> getAllUsers();
     	
     

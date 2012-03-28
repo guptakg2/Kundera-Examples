@@ -138,6 +138,25 @@ public class TwitterService extends SuperDao implements Twitter
     
 
     @Override
+    public User findUserById(String userId)
+    {
+        em = emf.createEntityManager();
+        User user = em.find(User.class, userId);
+        em.close();
+        return user;
+    }
+    
+    
+
+    @Override
+    public void removeUser(User user)
+    {
+        em = emf.createEntityManager();
+        em.remove(user);
+        em.close();        
+    }
+
+    @Override
 	public List<User> getAllUsers() {
     	em = emf.createEntityManager();
         Query q = em.createQuery("select u from User u");
