@@ -35,6 +35,7 @@ public class TwissandraTest extends CassandraQuerySuite
     @Override
     protected void setUp() throws Exception
     {
+       
         setUpInternal("twissandra");
     }
 

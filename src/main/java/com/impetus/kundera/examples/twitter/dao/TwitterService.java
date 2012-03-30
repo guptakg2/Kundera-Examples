@@ -87,11 +87,11 @@ public class TwitterService extends SuperDao implements Twitter
     }
 
     @Override
-    public void addExternalLink(String userId, String linkType, String linkAddress)
+    public void addExternalLink(String userId, String linkId, String linkType, String linkAddress)
     {
         em = emf.createEntityManager();
         User user = em.find(User.class, userId);
-        user.addExternalLink(new ExternalLink(linkType, linkAddress));
+        user.addExternalLink(new ExternalLink(linkId, linkType, linkAddress));
 
         em.persist(user);
         em.close();
@@ -154,6 +154,15 @@ public class TwitterService extends SuperDao implements Twitter
         em = emf.createEntityManager();
         em.remove(user);
         em.close();        
+    } 
+    
+
+    @Override
+    public void mergeUser(User user)
+    {
+        em = emf.createEntityManager();
+        em.merge(user);
+        em.close();
     }
 
     @Override

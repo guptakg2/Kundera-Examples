@@ -22,6 +22,7 @@ import junit.framework.TestCase;
 import com.impetus.kundera.examples.twitter.dao.Twitter;
 import com.impetus.kundera.examples.twitter.dao.TwitterService;
 import com.impetus.kundera.examples.twitter.entities.ExternalLink;
+import com.impetus.kundera.examples.twitter.entities.PersonalDetail;
 import com.impetus.kundera.examples.twitter.entities.Preference;
 import com.impetus.kundera.examples.twitter.entities.Tweet;
 import com.impetus.kundera.examples.twitter.entities.User;
@@ -89,9 +90,10 @@ public class TwitterTestSuite extends TestCase
          * user1FollowsUser2(); getAllTweets();
          */
 
-        // addAllUserInfo();
-        // getUserById();
-        removeUser();
+         //addAllUserInfo();
+         getUserById();
+        //mergeUser();
+        //removeUser();
         // getAllUsers();
         // getAllTweets();
     }
@@ -118,6 +120,16 @@ public class TwitterTestSuite extends TestCase
         twitter.removeUser(user1);
         System.out.println("Removed");
     }
+    
+    protected void mergeUser() {
+        User user1 = twitter.findUserById(userId1);
+        
+        //EM is closed now, so all entities should be in detached state
+        user1.setPersonalDetail(new PersonalDetail("Vivek", "sdgfsdfsdfd", "Married"));
+        twitter.mergeUser(user1);
+    }
+    
+    
 
     protected void getAllUsers()
     {
@@ -139,8 +151,8 @@ public class TwitterTestSuite extends TestCase
      */
     protected void savePreference()
     {
-        twitter.savePreference(userId1, new Preference("Motif", "2"));
-        twitter.savePreference(userId2, new Preference("High Contrast", "3"));
+        twitter.savePreference(userId1, new Preference("P1", "Motif", "2"));
+        twitter.savePreference(userId2, new Preference("P2", "High Contrast", "3"));
     }
 
     /**
@@ -148,11 +160,11 @@ public class TwitterTestSuite extends TestCase
      */
     protected void addExternalLinks()
     {
-        twitter.addExternalLink(userId1, "Facebook", "http://facebook.com/coolnerd");
-        twitter.addExternalLink(userId1, "LinkedIn", "http://linkedin.com/in/devilmate");
+        twitter.addExternalLink(userId1, "L1", "Facebook", "http://facebook.com/coolnerd");
+        twitter.addExternalLink(userId1, "L2", "LinkedIn", "http://linkedin.com/in/devilmate");
 
-        twitter.addExternalLink(userId2, "GooglePlus", "http://plus.google.com/inviteme");
-        twitter.addExternalLink(userId2, "Yahoo", "http://yahoo.com/profiles/itsmeamry");
+        twitter.addExternalLink(userId2, "L3", "GooglePlus", "http://plus.google.com/inviteme");
+        twitter.addExternalLink(userId2, "L4", "Yahoo", "http://yahoo.com/profiles/itsmeamry");
     }
 
     /**
@@ -224,10 +236,10 @@ public class TwitterTestSuite extends TestCase
     {
         User user2 = new User(userId2, "Saurabh", "password2", "single");
 
-        user2.setPreference(new Preference("High Contrast", "3"));
+        user2.setPreference(new Preference("P2", "High Contrast", "3"));
 
-        user2.addExternalLink(new ExternalLink("GooglePlus", "http://plus.google.com/inviteme"));
-        user2.addExternalLink(new ExternalLink("Yahoo", "http://yahoo.com/profiles/itsmeamry"));
+        user2.addExternalLink(new ExternalLink("L3", "GooglePlus", "http://plus.google.com/inviteme"));
+        user2.addExternalLink(new ExternalLink("L4", "Yahoo", "http://yahoo.com/profiles/itsmeamry"));
 
         user2.addTweet(new Tweet("Saurabh tweets for the first time", "Phone"));
         user2.addTweet(new Tweet("Another tweet from Saurabh", "text"));
@@ -241,10 +253,10 @@ public class TwitterTestSuite extends TestCase
     {
         User user1 = new User(userId1, "Amresh", "password1", "married");
 
-        user1.setPreference(new Preference("Motif", "2"));
+        user1.setPreference(new Preference("P1", "Motif", "2"));
 
-        user1.addExternalLink(new ExternalLink("Facebook", "http://facebook.com/coolnerd"));
-        user1.addExternalLink(new ExternalLink("LinkedIn", "http://linkedin.com/in/devilmate"));
+        user1.addExternalLink(new ExternalLink("L1", "Facebook", "http://facebook.com/coolnerd"));
+        user1.addExternalLink(new ExternalLink("L2", "LinkedIn", "http://linkedin.com/in/devilmate"));
 
         user1.addTweet(new Tweet("Here is my first tweet", "Web"));
         user1.addTweet(new Tweet("Second Tweet from me", "Mobile"));

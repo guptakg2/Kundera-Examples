@@ -20,8 +20,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import com.impetus.kundera.examples.twitter.utils.ExampleUtils;
-
 /**
  * Entity class for User Preferences
  * 
@@ -47,9 +45,9 @@ public class Preference
 
     }
 
-    public Preference(String theme, String privacyLevel)
+    public Preference(String preferenceId, String theme, String privacyLevel)
     {
-        this.preferenceId = ExampleUtils.getUniqueId();
+        this.preferenceId = preferenceId;
         this.websiteTheme = theme;
         this.privacyLevel = privacyLevel;
     }
