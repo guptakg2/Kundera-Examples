@@ -91,9 +91,9 @@ public class TwitterTestSuite extends TestCase
          */
 
          //addAllUserInfo();
-         getUserById();
+         //getUserById();
         //mergeUser();
-        //removeUser();
+        removeUser();
         // getAllUsers();
         // getAllTweets();
     }
@@ -103,38 +103,55 @@ public class TwitterTestSuite extends TestCase
         User user1 = buildUser1();
         User user2 = buildUser2();
 
+        twitter.createEntityManager();
         twitter.addUser(user1);
+        twitter.closeEntityManager();
+        
+        twitter.createEntityManager();
         twitter.addUser(user2);
+        twitter.closeEntityManager();
     }
 
     protected void getUserById()
     {
+        twitter.createEntityManager();
         User user1 = twitter.findUserById(userId1);
         System.out.println(user1);
         User user2 = twitter.findUserById(userId2);
+        twitter.closeEntityManager();
         System.out.println(user2);
     }
     
     protected void removeUser() {
-        User user1 = twitter.findUserById(userId2);
+        twitter.createEntityManager();
+        User user1 = twitter.findUserById(userId1);
+        
+        
         twitter.removeUser(user1);
+        twitter.closeEntityManager();
         System.out.println("Removed");
     }
     
     protected void mergeUser() {
+        twitter.createEntityManager();
         User user1 = twitter.findUserById(userId1);
+        twitter.closeEntityManager();
         
         //EM is closed now, so all entities should be in detached state
-        user1.setPersonalDetail(new PersonalDetail("Vivek", "sdgfsdfsdfd", "Married"));
+        twitter.createEntityManager();
+        user1.setPersonalDetail(new PersonalDetail("Vivek2", "sdgfsdfsdfd", "Married"));
         twitter.mergeUser(user1);
+        twitter.closeEntityManager();
     }
     
     
 
     protected void getAllUsers()
     {
+        twitter.createEntityManager();
         List<User> users = twitter.getAllUsers();
         System.out.println(users);
+        twitter.closeEntityManager();
     }
 
     /**
@@ -142,8 +159,13 @@ public class TwitterTestSuite extends TestCase
      */
     protected void addUsers()
     {
+        twitter.createEntityManager();
         twitter.addUser(userId1, "Amresh", "password1", "married");
+        twitter.closeEntityManager();
+        
+        twitter.createEntityManager();
         twitter.addUser(userId2, "Saurabh", "password2", "single");
+        twitter.closeEntityManager();
     }
 
     /**
@@ -151,8 +173,13 @@ public class TwitterTestSuite extends TestCase
      */
     protected void savePreference()
     {
+        twitter.createEntityManager();
         twitter.savePreference(userId1, new Preference("P1", "Motif", "2"));
+        twitter.closeEntityManager();
+        
+        twitter.createEntityManager();
         twitter.savePreference(userId2, new Preference("P2", "High Contrast", "3"));
+        twitter.closeEntityManager();
     }
 
     /**
@@ -160,11 +187,21 @@ public class TwitterTestSuite extends TestCase
      */
     protected void addExternalLinks()
     {
+        twitter.createEntityManager();
         twitter.addExternalLink(userId1, "L1", "Facebook", "http://facebook.com/coolnerd");
+        twitter.closeEntityManager();
+        
+        twitter.createEntityManager();
         twitter.addExternalLink(userId1, "L2", "LinkedIn", "http://linkedin.com/in/devilmate");
-
+        twitter.closeEntityManager();
+        
+        twitter.createEntityManager();
         twitter.addExternalLink(userId2, "L3", "GooglePlus", "http://plus.google.com/inviteme");
+        twitter.closeEntityManager();
+        
+        twitter.createEntityManager();
         twitter.addExternalLink(userId2, "L4", "Yahoo", "http://yahoo.com/profiles/itsmeamry");
+        twitter.closeEntityManager();
     }
 
     /**
@@ -172,11 +209,21 @@ public class TwitterTestSuite extends TestCase
      */
     protected void addTweets()
     {
+        twitter.createEntityManager();
         twitter.addTweet(userId1, "Here is my first tweet", "Web");
+        twitter.closeEntityManager();
+        
+        twitter.createEntityManager();
         twitter.addTweet(userId1, "Second Tweet from me", "Mobile");
-
+        twitter.closeEntityManager();
+        
+        twitter.createEntityManager();
         twitter.addTweet(userId2, "Saurabh tweets for the first time", "Phone");
+        twitter.closeEntityManager();
+        
+        twitter.createEntityManager();
         twitter.addTweet(userId2, "Another tweet from Saurabh", "text");
+        twitter.closeEntityManager();
     }
 
     /**
@@ -184,7 +231,9 @@ public class TwitterTestSuite extends TestCase
      */
     protected void user1FollowsUser2()
     {
+        twitter.createEntityManager();
         twitter.startFollowing(userId1, userId2);
+        twitter.closeEntityManager();
     }
 
     /**
@@ -192,7 +241,9 @@ public class TwitterTestSuite extends TestCase
      */
     protected void user1AddsUser2AsFollower()
     {
+        twitter.createEntityManager();
         twitter.addFollower(userId1, userId2);
+        twitter.closeEntityManager();
     }
 
     /**
@@ -202,8 +253,13 @@ public class TwitterTestSuite extends TestCase
      */
     protected void getAllTweets()
     {
+        twitter.createEntityManager();
         List<Tweet> tweetsUser1 = twitter.getAllTweets(userId1);
+        twitter.closeEntityManager();
+        
+        twitter.createEntityManager();
         List<Tweet> tweetsUser2 = twitter.getAllTweets(userId2);
+        twitter.closeEntityManager();
 
         assertNotNull(tweetsUser1);
         assertNotNull(tweetsUser2);
@@ -222,8 +278,13 @@ public class TwitterTestSuite extends TestCase
      */
     protected void getAllFollowers()
     {
+        twitter.createEntityManager();
         List<User> follower1 = twitter.getFollowers(userId1);
+        twitter.closeEntityManager();
+        
+        twitter.createEntityManager();
         List<User> follower2 = twitter.getFollowers(userId2);
+        twitter.closeEntityManager();
 
         assertNull(follower1);
         assertNotNull(follower2);

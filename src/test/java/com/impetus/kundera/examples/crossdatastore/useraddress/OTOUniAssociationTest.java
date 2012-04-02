@@ -62,7 +62,7 @@ import com.impetus.kundera.examples.crossdatastore.useraddress.entities.Personne
  */
 
 public class OTOUniAssociationTest extends TwinAssociation
-{
+{  
 
     /**
      * Inits the.
@@ -70,11 +70,14 @@ public class OTOUniAssociationTest extends TwinAssociation
     @BeforeClass
     public static void init() throws Exception
     {
-        CassandraCli.cassandraSetUp();
+        if(RUN_IN_EMBEDDED_MODE) {
+            CassandraCli.cassandraSetUp();
+        }        
+        
         List<Class> clazzz = new ArrayList<Class>(2);
         clazzz.add(PersonnelUni1To1FK.class);
         clazzz.add(HabitatUni1To1FK.class);
-        init(clazzz, /* "rdbms", */"twingo", "twissandra", "twibase");
+        init(clazzz, ALL_PUs_UNDER_TEST);
     }
 
     /**
@@ -95,7 +98,14 @@ public class OTOUniAssociationTest extends TwinAssociation
     @Test
     public void testInsert()
     {
-        tryOperation();
+        try {
+            tryOperation();
+        } catch(Exception e) {
+            e.printStackTrace();
+            Assert.fail(e.getMessage());
+            
+        }
+        
     }
 
     /*
@@ -160,6 +170,45 @@ public class OTOUniAssociationTest extends TwinAssociation
             Assert.fail();
         }
     }
+    
+    protected void update()
+    {        
+        try
+        {
+            for(Object entity : col) {
+                if(entity.getClass().equals(PersonnelUni1To1FK.class)) {
+                    PersonnelUni1To1FK personnel = (PersonnelUni1To1FK) entity;
+                    personnel.setPersonName("Saurabh");
+                    dao.merge(personnel);
+                } else if(entity.getClass().equals(HabitatUni1To1FK.class)) {
+                    HabitatUni1To1FK address = (HabitatUni1To1FK) entity;
+                    address.setStreet("Brand new street");
+                    dao.merge(address);
+                }
+            }
+            
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            Assert.fail();
+        }
+    }
+    
+    protected void remove()
+    {        
+        try
+        {
+            
+            PersonnelUni1To1FK p = (PersonnelUni1To1FK) dao.findPerson(PersonnelUni1To1FK.class, "unionetoonefk_1");
+            dao.removePerson(p);          
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            Assert.fail();
+        }
+    }
 
     /**
      * Test merge.
@@ -180,7 +229,11 @@ public class OTOUniAssociationTest extends TwinAssociation
     public void tearDown() throws Exception
     {
         tearDownInternal();
-        CassandraCli.dropKeySpace("KunderaExamples");
+        
+        if(AUTO_MANAGE_SCHEMA) {
+            CassandraCli.dropKeySpace("KunderaExamples");
+        }
+        
     }
 
     @Override

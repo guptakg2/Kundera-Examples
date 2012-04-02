@@ -55,11 +55,13 @@ public class MTMUniAssociationTest extends TwinAssociation
     @BeforeClass
     public static void init() throws Exception
     {
-        CassandraCli.cassandraSetUp();        
+        if(RUN_IN_EMBEDDED_MODE) {
+            CassandraCli.cassandraSetUp();
+        }        
         List<Class> clazzz = new ArrayList<Class>(2);
         clazzz.add(PersonnelUniMToM.class);
         clazzz.add(HabitatUniMToM.class);
-        init(clazzz, "twingo", "twissandra"/* , "twibase" */);
+        init(clazzz, ALL_PUs_UNDER_TEST);
     }
 
     /**
@@ -171,6 +173,18 @@ public class MTMUniAssociationTest extends TwinAssociation
         col.add(address2);
         col.add(address3);
     }
+    
+    
+
+    @Override
+    protected void update()
+    {
+    }
+
+    @Override
+    protected void remove()
+    {
+    }
 
     /**
      * Test merge.
@@ -192,7 +206,9 @@ public class MTMUniAssociationTest extends TwinAssociation
     {
 
         tearDownInternal();
-        CassandraCli.dropKeySpace("KunderaExamples");
+        if(AUTO_MANAGE_SCHEMA) {
+            CassandraCli.dropKeySpace("KunderaExamples");
+        }
     }
 
     @Override

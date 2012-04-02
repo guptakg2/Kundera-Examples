@@ -37,11 +37,13 @@ public class OTOBiAssociationTest extends TwinAssociation
     @BeforeClass
     public static void init() throws Exception
     {
-        CassandraCli.cassandraSetUp();
+        if(RUN_IN_EMBEDDED_MODE) {
+            CassandraCli.cassandraSetUp();
+        }
         List<Class> clazzz = new ArrayList<Class>(2);
         clazzz.add(PersonnelBi1To1FK.class);
         clazzz.add(HabitatBi1To1FK.class);
-        init(clazzz, "twingo", "twissandra","twibase");
+        init(clazzz, ALL_PUs_UNDER_TEST);
     }
 
     /**
@@ -106,6 +108,17 @@ public class OTOBiAssociationTest extends TwinAssociation
         col.add(person);
         col.add(address);
 
+    }    
+    
+
+    @Override
+    protected void update()
+    {
+    }
+
+    @Override
+    protected void remove()
+    {
     }
 
     /**
@@ -127,7 +140,9 @@ public class OTOBiAssociationTest extends TwinAssociation
     public void tearDown() throws Exception
     {
         tearDownInternal();
-        CassandraCli.dropKeySpace("KunderaExamples");
+        if(AUTO_MANAGE_SCHEMA) {
+            CassandraCli.dropKeySpace("KunderaExamples");
+        }
     }
 
 

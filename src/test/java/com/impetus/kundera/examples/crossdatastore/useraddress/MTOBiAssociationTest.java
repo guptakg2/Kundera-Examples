@@ -37,11 +37,13 @@ public class MTOBiAssociationTest extends TwinAssociation
     @BeforeClass
     public static void init() throws Exception
     {
-        CassandraCli.cassandraSetUp();
+        if(RUN_IN_EMBEDDED_MODE) {
+            CassandraCli.cassandraSetUp();
+        }
         List<Class> clazzz = new ArrayList<Class>(2);
         clazzz.add(PersonnelBiMTo1.class);
         clazzz.add(HabitatBiMTo1.class);
-        init(clazzz, "twingo", "twissandra"/*, "twibase"*/);
+        init(clazzz, ALL_PUs_UNDER_TEST);
     }
 
     /**
@@ -136,6 +138,18 @@ public class MTOBiAssociationTest extends TwinAssociation
         col.add(address);
 
     }
+    
+    
+
+    @Override
+    protected void update()
+    {
+    }
+
+    @Override
+    protected void remove()
+    {
+    }
 
     /**
      * Test merge.
@@ -156,7 +170,9 @@ public class MTOBiAssociationTest extends TwinAssociation
     public void tearDown() throws Exception
     {
         tearDownInternal();
-        CassandraCli.dropKeySpace("KunderaExamples");
+        if(AUTO_MANAGE_SCHEMA) {
+            CassandraCli.dropKeySpace("KunderaExamples");
+        }
     }
 
     @Override

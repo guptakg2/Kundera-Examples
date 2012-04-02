@@ -39,8 +39,10 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.impetus.kundera.examples.cli.CassandraCli;
+import com.impetus.kundera.examples.crossdatastore.useraddress.entities.HabitatUni1To1FK;
 import com.impetus.kundera.examples.crossdatastore.useraddress.entities.HabitatUniMTo1;
 import com.impetus.kundera.examples.crossdatastore.useraddress.entities.PersonalData;
+import com.impetus.kundera.examples.crossdatastore.useraddress.entities.PersonnelUni1To1FK;
 import com.impetus.kundera.examples.crossdatastore.useraddress.entities.PersonnelUniMTo1;
 
 /**
@@ -55,11 +57,14 @@ public class MTOUniAssociationTest extends TwinAssociation
     @BeforeClass
     public static void init() throws Exception
     {
-        CassandraCli.cassandraSetUp();
+        if(RUN_IN_EMBEDDED_MODE) {
+            CassandraCli.cassandraSetUp();
+        }
+        
         List<Class> clazzz = new ArrayList<Class>(2);
         clazzz.add(PersonnelUniMTo1.class);
         clazzz.add(HabitatUniMTo1.class);
-        init(clazzz, "twingo", "twissandra");
+        init(clazzz, ALL_PUs_UNDER_TEST);
     }
 
     /**
@@ -148,6 +153,57 @@ public class MTOUniAssociationTest extends TwinAssociation
         col.add(person2);
         col.add(address);
     }
+    
+    
+
+    @Override
+    protected void update()
+    {
+        try
+        {
+            for(Object entity : col) {
+                if(entity.getClass().equals(PersonnelUniMTo1.class)) {
+                    PersonnelUniMTo1 personnel = (PersonnelUniMTo1) entity;
+                    personnel.setPersonName("Saurabh");
+                    dao.merge(personnel);
+                } else if(entity.getClass().equals(HabitatUniMTo1.class)) {
+                    HabitatUniMTo1 address = (HabitatUniMTo1) entity;
+                    address.setStreet("Brand new street");
+                    dao.merge(address);
+                }
+            }
+            
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            Assert.fail();
+        }
+    }
+
+    @Override
+    protected void remove()
+    {
+        try
+        {
+            
+            PersonnelUniMTo1 p1 = (PersonnelUniMTo1) dao.findPerson(PersonnelUniMTo1.class, "unimanytoone_1");
+            dao.removePerson(p1);
+            
+            PersonnelUniMTo1 p2 = (PersonnelUniMTo1) dao.findPerson(PersonnelUniMTo1.class, "unimanytoone_2");
+            dao.removePerson(p2);
+            
+            PersonnelUniMTo1 p3 = (PersonnelUniMTo1) dao.findPerson(PersonnelUniMTo1.class, "unimanytoone_3");
+            dao.removePerson(p3);
+            
+            
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            Assert.fail();
+        }
+    }
 
     @Test
     public void testMerge()
@@ -165,7 +221,11 @@ public class MTOUniAssociationTest extends TwinAssociation
     public void tearDown() throws Exception
     {
         tearDownInternal();
-        CassandraCli.dropKeySpace("KunderaExamples");
+        
+        if(AUTO_MANAGE_SCHEMA) {
+            CassandraCli.dropKeySpace("KunderaExamples");
+        }
+        
     }
 
     @Override

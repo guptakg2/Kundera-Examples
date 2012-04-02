@@ -33,11 +33,14 @@ public class MTMBiAssociationTest extends TwinAssociation
     @BeforeClass
     public static void init() throws Exception
     {
-        CassandraCli.cassandraSetUp();
+        if(RUN_IN_EMBEDDED_MODE) {
+            CassandraCli.cassandraSetUp();
+        }
+        
         List<Class> clazzz = new ArrayList<Class>(2);
         clazzz.add(PersonnelBiMToM.class);
         clazzz.add(HabitatBiMToM.class);
-        init(clazzz, "twingo", "twissandra");
+        init(clazzz, ALL_PUs_UNDER_TEST);
     }
 
     /**
@@ -74,6 +77,18 @@ public class MTMBiAssociationTest extends TwinAssociation
         // TODO Auto-generated method stub
 
     }
+    
+    
+
+    @Override
+    protected void update()
+    {
+    }
+
+    @Override
+    protected void remove()
+    {
+    }
 
     /**
      * Test merge.
@@ -94,7 +109,10 @@ public class MTMBiAssociationTest extends TwinAssociation
     public void tearDown() throws Exception
     {
         tearDownInternal();
-        CassandraCli.dropKeySpace("KunderaExamples");
+        
+        if(AUTO_MANAGE_SCHEMA) {
+            CassandraCli.dropKeySpace("KunderaExamples");
+        }
     }
 
     @Override

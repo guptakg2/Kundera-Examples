@@ -135,5 +135,10 @@ public interface Twitter
      * Close.
      */
     void close();
+    
+    void createEntityManager();
+    
+    void closeEntityManager(); 
+    
 
 }
