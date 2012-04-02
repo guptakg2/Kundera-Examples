@@ -48,11 +48,11 @@ import com.impetus.kundera.metadata.model.PersistenceUnitMetadata;
  */
 public abstract class AssociationBase
 {
-    public static final boolean RUN_IN_EMBEDDED_MODE = true;    
-    public static final boolean AUTO_MANAGE_SCHEMA = true;  
+    public static final boolean RUN_IN_EMBEDDED_MODE = false;    
+    public static final boolean AUTO_MANAGE_SCHEMA = false;  
     
-    //public static final String[] ALL_PUs_UNDER_TEST = new String[]{"twissandra"};
-    public static final String[] ALL_PUs_UNDER_TEST = new String[]{"rdbms", "twissandra", "twibase", "twingo"};
+    public static final String[] ALL_PUs_UNDER_TEST = new String[]{"twissandra"};
+    //public static final String[] ALL_PUs_UNDER_TEST = new String[]{"rdbms", "twissandra", "twibase", "twingo"};
     
     
     
@@ -78,8 +78,8 @@ public abstract class AssociationBase
      */
     protected void setUpInternal(String... colFamilies)
     {
-        String persistenceUnits = "rdbms,twingo,twissandra,twibase";
-        //String persistenceUnits = "rdbms,twissandra";
+        //String persistenceUnits = "rdbms,twingo,twissandra,twibase";
+        String persistenceUnits = "rdbms,twissandra";
         dao = new UserAddressDaoImpl(persistenceUnits);
         em = dao.getEntityManager(persistenceUnits);
         this.colFamilies = colFamilies;

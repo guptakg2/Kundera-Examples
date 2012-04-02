@@ -7,7 +7,7 @@ import javax.persistence.Table;
 
 @Entity
 
-@Table(name = "ADDRESS", schema = "KunderaExamples@addcassandra")
+@Table(name = "ADDRESS", schema = "test")
 public class HabitatUniMToM
 {
     @Id
