@@ -47,194 +47,35 @@ import com.impetus.kundera.metadata.model.KunderaMetadata;
 import com.impetus.kundera.metadata.model.MetamodelImpl;
 import com.impetus.kundera.metadata.model.PersistenceUnitMetadata;
 
-/**
- * Test case for MongoDB.
- * 
- * @author amresh.singh
- */
-<<<<<<< HEAD
-public class TwitterTestSuite extends TestCase {
+public class TwitterTestSuite extends TestCase
+{
 
-	/** The user id1. */
-	String userId1;
+    /** The user id1. */
+    String userId1;
 
-	/** The user id2. */
-	String userId2;
+    /** The user id2. */
+    String userId2;
 
-	/** The twitter. */
-	protected Twitter twitter;
+    /** The twitter. */
+    protected Twitter twitter;
 
-	protected static List<Map<Class, String>> combinations = new ArrayList<Map<Class, String>>();
+    /**
+     * Sets the up internal.
+     * 
+     * @param persistenceUnitName
+     *            the new up internal
+     * @throws Exception
+     *             the exception
+     */
+    protected void setUpInternal(String persistenceUnitName) throws Exception
+    {
+        userId1 = "0001";
+        userId2 = "0002";
 
-	/**
-	 * Sets the up internal.
-	 * 
-	 * @param persistenceUnitName
-	 *            the new up internal
-	 * @throws Exception
-	 *             the exception
-	 */
-	protected void setUpInternal(String persistenceUnitName) throws Exception {
-		userId1 = "0001";
-		userId2 = "0002";
+        twitter = new TwitterService(persistenceUnitName);
 
-		twitter = new TwitterService(persistenceUnitName);
+    }
 
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see junit.framework.TestCase#tearDown()
-	 */
-	/**
-	 * Tear down internal.
-	 * 
-	 * @throws Exception
-	 *             the exception
-	 */
-	protected void tearDownInternal() throws Exception {
-		if (twitter != null) {
-			twitter.close();
-		}
-	}
-
-	/**
-	 * Execute suite.
-	 */
-	protected void executeTestSuite() {
-		/*
-		 * addTweets(); savePreference(); addExternalLinks();
-		 * user1FollowsUser2(); getAllTweets();
-		 */
-
-		addUsers();
-		addAllUserInfo();
-		getAllUsers();
-		getAllTweets();
-	}
-
-	protected void addAllUserInfo() {
-		User user1 = new User(userId1, "Amresh", "password1", "married");
-
-		user1.setPreference(new Preference("Motif", "2"));
-
-		user1.addExternalLink(new ExternalLink("Facebook",
-				"http://facebook.com/coolnerd"));
-		user1.addExternalLink(new ExternalLink("LinkedIn",
-				"http://linkedin.com/in/devilmate"));
-
-		user1.addTweet(new Tweet("Here is my first tweet", "Web"));
-		user1.addTweet(new Tweet("Second Tweet from me", "Mobile"));
-
-		User user2 = new User(userId2, "Saurabh", "password2", "single");
-
-		user2.setPreference(new Preference("High Contrast", "3"));
-
-		user2.addExternalLink(new ExternalLink("GooglePlus",
-				"http://plus.google.com/inviteme"));
-		user2.addExternalLink(new ExternalLink("Yahoo",
-				"http://yahoo.com/profiles/itsmeamry"));
-
-		user2.addTweet(new Tweet("Saurabh tweets for the first time", "Phone"));
-		user2.addTweet(new Tweet("Another tweet from Saurabh", "text"));
-
-		twitter.addUser(user1);
-		twitter.addUser(user2);
-	}
-
-	protected void getAllUsers() {
-		List<User> users = twitter.getAllUsers();
-		System.out.println(users);
-	}
-
-	/**
-	 * Adds the users.
-	 */
-	protected void addUsers() {
-		twitter.addUser(userId1, "Amresh", "password1", "married");
-		twitter.addUser(userId2, "Saurabh", "password2", "single");
-	}
-
-	/**
-	 * Save preference.
-	 */
-	protected void savePreference() {
-		twitter.savePreference(userId1, new Preference("Motif", "2"));
-		twitter.savePreference(userId2, new Preference("High Contrast", "3"));
-	}
-
-	/**
-	 * Adds the external links.
-	 */
-	protected void addExternalLinks() {
-		twitter.addExternalLink(userId1, "Facebook",
-				"http://facebook.com/coolnerd");
-		twitter.addExternalLink(userId1, "LinkedIn",
-				"http://linkedin.com/in/devilmate");
-
-		twitter.addExternalLink(userId2, "GooglePlus",
-				"http://plus.google.com/inviteme");
-		twitter.addExternalLink(userId2, "Yahoo",
-				"http://yahoo.com/profiles/itsmeamry");
-	}
-
-	/**
-	 * Adds the tweets.
-	 */
-	protected void addTweets() {
-		twitter.addTweet(userId1, "Here is my first tweet", "Web");
-		twitter.addTweet(userId1, "Second Tweet from me", "Mobile");
-
-		twitter.addTweet(userId2, "Saurabh tweets for the first time", "Phone");
-		twitter.addTweet(userId2, "Another tweet from Saurabh", "text");
-	}
-
-	/**
-	 * User1 follows user2.
-	 */
-	protected void user1FollowsUser2() {
-		twitter.startFollowing(userId1, userId2);
-	}
-
-	/**
-	 * User1 adds user2 as follower.
-	 */
-	protected void user1AddsUser2AsFollower() {
-		twitter.addFollower(userId1, userId2);
-	}
-
-	/**
-	 * Gets the all tweets.
-	 * 
-	 * @return the all tweets
-	 */
-	protected void getAllTweets() {
-		List<Tweet> tweetsUser1 = twitter.getAllTweets(userId1);
-		List<Tweet> tweetsUser2 = twitter.getAllTweets(userId2);
-
-		assertNotNull(tweetsUser1);
-		assertNotNull(tweetsUser2);
-
-		assertFalse(tweetsUser1.isEmpty());
-		assertFalse(tweetsUser2.isEmpty());
-
-		assertEquals(2, tweetsUser1.size());
-		assertEquals(2, tweetsUser2.size());
-	}
-
-	/**
-	 * Gets the all followers.
-	 * 
-	 * @return the all followers
-	 */
-	protected void getAllFollowers() {
-		List<User> follower1 = twitter.getFollowers(userId1);
-		List<User> follower2 = twitter.getFollowers(userId2);
-
-		assertNull(follower1);
-		assertNotNull(follower2);
-	}
 //
 //	public void switchPersistentUnits(Map<Class, String> entityPuCol)
 //			throws IOException, TException, InvalidRequestException,
@@ -289,6 +130,7 @@ public class TwitterTestSuite extends TestCase {
 //	}
 //
 //	public void init(List<Class> classes, String... persistenceUnits) {
+
 //		// list of PUS with class.
 //		Map<Class, String> puClazzMapper = null;
 //
@@ -313,35 +155,6 @@ public class TwitterTestSuite extends TestCase {
 //		} catch (Exception e) {
 //		}
 //	}
-=======
-public class TwitterTestSuite extends TestCase
-{
-
-    /** The user id1. */
-    String userId1;
-
-    /** The user id2. */
-    String userId2;
-
-    /** The twitter. */
-    protected Twitter twitter;
-
-    /**
-     * Sets the up internal.
-     * 
-     * @param persistenceUnitName
-     *            the new up internal
-     * @throws Exception
-     *             the exception
-     */
-    protected void setUpInternal(String persistenceUnitName) throws Exception
-    {
-        userId1 = "0001";
-        userId2 = "0002";
-
-        twitter = new TwitterService(persistenceUnitName);
-
-    }
 
     /*
      * (non-Javadoc)
@@ -605,5 +418,5 @@ public class TwitterTestSuite extends TestCase
         user1.addTweet(new Tweet("Second Tweet from me", "Mobile"));
         return user1;
     }
->>>>>>> 042a0177dbbcdfadbed828241f3035f8dfdef57a
+
 }

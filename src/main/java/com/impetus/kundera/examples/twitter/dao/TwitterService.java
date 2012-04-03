@@ -178,14 +178,10 @@ public class TwitterService extends SuperDao implements Twitter
 
 	@Override
     public List<Tweet> getAllTweets(String userId)
-<<<<<<< HEAD
-    {
-        em = emf.createEntityManager();
-        Query q = em.createQuery("select u from User u where u.USER_ID =:userId");
-=======
+
     {        
         Query q = em.createQuery("select u from User u where u.userId =:userId");
->>>>>>> 042a0177dbbcdfadbed828241f3035f8dfdef57a
+
         q.setParameter("userId", userId);
         List<User> users = q.getResultList();       
         if (users == null || users.isEmpty())
@@ -200,14 +196,10 @@ public class TwitterService extends SuperDao implements Twitter
 
     @Override
     public List<User> getFollowers(String userId)
-<<<<<<< HEAD
-    {
-        em = emf.createEntityManager();
-        Query q = em.createQuery("select u from User u where u.USER_ID =:userId");
-=======
+
     {        
         Query q = em.createQuery("select u from User u where u.userId =:userId");
->>>>>>> 042a0177dbbcdfadbed828241f3035f8dfdef57a
+
         q.setParameter("userId", userId);
         List<User> users = q.getResultList();        
         if (users == null || users.isEmpty())

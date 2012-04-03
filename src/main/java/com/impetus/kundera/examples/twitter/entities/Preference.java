@@ -43,20 +43,14 @@ public class Preference {
 
 	}
 
-<<<<<<< HEAD
-	public Preference(String theme, String privacyLevel) {
-		this.preferenceId = ExampleUtils.getUniqueId();
-		this.websiteTheme = theme;
-		this.privacyLevel = privacyLevel;
-	}
-=======
+
     public Preference(String preferenceId, String theme, String privacyLevel)
     {
         this.preferenceId = preferenceId;
         this.websiteTheme = theme;
         this.privacyLevel = privacyLevel;
     }
->>>>>>> 042a0177dbbcdfadbed828241f3035f8dfdef57a
+
 
 	/**
 	 * @return the preferenceId

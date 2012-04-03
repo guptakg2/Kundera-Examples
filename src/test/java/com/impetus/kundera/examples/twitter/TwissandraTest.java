@@ -38,7 +38,7 @@ import com.impetus.kundera.examples.twitter.query.CassandraQuerySuite;
  * 
  * @author amresh.singh
  */
-<<<<<<< HEAD
+
 public class TwissandraTest extends CassandraQuerySuite {
 
 	/** The Constant LOG. */
@@ -221,43 +221,4 @@ public class TwissandraTest extends CassandraQuerySuite {
 		tearDownInternal();
 		CassandraCli.dropKeySpace("KunderaExamples");
 	}
-=======
-public class TwissandraTest extends CassandraQuerySuite
-{
-
-    /** The Constant LOG. */
-    private static final Log LOG = LogFactory.getLog(TwissandraTest.class);
-
-
-    @Override
-    protected void setUp() throws Exception
-    {
-       
-        setUpInternal("twissandra");
-    }
-
-    /**
-     * Test on execute.
-     */
-    public void testOnExecute() throws Exception
-    {
-       executeTestSuite();
-    }
-
-    /**
-     * Test on execute query.
-     */
-    
-   /*public void testOnQuery()
-    {
-        executeQuerySuite();
-    }*/
-    
-
-    @Override
-    protected void tearDown() throws Exception
-    {
-        tearDownInternal();
-    } 
->>>>>>> 042a0177dbbcdfadbed828241f3035f8dfdef57a
 }

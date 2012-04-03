@@ -39,14 +39,9 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.impetus.kundera.examples.cli.CassandraCli;
-<<<<<<< HEAD
 import com.impetus.kundera.examples.cli.HBaseCli;
-=======
-import com.impetus.kundera.examples.crossdatastore.useraddress.entities.HabitatUni1ToM;
->>>>>>> 042a0177dbbcdfadbed828241f3035f8dfdef57a
 import com.impetus.kundera.examples.crossdatastore.useraddress.entities.HabitatUniMToM;
 import com.impetus.kundera.examples.crossdatastore.useraddress.entities.PersonalData;
-import com.impetus.kundera.examples.crossdatastore.useraddress.entities.PersonnelUni1ToM;
 import com.impetus.kundera.examples.crossdatastore.useraddress.entities.PersonnelUniMToM;
 
 /**
