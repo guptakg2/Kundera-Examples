@@ -39,6 +39,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.impetus.kundera.examples.cli.CassandraCli;
+import com.impetus.kundera.examples.cli.HBaseCli;
 import com.impetus.kundera.examples.crossdatastore.useraddress.entities.HabitatUniMToM;
 import com.impetus.kundera.examples.crossdatastore.useraddress.entities.PersonalData;
 import com.impetus.kundera.examples.crossdatastore.useraddress.entities.PersonnelUniMToM;
@@ -214,11 +215,6 @@ public class MTMUniAssociationTest extends TwinAssociation
 
         ColumnDef columnDef1 = new ColumnDef(ByteBuffer.wrap("ADDRESS_ID".getBytes()), "IntegerType");
         cfDef.addToColumn_metadata(columnDef1);
-
-        // ColumnDef columnDef2 = new ColumnDef(ByteBuffer.wrap("PERSON_ID"
-        // .getBytes()), "IntegerType");
-        // cfDef.addToColumn_metadata(columnDef2);
-
         List<CfDef> cfDefs = new ArrayList<CfDef>();
         cfDefs.add(cfDef);
 
@@ -228,8 +224,6 @@ public class MTMUniAssociationTest extends TwinAssociation
             CassandraCli.client.set_keyspace("KunderaExamples");
 
             List<CfDef> cfDefn = ksDef.getCf_defs();
-
-            // CassandraCli.client.set_keyspace("KunderaExamples");
             for (CfDef cfDef1 : cfDefn)
             {
 
@@ -267,11 +261,6 @@ public class MTMUniAssociationTest extends TwinAssociation
         ColumnDef columnDef1 = new ColumnDef(ByteBuffer.wrap("STREET".getBytes()), "UTF8Type");
         columnDef1.index_type = IndexType.KEYS;
         cfDef2.addToColumn_metadata(columnDef1);
-        //
-        // ColumnDef columnDef3 = new ColumnDef(ByteBuffer.wrap("ADDRESS_ID"
-        // .getBytes()), "IntegerType");
-        // columnDef3.index_type = IndexType.KEYS;
-        // cfDef2.addToColumn_metadata(columnDef3);
 
         ColumnDef columnDef2 = new ColumnDef(ByteBuffer.wrap("PERSON_ID".getBytes()), "IntegerType");
         columnDef2.index_type = IndexType.KEYS;
@@ -285,7 +274,6 @@ public class MTMUniAssociationTest extends TwinAssociation
             ksDef = CassandraCli.client.describe_keyspace("KunderaExamples");
             CassandraCli.client.set_keyspace("KunderaExamples");
             List<CfDef> cfDefss = ksDef.getCf_defs();
-            // CassandraCli.client.set_keyspace("KunderaExamples");
             for (CfDef cfDef : cfDefss)
             {
 
@@ -310,30 +298,23 @@ public class MTMUniAssociationTest extends TwinAssociation
         CassandraCli.client.set_keyspace("KunderaExamples");
     }
 
-    /*
-     * private void loadDataForPersonnelAddress() throws
-     * InvalidRequestException, TException, SchemaDisagreementException { KsDef
-     * ksDef = null; CfDef cfDef2 = new CfDef(); cfDef2.name =
-     * "PERSONNEL_ADDRESS"; cfDef2.keyspace = "KunderaExamples";
-     * 
-     * ColumnDef columnDef1 = new ColumnDef(ByteBuffer.wrap("PERSON_ID"
-     * .getBytes()), "IntegerType"); columnDef1.index_type = IndexType.KEYS;
-     * cfDef2.addToColumn_metadata(columnDef1);
-     * 
-     * ColumnDef columnDef2 = new ColumnDef(ByteBuffer.wrap("ADDRESS_ID"
-     * .getBytes()), "IntegerType"); columnDef2.index_type = IndexType.KEYS;
-     * cfDef2.addToColumn_metadata(columnDef2); List<CfDef> cfDefs = new
-     * ArrayList<CfDef>(); cfDefs.add(cfDef2); List<CfDef> cfDefss =
-     * ksDef.getCf_defs(); //
-     * CassandraCli.client.set_keyspace("KunderaExamples"); for (CfDef cfDef :
-     * cfDefss) {
-     * 
-     * if (cfDef.getName().equalsIgnoreCase("PERSONNEL_ADDRESS")) {
-     * 
-     * CassandraCli.client .system_drop_column_family("PERSONNEL_ADDRESS");
-     * 
-     * } } CassandraCli.client.system_add_column_family(cfDef2);
-     * 
-     * }
-     */
+	@Override
+	protected void hBaseLoadDataForPERSONNEL() throws TException,
+			InvalidRequestException, UnavailableException, TimedOutException,
+			SchemaDisagreementException {
+		HBaseCli.createColumnFamily("PERSONNEL", "PERSONNEL");
+		HBaseCli.addColumn("PERSONNEL", "PERSONNEL", "PERSON_NAME");
+		HBaseCli.addColumn("PERSONNEL", "PERSONNEL", "ADDRESS_ID");
+		
+	}
+
+	@Override
+	protected void hBaseLoadDataForHABITAT() throws TException,
+			InvalidRequestException, UnavailableException, TimedOutException,
+			SchemaDisagreementException {
+		HBaseCli.createColumnFamily("ADDRESS", "ADDRESS");
+		HBaseCli.addColumn("ADDRESS", "ADDRESS", "STREET");
+		HBaseCli.addColumn("ADDRESS", "ADDRESS", "PERSON_ID");
+		
+	}
 }

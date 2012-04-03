@@ -202,8 +202,9 @@ public class PersonTest extends BaseTest
     public void onInsertHbase() throws Exception
     {
         HBaseCli.startCluster();
-        HBaseCli.createTable("KunderaExamples");
-        HBaseCli.addColumnFamily("KunderaExamples", "PERSON");
+        HBaseCli.createColumnFamily("PERSON", "PERSON");
+        HBaseCli.addColumn("PERSON", "PERSON", "PERSON_NAME");
+        HBaseCli.addColumn("PERSON", "PERSON", "AGE");
         Object p1 = prepareHbaseInstance("1", 10);
         Object p2 = prepareHbaseInstance("2", 20);
         Object p3 = prepareHbaseInstance("3", 15);
@@ -337,10 +338,10 @@ public class PersonTest extends BaseTest
             for (CfDef cfDef1 : cfDefn)
             {
 
-                if (cfDef1.getName().equalsIgnoreCase("PERSONNEL"))
+                if (cfDef1.getName().equalsIgnoreCase("PERSON"))
                 {
 
-                    CassandraCli.client.system_drop_column_family("PERSONNEL");
+                    CassandraCli.client.system_drop_column_family("PERSON");
 
                 }
             }

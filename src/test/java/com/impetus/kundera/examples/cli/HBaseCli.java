@@ -35,167 +35,145 @@ import org.slf4j.LoggerFactory;
  * @author vivek.mishra
  * 
  */
-public final class HBaseCli
-{
+public final class HBaseCli {
 
-    /** The Constant logger. */
-    private static final Logger logger = LoggerFactory.getLogger(HBaseCli.class);
+	/** The Constant logger. */
+	private static final Logger logger = LoggerFactory
+			.getLogger(HBaseCli.class);
 
-    /** The utility. */
-    private static HBaseTestingUtility utility;
+	/** The utility. */
+	private static HBaseTestingUtility utility;
 
-    private static Boolean isStarted = false;
+	private static Boolean isStarted = false;
 
-    /**
-     * The main method.
-     * 
-     * @param arg
-     *            the arguments
-     */
-    public static void main(String arg[])
-    {
-        startCluster();
-    }
+	/**
+	 * The main method.
+	 * 
+	 * @param arg
+	 *            the arguments
+	 */
+	public static void main(String arg[]) {
+		startCluster();
+	}
 
-    /**
-     * Starts a new cluster.
-     */
-    public static void startCluster()
-    {
-        if (!isStarted)
-        {
-            File workingDirectory = new File("./");
-            Configuration conf = new Configuration();
-            System.setProperty("test.build.data", workingDirectory.getAbsolutePath());
-            conf.set("test.build.data", new File(workingDirectory, "zookeeper").getAbsolutePath());
-            conf.set("fs.default.name", "file:///");
-            conf.set("zookeeper.session.timeout", "180000");
-            conf.set("hbase.zookeeper.peerport", "2888");
-            conf.set("hbase.zookeeper.property.clientPort", "2181");
-            try
-            {
-                conf.set(HConstants.HBASE_DIR, new File(workingDirectory, "hbase").toURI().toURL().toString());
-            }
-            catch (MalformedURLException e1)
-            {
-                logger.error(e1.getMessage());
-            }
+	/**
+	 * Starts a new cluster.
+	 */
+	public static void startCluster() {
+		if (!isStarted) {
+			File workingDirectory = new File("./");
+			Configuration conf = new Configuration();
+			System.setProperty("test.build.data",
+					workingDirectory.getAbsolutePath());
+			conf.set("test.build.data",
+					new File(workingDirectory, "zookeeper").getAbsolutePath());
+			conf.set("fs.default.name", "file:///");
+			conf.set("zookeeper.session.timeout", "180000");
+			conf.set("hbase.zookeeper.peerport", "2888");
+			conf.set("hbase.zookeeper.property.clientPort", "2181");
+			try {
+				conf.set(HConstants.HBASE_DIR, new File(workingDirectory,
+						"hbase").toURI().toURL().toString());
+			} catch (MalformedURLException e1) {
+				logger.error(e1.getMessage());
+			}
 
-            Configuration hbaseConf = HBaseConfiguration.create(conf);
-            utility = new HBaseTestingUtility(hbaseConf);
-            try
-            {
-                MiniZooKeeperCluster zkCluster = new MiniZooKeeperCluster(conf);
-                zkCluster.setClientPort(2181);
-                zkCluster.setTickTime(18000);
-                zkCluster.startup(utility.setupClusterTestBuildDir());
-                utility.setZkCluster(zkCluster);
-                utility.startMiniCluster();
-                utility.getHbaseCluster().startMaster();
-            }
-            catch (Exception e)
-            {
-                logger.error(e.getMessage());
-                throw new RuntimeException(e);
-            }
-            isStarted = true;
-        }
-    }
+			Configuration hbaseConf = HBaseConfiguration.create(conf);
+			utility = new HBaseTestingUtility(hbaseConf);
+			try {
+				MiniZooKeeperCluster zkCluster = new MiniZooKeeperCluster(conf);
+				zkCluster.setClientPort(2181);
+				zkCluster.setTickTime(18000);
+				zkCluster.startup(utility.setupClusterTestBuildDir());
+				utility.setZkCluster(zkCluster);
+				utility.startMiniCluster();
+				utility.getHbaseCluster().startMaster();
+			} catch (Exception e) {
+				logger.error(e.getMessage());
+				throw new RuntimeException(e);
+			}
+			isStarted = true;
+		}
+	}
 
-    /**
-     * Creates the table.
-     * 
-     * @param tableName
-     *            the table name
-     */
-    public static void createTable(String tableName)
-    {
-        try
-        {
-            if (!utility.getHBaseAdmin().tableExists(tableName))
-            {
-                utility.createTable(tableName.getBytes(), tableName.getBytes());
-            }
-            else
-            {
-                logger.info("Table:" + tableName + " already exist:");
-            }
-        }
-        catch (IOException e)
-        {
-            logger.error(e.getMessage());
-        }
-    }
+	/**
+	 * Creates the table.
+	 * 
+	 * @param tableName
+	 *            the table name
+	 */
+	public static void createColumnFamily(String tableName,
+			String columnFamilyName) {
+		try {
+			if (!utility.getHBaseAdmin().tableExists(tableName)) {
+				utility.createTable(tableName.getBytes(), tableName.getBytes());
+			} else {
+				logger.info("Table:" + tableName + " already exist:");
+			}
+		} catch (IOException e) {
+			logger.error(e.getMessage());
+		}
+	}
 
-    /**
-     * Adds the column family.
-     * 
-     * @param tableName
-     *            the table name
-     * @param columnFamily
-     *            the column family
-     */
-    public static void addColumnFamily(String tableName, String columnFamily)
-    {
-        try
-        {
-            utility.getHBaseAdmin().disableTable(tableName);
-            utility.getHBaseAdmin().addColumn(tableName, new HColumnDescriptor(columnFamily));
-            utility.getHBaseAdmin().enableTable(tableName);
-        }
-        catch (InvalidFamilyOperationException ife)
-        {
-            logger.info("Column family:" + columnFamily + " already exist!");
-        }
-        catch (IOException e)
-        {
-            logger.error(e.getMessage());
-        }
-    }
+	/**
+	 * Adds the column family.
+	 * 
+	 * @param tableName
+	 *            the table name
+	 * @param columnFamily
+	 *            the column family
+	 */
+	public static void addColumn(String tableName, String columnFamily,
+			String columnName) {
+		try {
+			utility.getHBaseAdmin().disableTable(tableName);
+			utility.getHBaseAdmin().addColumn(tableName,
+					new HColumnDescriptor(columnName));
+			utility.getHBaseAdmin().enableTable(tableName);
+		} catch (InvalidFamilyOperationException ife) {
+			logger.info("Column :" + columnName + " already exist!");
+		} catch (IOException e) {
+			logger.error(e.getMessage());
+		}
+	}
 
-    /**
-     * Destroyes cluster.
-     */
-    public static void stopCluster()
-    {
-        try
-        {
-            if (utility != null)
-            {
-                utility.shutdownMiniCluster();
-                utility = null;
-            }
-        }
-        catch (IOException e)
-        {
-            logger.error(e.getMessage());
-        }
-        /*
-         * DO NOT DELETE IT! HTable table =
-         * utility.createTable("test".getBytes(), "testcol".getBytes());
-         * utility.getHBaseAdmin().disableTable("test");
-         * utility.getHBaseAdmin().addColumn("test", new
-         * HColumnDescriptor("testColFamily"));
-         * utility.getHBaseAdmin().enableTable("test");
-         * logger.info("Server is running : "
-         * +utility.getHBaseAdmin().isMasterRunning());
-         * 
-         * Put p = new Put(Bytes.toBytes("1"));
-         * p.add(Bytes.toBytes("testColFamily"),
-         * Bytes.toBytes("col1"),"col1".getBytes()); table.put(p);
-         * logger.info("Table exist:" +
-         * utility.getHBaseAdmin().tableExists("test")); Get g = new
-         * Get(Bytes.toBytes("1")); Result r = table.get(g);
-         * logger.info("Row count:" + r.list().size());
-         * utility.getHBaseAdmin().disableTable("test");
-         * logger.info("Deleting table...");
-         * utility.getHBaseAdmin().deleteTable("test");
-         * logger.info("Shutting down now..."); utility.shutdownMiniCluster();
-         */
-    }
+	/**
+	 * Destroyes cluster.
+	 */
+	public static void stopCluster() {
+		try {
+			if (utility != null) {
+				utility.shutdownMiniCluster();
+				utility = null;
+			}
+		} catch (IOException e) {
+			logger.error(e.getMessage());
+		}
+		/*
+		 * DO NOT DELETE IT! HTable table =
+		 * utility.createTable("test".getBytes(), "testcol".getBytes());
+		 * utility.getHBaseAdmin().disableTable("test");
+		 * utility.getHBaseAdmin().addColumn("test", new
+		 * HColumnDescriptor("testColFamily"));
+		 * utility.getHBaseAdmin().enableTable("test");
+		 * logger.info("Server is running : "
+		 * +utility.getHBaseAdmin().isMasterRunning());
+		 * 
+		 * Put p = new Put(Bytes.toBytes("1"));
+		 * p.add(Bytes.toBytes("testColFamily"),
+		 * Bytes.toBytes("col1"),"col1".getBytes()); table.put(p);
+		 * logger.info("Table exist:" +
+		 * utility.getHBaseAdmin().tableExists("test")); Get g = new
+		 * Get(Bytes.toBytes("1")); Result r = table.get(g);
+		 * logger.info("Row count:" + r.list().size());
+		 * utility.getHBaseAdmin().disableTable("test");
+		 * logger.info("Deleting table...");
+		 * utility.getHBaseAdmin().deleteTable("test");
+		 * logger.info("Shutting down now..."); utility.shutdownMiniCluster();
+		 */
+	}
 
-    public static boolean isStarted()
-    {
-        return isStarted;
-    }
+	public static boolean isStarted() {
+		return isStarted;
+	}
 }

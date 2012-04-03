@@ -21,10 +21,13 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 
+import com.impetus.kundera.PersistenceProperties;
 import com.impetus.kundera.examples.twitter.entities.ExternalLink;
 import com.impetus.kundera.examples.twitter.entities.Preference;
 import com.impetus.kundera.examples.twitter.entities.Tweet;
 import com.impetus.kundera.examples.twitter.entities.User;
+import com.impetus.kundera.metadata.model.KunderaMetadata;
+import com.impetus.kundera.metadata.model.PersistenceUnitMetadata;
 
 /**
  * Data access object class for implementation of twitter.
@@ -152,7 +155,7 @@ public class TwitterService extends SuperDao implements Twitter
     public List<Tweet> getAllTweets(String userId)
     {
         em = emf.createEntityManager();
-        Query q = em.createQuery("select u from User u where u.userId =:userId");
+        Query q = em.createQuery("select u from User u where u.USER_ID =:userId");
         q.setParameter("userId", userId);
         List<User> users = q.getResultList();
         em.close();
@@ -170,7 +173,7 @@ public class TwitterService extends SuperDao implements Twitter
     public List<User> getFollowers(String userId)
     {
         em = emf.createEntityManager();
-        Query q = em.createQuery("select u from User u where u.userId =:userId");
+        Query q = em.createQuery("select u from User u where u.USER_ID =:userId");
         q.setParameter("userId", userId);
         List<User> users = q.getResultList();
         em.close();

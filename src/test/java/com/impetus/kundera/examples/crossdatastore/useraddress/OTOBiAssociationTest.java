@@ -22,214 +22,220 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.impetus.kundera.examples.cli.CassandraCli;
+import com.impetus.kundera.examples.cli.HBaseCli;
 import com.impetus.kundera.examples.crossdatastore.useraddress.entities.HabitatBi1To1FK;
 import com.impetus.kundera.examples.crossdatastore.useraddress.entities.HabitatUni1To1FK;
 import com.impetus.kundera.examples.crossdatastore.useraddress.entities.PersonalData;
 import com.impetus.kundera.examples.crossdatastore.useraddress.entities.PersonnelBi1To1FK;
 import com.impetus.kundera.examples.crossdatastore.useraddress.entities.PersonnelUni1To1FK;
 
-public class OTOBiAssociationTest extends TwinAssociation
-{
+public class OTOBiAssociationTest extends TwinAssociation {
 
-    /**
-     * Inits the.
-     */
-    @BeforeClass
-    public static void init() throws Exception
-    {
-        CassandraCli.cassandraSetUp();
-        List<Class> clazzz = new ArrayList<Class>(2);
-        clazzz.add(PersonnelBi1To1FK.class);
-        clazzz.add(HabitatBi1To1FK.class);
-        init(clazzz, "twingo", "twissandra","twibase");
-    }
+	/**
+	 * Inits the.
+	 */
+	@BeforeClass
+	public static void init() throws Exception {
+		CassandraCli.cassandraSetUp();
+		List<Class> clazzz = new ArrayList<Class>(2);
+		clazzz.add(PersonnelBi1To1FK.class);
+		clazzz.add(HabitatBi1To1FK.class);
+		init(clazzz, "twingo", "twissandra", "twibase");
+	}
 
-    /**
-     * Sets the up.
-     * 
-     * @throws Exception
-     *             the exception
-     */
-    @Before
-    public void setUp() throws Exception
-    {
-        setUpInternal();
-    }
+	/**
+	 * Sets the up.
+	 * 
+	 * @throws Exception
+	 *             the exception
+	 */
+	@Before
+	public void setUp() throws Exception {
+		setUpInternal();
+	}
 
-    /**
-     * Test insert.
-     */
-    @Test
-    public void testInsert()
-    {
-        tryOperation();
-    }
+	/**
+	 * Test insert.
+	 */
+	@Test
+	public void testInsert() {
+		tryOperation();
+	}
 
-    @Override
-    protected void find()
-    {
-        // Find Person
-        PersonnelBi1To1FK p = (PersonnelBi1To1FK) dao.findPerson(PersonnelBi1To1FK.class, "bionetoonefk_1");
-        Assert.assertNotNull(p);
-        Assert.assertEquals("bionetoonefk_1", p.getPersonId());
-        Assert.assertEquals("Amresh", p.getPersonName());
-        PersonalData pd = p.getPersonalData();
-        Assert.assertNotNull(pd);
-        Assert.assertEquals("www.amresh.com", pd.getWebsite());
+	@Override
+	protected void find() {
+		// Find Person
+		PersonnelBi1To1FK p = (PersonnelBi1To1FK) dao.findPerson(
+				PersonnelBi1To1FK.class, "bionetoonefk_1");
+		Assert.assertNotNull(p);
+		Assert.assertEquals("bionetoonefk_1", p.getPersonId());
+		Assert.assertEquals("Amresh", p.getPersonName());
+		PersonalData pd = p.getPersonalData();
+		Assert.assertNotNull(pd);
+		Assert.assertEquals("www.amresh.com", pd.getWebsite());
 
-        HabitatBi1To1FK address = p.getAddress();
-        Assert.assertNotNull(address);
-        Assert.assertEquals("bionetoonefk_a", address.getAddressId());
-        Assert.assertEquals("123, New street", address.getStreet());
+		HabitatBi1To1FK address = p.getAddress();
+		Assert.assertNotNull(address);
+		Assert.assertEquals("bionetoonefk_a", address.getAddressId());
+		Assert.assertEquals("123, New street", address.getStreet());
 
-        PersonnelBi1To1FK pp = address.getPerson();
-        Assert.assertNotNull(pp);
-        Assert.assertEquals("bionetoonefk_1", pp.getPersonId());
-        Assert.assertEquals("Amresh", pp.getPersonName());
-    }
+		PersonnelBi1To1FK pp = address.getPerson();
+		Assert.assertNotNull(pp);
+		Assert.assertEquals("bionetoonefk_1", pp.getPersonId());
+		Assert.assertEquals("Amresh", pp.getPersonName());
+	}
 
-    @Override
-    protected void insert()
-    {
-        PersonnelBi1To1FK person = new PersonnelBi1To1FK();
-        person.setPersonId("bionetoonefk_1");
-        person.setPersonName("Amresh");
-        person.setPersonalData(new PersonalData("www.amresh.com", "amry.ks@gmail.com", "xamry"));
+	@Override
+	protected void insert() {
+		PersonnelBi1To1FK person = new PersonnelBi1To1FK();
+		person.setPersonId("bionetoonefk_1");
+		person.setPersonName("Amresh");
+		person.setPersonalData(new PersonalData("www.amresh.com",
+				"amry.ks@gmail.com", "xamry"));
 
-        HabitatBi1To1FK address = new HabitatBi1To1FK();
-        address.setAddressId("bionetoonefk_a");
-        address.setStreet("123, New street");
-        person.setAddress(address);
-        address.setPerson(person);
+		HabitatBi1To1FK address = new HabitatBi1To1FK();
+		address.setAddressId("bionetoonefk_a");
+		address.setStreet("123, New street");
+		person.setAddress(address);
+		address.setPerson(person);
 
-        dao.insert(person);
-        col.add(person);
-        col.add(address);
+		dao.insert(person);
+		col.add(person);
+		col.add(address);
 
-    }
+	}
 
-    /**
-     * Test merge.
-     */
-    @Test
-    public void testMerge()
-    {
+	/**
+	 * Test merge.
+	 */
+	@Test
+	public void testMerge() {
 
-    }
+	}
 
-    /**
-     * Tear down.
-     * 
-     * @throws Exception
-     *             the exception
-     */
-    @After
-    public void tearDown() throws Exception
-    {
-        tearDownInternal();
-        CassandraCli.dropKeySpace("KunderaExamples");
-    }
+	/**
+	 * Tear down.
+	 * 
+	 * @throws Exception
+	 *             the exception
+	 */
+	@After
+	public void tearDown() throws Exception {
+		tearDownInternal();
+		CassandraCli.dropKeySpace("KunderaExamples");
+	}
 
+	@Override
+	protected void loadDataForPERSONNEL() throws TException,
+			InvalidRequestException, UnavailableException, TimedOutException,
+			SchemaDisagreementException {
 
-    @Override
-    protected void loadDataForPERSONNEL() throws TException, InvalidRequestException, UnavailableException,
-            TimedOutException, SchemaDisagreementException
-    {
+		KsDef ksDef = null;
 
-        KsDef ksDef = null;
+		CfDef cfDef = new CfDef();
+		cfDef.name = "PERSONNEL";
+		cfDef.keyspace = "KunderaExamples";
+		// cfDef.setColumn_type("super");
+		cfDef.column_type = "Super";
+		cfDef.setComparator_type("UTF8Type");
+		cfDef.setDefault_validation_class("UTF8Type");
+		ColumnDef columnDef = new ColumnDef(ByteBuffer.wrap("PERSON_NAME"
+				.getBytes()), "UTF8Type");
 
-        CfDef cfDef = new CfDef();
-        cfDef.name = "PERSONNEL";
-        cfDef.keyspace = "KunderaExamples";
-        // cfDef.setColumn_type("super");
-        cfDef.column_type = "Super";
-        cfDef.setComparator_type("UTF8Type");
-        cfDef.setDefault_validation_class("UTF8Type");
-        ColumnDef columnDef = new ColumnDef(ByteBuffer.wrap("PERSON_NAME".getBytes()), "UTF8Type");
+		cfDef.addToColumn_metadata(columnDef);
 
-        cfDef.addToColumn_metadata(columnDef);
+		List<CfDef> cfDefs = new ArrayList<CfDef>();
+		cfDefs.add(cfDef);
 
-        List<CfDef> cfDefs = new ArrayList<CfDef>();
-        cfDefs.add(cfDef);
+		try {
+			ksDef = CassandraCli.client.describe_keyspace("KunderaExamples");
+			CassandraCli.client.set_keyspace("KunderaExamples");
 
-        try
-        {
-            ksDef = CassandraCli.client.describe_keyspace("KunderaExamples");
-            CassandraCli.client.set_keyspace("KunderaExamples");
+			List<CfDef> cfDefn = ksDef.getCf_defs();
 
-            List<CfDef> cfDefn = ksDef.getCf_defs();
+			// CassandraCli.client.set_keyspace("KunderaExamples");
+			for (CfDef cfDef1 : cfDefn) {
 
-            // CassandraCli.client.set_keyspace("KunderaExamples");
-            for (CfDef cfDef1 : cfDefn)
-            {
+				if (cfDef1.getName().equalsIgnoreCase("PERSONNEL")) {
 
-                if (cfDef1.getName().equalsIgnoreCase("PERSONNEL"))
-                {
+					CassandraCli.client.system_drop_column_family("PERSONNEL");
 
-                    CassandraCli.client.system_drop_column_family("PERSONNEL");
+				}
+			}
+			CassandraCli.client.system_add_column_family(cfDef);
 
-                }
-            }
-            CassandraCli.client.system_add_column_family(cfDef);
+		} catch (NotFoundException e) {
 
-        }
-        catch (NotFoundException e)
-        {
+			ksDef = new KsDef("KunderaExamples",
+					"org.apache.cassandra.locator.SimpleStrategy", cfDefs);
+			ksDef.setReplication_factor(1);
+			CassandraCli.client.system_add_keyspace(ksDef);
+		}
 
-            ksDef = new KsDef("KunderaExamples", "org.apache.cassandra.locator.SimpleStrategy", cfDefs);
-            ksDef.setReplication_factor(1);
-            CassandraCli.client.system_add_keyspace(ksDef);
-        }
+		CassandraCli.client.set_keyspace("KunderaExamples");
 
-        CassandraCli.client.set_keyspace("KunderaExamples");
+	}
 
-    }
+	@Override
+	protected void loadDataForHABITAT() throws TException,
+			InvalidRequestException, UnavailableException, TimedOutException,
+			SchemaDisagreementException {
 
-    @Override
-    protected void loadDataForHABITAT() throws TException, InvalidRequestException, UnavailableException,
-            TimedOutException, SchemaDisagreementException
-    {
+		KsDef ksDef = null;
+		CfDef cfDef2 = new CfDef();
+		cfDef2.name = "ADDRESS";
+		cfDef2.keyspace = "KunderaExamples";
 
-        KsDef ksDef = null;
-        CfDef cfDef2 = new CfDef();
-        cfDef2.name = "ADDRESS";
-        cfDef2.keyspace = "KunderaExamples";
+		ColumnDef columnDef2 = new ColumnDef(ByteBuffer.wrap("STREET"
+				.getBytes()), "UTF8Type");
+		columnDef2.index_type = IndexType.KEYS;
+		cfDef2.addToColumn_metadata(columnDef2);
 
-        ColumnDef columnDef2 = new ColumnDef(ByteBuffer.wrap("STREET".getBytes()), "UTF8Type");
-        columnDef2.index_type = IndexType.KEYS;
-        cfDef2.addToColumn_metadata(columnDef2);
+		List<CfDef> cfDefs = new ArrayList<CfDef>();
+		cfDefs.add(cfDef2);
 
-        List<CfDef> cfDefs = new ArrayList<CfDef>();
-        cfDefs.add(cfDef2);
+		try {
+			ksDef = CassandraCli.client.describe_keyspace("KunderaExamples");
+			CassandraCli.client.set_keyspace("KunderaExamples");
+			List<CfDef> cfDefss = ksDef.getCf_defs();
+			// CassandraCli.client.set_keyspace("KunderaExamples");
+			for (CfDef cfDef : cfDefss) {
 
-        try
-        {
-            ksDef = CassandraCli.client.describe_keyspace("KunderaExamples");
-            CassandraCli.client.set_keyspace("KunderaExamples");
-            List<CfDef> cfDefss = ksDef.getCf_defs();
-            // CassandraCli.client.set_keyspace("KunderaExamples");
-            for (CfDef cfDef : cfDefss)
-            {
+				if (cfDef.getName().equalsIgnoreCase("ADDRESS")) {
 
-                if (cfDef.getName().equalsIgnoreCase("ADDRESS"))
-                {
+					CassandraCli.client.system_drop_column_family("ADDRESS");
 
-                    CassandraCli.client.system_drop_column_family("ADDRESS");
+				}
+			}
+			CassandraCli.client.system_add_column_family(cfDef2);
+		} catch (NotFoundException e) {
 
-                }
-            }
-            CassandraCli.client.system_add_column_family(cfDef2);
-        }
-        catch (NotFoundException e)
-        {
+			ksDef = new KsDef("KunderaExamples",
+					"org.apache.cassandra.locator.SimpleStrategy", cfDefs);
 
-            ksDef = new KsDef("KunderaExamples", "org.apache.cassandra.locator.SimpleStrategy", cfDefs);
+			ksDef.setReplication_factor(1);
+			CassandraCli.client.system_add_keyspace(ksDef);
 
-            ksDef.setReplication_factor(1);
-            CassandraCli.client.system_add_keyspace(ksDef);
+		}
+		CassandraCli.client.set_keyspace("KunderaExamples");
 
-        }
-        CassandraCli.client.set_keyspace("KunderaExamples");
+	}
 
-    }
+	@Override
+	protected void hBaseLoadDataForPERSONNEL() throws TException,
+			InvalidRequestException, UnavailableException, TimedOutException,
+			SchemaDisagreementException {
+		HBaseCli.createColumnFamily("PERSONNEL", "PERSONNEL");
+		HBaseCli.addColumn("PERSONNEL", "PERSONNEL", "PERSON_NAME");
+
+	}
+
+	@Override
+	protected void hBaseLoadDataForHABITAT() throws TException,
+			InvalidRequestException, UnavailableException, TimedOutException,
+			SchemaDisagreementException {
+		HBaseCli.createColumnFamily("ADDRESS", "ADDRESS");
+		HBaseCli.addColumn("ADDRESS", "ADDRESS", "STREET");
+
+	}
 }

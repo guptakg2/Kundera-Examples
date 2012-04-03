@@ -176,7 +176,7 @@ public class StudentCassandraTest extends StudentBase<StudentCassandra>
         cfDef.keyspace = "KunderaExamples";
 
         ColumnDef columnDef2 = new ColumnDef(ByteBuffer.wrap("UniqueId".getBytes()), "IntegerType");
-        columnDef2.index_type = IndexType.KEYS;
+       columnDef2.index_type = IndexType.KEYS;
         cfDef.addToColumn_metadata(columnDef2);
         ColumnDef columnDef3 = new ColumnDef(ByteBuffer.wrap("STUDENT_NAME".getBytes()), "UTF8Type");
         columnDef3.index_type = IndexType.KEYS;
@@ -268,10 +268,10 @@ public class StudentCassandraTest extends StudentBase<StudentCassandra>
             for (CfDef cfDef1 : cfDefn)
             {
 
-                if (cfDef1.getName().equalsIgnoreCase("PERSONNEL"))
+                if (cfDef1.getName().equalsIgnoreCase("STUDENT"))
                 {
 
-                    CassandraCli.client.system_drop_column_family("PERSONNEL");
+                    CassandraCli.client.system_drop_column_family("STUDENT");
 
                 }
             }

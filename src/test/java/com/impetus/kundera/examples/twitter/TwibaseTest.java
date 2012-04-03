@@ -15,6 +15,7 @@
  */
 package com.impetus.kundera.examples.twitter;
 
+import com.impetus.kundera.examples.cli.HBaseCli;
 import com.impetus.kundera.examples.twitter.dao.Twitter;
 import com.impetus.kundera.examples.twitter.query.HBaseQuerySuite;
 
@@ -23,49 +24,66 @@ import com.impetus.kundera.examples.twitter.query.HBaseQuerySuite;
  * 
  * @author amresh.singh
  */
-public class TwibaseTest extends HBaseQuerySuite
-{
-    /** The user id1. */
-    String userId1;
+public class TwibaseTest extends HBaseQuerySuite {
+	/** The user id1. */
+	String userId1;
 
-    /** The user id2. */
-    String userId2;
+	/** The user id2. */
+	String userId2;
 
-    /** The twitter. */
-    Twitter twitter;
+	/** The twitter. */
+	Twitter twitter;
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see junit.framework.TestCase#setUp()
-     */
-    @Override
-    protected void setUp() throws Exception
-    {
-        setUpInternal("twibase");
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see junit.framework.TestCase#setUp()
+	 */
+	@Override
+	protected void setUp() throws Exception {
+		HBaseCli.startCluster();
+		// operation();
+		loadDataForHbase();
+		setUpInternal("twibase");
+	}
 
-    /**
-     * Test on execute.
-     */
-    public void testOnExecute()
-    {
-        executeTestSuite();
-    }
+	/**
+	 * Test on execute.
+	 */
+	public void testOnExecute() {
+		executeTestSuite();
+	}
 
-    public void testOnQuery()
-    {
-        executeQuerySuite();
-    }
+	public void testOnQuery() {
+		executeQuerySuite();
+	}
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see junit.framework.TestCase#tearDown()
-     */
-    @Override
-    protected void tearDown() throws Exception
-    {
-        tearDownInternal();
-    }
+	protected void loadDataForHbase() {
+		HBaseCli.createColumnFamily("USER", "USER");
+		HBaseCli.addColumn("USER", "USER", "FRIEND_ID");
+		HBaseCli.addColumn("USER", "USER", "PREFERENCE_ID");
+		HBaseCli.addColumn("USER", "USER", "FOLLOWER_ID");
+		HBaseCli.addColumn("USER", "USER", "personalDetail");
+
+		HBaseCli.createColumnFamily("PREFERENCE", "PREFERENCE");
+		HBaseCli.addColumn("PREFERENCE", "PREFERENCE", "WEBSITE_THEME");
+		HBaseCli.addColumn("PREFERENCE", "PREFERENCE", "PRIVACY_LEVEL");
+
+		HBaseCli.createColumnFamily("EXTERNAL_LINK", "EXTERNAL_LINK");
+		HBaseCli.addColumn("EXTERNAL_LINK", "EXTERNAL_LINK", "LINK_TYPE");
+		HBaseCli.addColumn("EXTERNAL_LINK", "EXTERNAL_LINK", "LINK_ADDRESS");
+		HBaseCli.addColumn("EXTERNAL_LINK", "EXTERNAL_LINK", "USER_ID");
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see junit.framework.TestCase#tearDown()
+	 */
+
+	@Override
+	protected void tearDown() throws Exception {
+		tearDownInternal();
+		HBaseCli.stopCluster();
+	}
 }
