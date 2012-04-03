@@ -81,7 +81,7 @@ public abstract class TwinAssociation extends AssociationBase
         for (Map<Class, String> c : combinations)
         {
             switchPersistenceUnits(c);
-            insert();
+            //insert();
             find(); 
             //update();
             //remove();
