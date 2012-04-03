@@ -38,7 +38,7 @@ public class TwitterService extends SuperDao implements Twitter
 {
     private EntityManager em;
     private EntityManagerFactory emf;
-
+    
     public TwitterService(String persistenceUnitName)
     {
         if (emf == null)
@@ -51,10 +51,26 @@ public class TwitterService extends SuperDao implements Twitter
             {
                 e.printStackTrace();
             }
-        }     
+        } 
         
     }
+    
+    @Override
+    public void createEntityManager() {
+        if(em == null) {
+            em = emf.createEntityManager();
+        }
+    }
+    
+    @Override
+    public void closeEntityManager() {
+        if(em != null) {
+            em.close();
+            em = null;
+        }
+    }
 
+    @Override
     public void close()
     {       
         if(emf != null) {
@@ -64,56 +80,47 @@ public class TwitterService extends SuperDao implements Twitter
     
     @Override
     public void addUser(User user)
-    {
-        em = emf.createEntityManager();        
-        em.persist(user);
-        em.close();
+    { 
+        em.persist(user);      
     }
 
     @Override
     public void addUser(String userId, String name, String password, String relationshipStatus)
-    {
-        em = emf.createEntityManager();
+    {       
         User user = new User(userId, name, password, relationshipStatus);
         em.persist(user);
-        em.close();
+        
     }
 
     @Override
     public void savePreference(String userId, Preference preference)
     {
-        em = emf.createEntityManager();
+      
         User user = em.find(User.class, userId);
         user.setPreference(preference);
-        em.persist(user);
-        em.close();
+        em.persist(user);       
     }
 
     @Override
-    public void addExternalLink(String userId, String linkType, String linkAddress)
+    public void addExternalLink(String userId, String linkId, String linkType, String linkAddress)
     {
-        em = emf.createEntityManager();
         User user = em.find(User.class, userId);
-        user.addExternalLink(new ExternalLink(linkType, linkAddress));
+        user.addExternalLink(new ExternalLink(linkId, linkType, linkAddress));
 
-        em.persist(user);
-        em.close();
+        em.persist(user);      
     }
 
     @Override
     public void addTweet(String userId, String tweetBody, String device)
-    {
-        em = emf.createEntityManager();
+    {       
         User user = em.find(User.class, userId);
         user.addTweet(new Tweet(tweetBody, device));
-        em.persist(user);
-        em.close();
+        em.persist(user);       
     }
 
     @Override
     public void startFollowing(String userId, String friendUserId)
-    {
-        em = emf.createEntityManager();
+    {       
         User user = em.find(User.class, userId);
         User friend = em.find(User.class, friendUserId);
 
@@ -121,44 +128,66 @@ public class TwitterService extends SuperDao implements Twitter
         em.persist(user);
 
         friend.addFollower(user);
-        em.persist(friend);
-        em.close();
+        em.persist(friend);       
     }
 
     @Override
     public void addFollower(String userId, String followerUserId)
-    {
-        em = emf.createEntityManager();
+    {        
         User user = em.find(User.class, userId);
         User follower = em.find(User.class, followerUserId);
 
         user.addFollower(follower);
-        em.persist(user);
-        em.close();
+        em.persist(user);        
     }
     
     
     
 
     @Override
-	public List<User> getAllUsers() {
-    	em = emf.createEntityManager();
+    public User findUserById(String userId)
+    {    
+        User user = em.find(User.class, userId);     
+        return user;
+    }
+    
+    
+
+    @Override
+    public void removeUser(User user)
+    {
+        em.remove(user);        
+    } 
+    
+
+    @Override
+    public void mergeUser(User user)
+    {        
+        em.merge(user);        
+    }
+
+    @Override
+    public List<User> getAllUsers() {
+    	
         Query q = em.createQuery("select u from User u");
         
-        List<User> users = q.getResultList();
-        em.close();
+        List<User> users = q.getResultList();       
         
         return users;
 	}
 
 	@Override
     public List<Tweet> getAllTweets(String userId)
+<<<<<<< HEAD
     {
         em = emf.createEntityManager();
         Query q = em.createQuery("select u from User u where u.USER_ID =:userId");
+=======
+    {        
+        Query q = em.createQuery("select u from User u where u.userId =:userId");
+>>>>>>> 042a0177dbbcdfadbed828241f3035f8dfdef57a
         q.setParameter("userId", userId);
-        List<User> users = q.getResultList();
-        em.close();
+        List<User> users = q.getResultList();       
         if (users == null || users.isEmpty())
         {
             return null;
@@ -171,12 +200,16 @@ public class TwitterService extends SuperDao implements Twitter
 
     @Override
     public List<User> getFollowers(String userId)
+<<<<<<< HEAD
     {
         em = emf.createEntityManager();
         Query q = em.createQuery("select u from User u where u.USER_ID =:userId");
+=======
+    {        
+        Query q = em.createQuery("select u from User u where u.userId =:userId");
+>>>>>>> 042a0177dbbcdfadbed828241f3035f8dfdef57a
         q.setParameter("userId", userId);
-        List<User> users = q.getResultList();
-        em.close();
+        List<User> users = q.getResultList();        
         if (users == null || users.isEmpty())
         {
             return null;
@@ -186,23 +219,19 @@ public class TwitterService extends SuperDao implements Twitter
 
     @Override
     public List<Tweet> findTweetByBody(String tweetBody)
-    {
-        em = emf.createEntityManager();
+    {       
         Query q = em.createQuery("select u.body from User u where u.body like :body");
         q.setParameter("body", tweetBody);
-        List<Tweet> tweets = q.getResultList();
-        em.close();
+        List<Tweet> tweets = q.getResultList();       
         return tweets;
     }
 
     @Override
     public List<Tweet> findTweetByDevice(String deviceName)
-    {
-        em = emf.createEntityManager();
+    {        
         Query q = em.createQuery("select u.device from User u where u.device like :device");
         q.setParameter("device", deviceName);
-        List<Tweet> tweets = q.getResultList();
-        em.close();
+        List<Tweet> tweets = q.getResultList();        
         return tweets;
     }
 }

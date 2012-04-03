@@ -62,6 +62,7 @@ import com.impetus.kundera.examples.crossdatastore.useraddress.entities.Personne
  * @author vivek.mishra
  */
 
+<<<<<<< HEAD
 public class OTOUniAssociationTest extends TwinAssociation {
 
 	/**
@@ -253,6 +254,276 @@ public class OTOUniAssociationTest extends TwinAssociation {
 			}
 			CassandraCli.client.system_add_column_family(cfDef2);
 		} catch (NotFoundException e) {
+=======
+public class OTOUniAssociationTest extends TwinAssociation
+{  
+
+    /**
+     * Inits the.
+     */
+    @BeforeClass
+    public static void init() throws Exception
+    {
+        if(RUN_IN_EMBEDDED_MODE) {
+            CassandraCli.cassandraSetUp();
+        }        
+        
+        List<Class> clazzz = new ArrayList<Class>(2);
+        clazzz.add(PersonnelUni1To1FK.class);
+        clazzz.add(HabitatUni1To1FK.class);
+        init(clazzz, ALL_PUs_UNDER_TEST);
+    }
+
+    /**
+     * Sets the up.
+     * 
+     * @throws Exception
+     *             the exception
+     */
+    @Before
+    public void setUp() throws Exception
+    {
+        setUpInternal("ADDRESS", "PERSONNEL");
+    }
+
+    /**
+     * Test insert.
+     */
+    @Test
+    public void testInsert()
+    {
+        try {
+            tryOperation();
+        } catch(Exception e) {
+            e.printStackTrace();
+            Assert.fail(e.getMessage());
+            
+        }
+        
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * com.impetus.kundera.examples.crossdatastore.useraddress.TwinAssociation
+     * #insert()
+     */
+    protected void insert()
+    {
+        try
+        {
+            PersonnelUni1To1FK person = new PersonnelUni1To1FK();
+            HabitatUni1To1FK address = new HabitatUni1To1FK();
+            person.setPersonId("unionetoonefk_1");
+            person.setPersonName("Amresh");
+            // person.setPersonalData(new PersonalData("www.amresh.com",
+            // "amry.ks@gmail.com", "xamry"));
+            address.setAddressId("unionetoonefk_a");
+            address.setStreet("123, New street");
+            person.setAddress(address);
+            dao.insert(person);
+            col.add(person);
+            col.add(address);
+        }
+        catch (Exception e)
+        {
+            Assert.fail();
+        }
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * com.impetus.kundera.examples.crossdatastore.useraddress.TwinAssociation
+     * #find()
+     */
+    protected void find()
+    {
+        // Find Person
+        try
+        {
+            PersonnelUni1To1FK p = (PersonnelUni1To1FK) dao.findPerson(PersonnelUni1To1FK.class, "unionetoonefk_1");
+            Assert.assertNotNull(p);
+            Assert.assertEquals("unionetoonefk_1", p.getPersonId());
+            Assert.assertEquals("Amresh", p.getPersonName());
+            // PersonalData pd = p.getPersonalData();
+            // Assert.assertNotNull(pd);
+            // Assert.assertEquals("www.amresh.com", pd.getWebsite());
+
+            HabitatUni1To1FK add = p.getAddress();
+            Assert.assertNotNull(add);
+            Assert.assertNotNull(add.getAddressId());
+            Assert.assertEquals("unionetoonefk_a", add.getAddressId());
+            Assert.assertEquals("123, New street", add.getStreet());
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            Assert.fail();
+        }
+    }
+    
+    protected void update()
+    {        
+        try
+        {
+            for(Object entity : col) {
+                if(entity.getClass().equals(PersonnelUni1To1FK.class)) {
+                    PersonnelUni1To1FK personnel = (PersonnelUni1To1FK) entity;
+                    personnel.setPersonName("Saurabh");
+                    dao.merge(personnel);
+                } else if(entity.getClass().equals(HabitatUni1To1FK.class)) {
+                    HabitatUni1To1FK address = (HabitatUni1To1FK) entity;
+                    address.setStreet("Brand new street");
+                    dao.merge(address);
+                }
+            }
+            
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            Assert.fail();
+        }
+    }
+    
+    protected void remove()
+    {        
+        try
+        {
+            
+            PersonnelUni1To1FK p = (PersonnelUni1To1FK) dao.findPerson(PersonnelUni1To1FK.class, "unionetoonefk_1");
+            dao.removePerson(p);          
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            Assert.fail();
+        }
+    }
+
+    /**
+     * Test merge.
+     */
+    // @Test
+    public void testMerge()
+    {
+
+    }
+
+    /**
+     * Tear down.
+     * 
+     * @throws Exception
+     *             the exception
+     */
+    @After
+    public void tearDown() throws Exception
+    {
+        tearDownInternal();
+        
+        if(AUTO_MANAGE_SCHEMA) {
+            CassandraCli.dropKeySpace("KunderaExamples");
+        }
+        
+    }
+
+    @Override
+    public void loadDataForPERSONNEL() throws InvalidRequestException, TException, SchemaDisagreementException
+    {
+
+        KsDef ksDef = null;
+
+        CfDef cfDef = new CfDef();
+        cfDef.name = "PERSONNEL";
+        cfDef.keyspace = "KunderaExamples";
+        cfDef.column_type = "Super";
+        cfDef.setComparator_type("UTF8Type");
+        cfDef.setDefault_validation_class("UTF8Type");
+        ColumnDef columnDef = new ColumnDef(ByteBuffer.wrap("PERSON_NAME".getBytes()), "UTF8Type");
+        cfDef.addToColumn_metadata(columnDef);
+
+        List<CfDef> cfDefs = new ArrayList<CfDef>();
+        cfDefs.add(cfDef);
+
+        try
+        {
+            ksDef = com.impetus.kundera.examples.cli.CassandraCli.client.describe_keyspace("KunderaExamples");
+            CassandraCli.client.set_keyspace("KunderaExamples");
+
+            List<CfDef> cfDefn = ksDef.getCf_defs();
+
+            // CassandraCli.client.set_keyspace("KunderaExamples");
+            for (CfDef cfDef1 : cfDefn)
+            {
+
+                if (cfDef1.getName().equalsIgnoreCase("PERSONNEL"))
+                {
+
+                    CassandraCli.client.system_drop_column_family("PERSONNEL");
+
+                }
+            }
+            CassandraCli.client.system_add_column_family(cfDef);
+
+        }
+        catch (NotFoundException e)
+        {
+
+            ksDef = new KsDef("KunderaExamples", "org.apache.cassandra.locator.SimpleStrategy", cfDefs);
+            ksDef.setReplication_factor(1);
+            CassandraCli.client.system_add_keyspace(ksDef);
+        }
+
+        CassandraCli.client.set_keyspace("KunderaExamples");
+
+    }
+
+    @Override
+    public void loadDataForHABITAT() throws TException, InvalidRequestException, UnavailableException,
+            TimedOutException, SchemaDisagreementException
+    {
+
+        KsDef ksDef = null;
+        CfDef cfDef2 = new CfDef();
+        cfDef2.name = "ADDRESS";
+        cfDef2.keyspace = "KunderaExamples";
+
+        ColumnDef columnDef2 = new ColumnDef(ByteBuffer.wrap("STREET".getBytes()), "UTF8Type");
+        columnDef2.index_type = IndexType.KEYS;
+        cfDef2.addToColumn_metadata(columnDef2);
+
+        List<CfDef> cfDefs = new ArrayList<CfDef>();
+        cfDefs.add(cfDef2);
+
+        try
+        {
+            ksDef = CassandraCli.client.describe_keyspace("KunderaExamples");
+            CassandraCli.client.set_keyspace("KunderaExamples");
+            List<CfDef> cfDefss = ksDef.getCf_defs();
+            // CassandraCli.client.set_keyspace("KunderaExamples");
+            for (CfDef cfDef : cfDefss)
+            {
+
+                if (cfDef.getName().equalsIgnoreCase("ADDRESS"))
+                {
+
+                    CassandraCli.client.system_drop_column_family("ADDRESS");
+
+                }
+            }
+            CassandraCli.client.system_add_column_family(cfDef2);
+        }
+        catch (NotFoundException e)
+        {
+
+            ksDef = new KsDef("KunderaExamples", "org.apache.cassandra.locator.SimpleStrategy", cfDefs);
+
+            ksDef.setReplication_factor(1);
+            CassandraCli.client.system_add_keyspace(ksDef);
+>>>>>>> 042a0177dbbcdfadbed828241f3035f8dfdef57a
 
 			ksDef = new KsDef("KunderaExamples",
 					"org.apache.cassandra.locator.SimpleStrategy", cfDefs);

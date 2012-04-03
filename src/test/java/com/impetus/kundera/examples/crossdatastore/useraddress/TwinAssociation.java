@@ -20,6 +20,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.management.RuntimeErrorException;
+
 import org.apache.cassandra.thrift.InvalidRequestException;
 import org.apache.cassandra.thrift.SchemaDisagreementException;
 import org.apache.commons.logging.Log;
@@ -79,12 +81,16 @@ public abstract class TwinAssociation extends AssociationBase
         for (Map<Class, String> c : combinations)
         {
             switchPersistenceUnits(c);
-            insert();
-            find();
+            //insert();
+            find(); 
+            //update();
+            //remove();
         }
         } catch(Exception e)
-        {
+        {            
             log.error(e);
+            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
@@ -97,5 +103,9 @@ public abstract class TwinAssociation extends AssociationBase
      * All unit test cases must implement it.
      */
     protected abstract void insert();
+    
+    protected abstract void update();
+    
+    protected abstract void remove();
 
 }

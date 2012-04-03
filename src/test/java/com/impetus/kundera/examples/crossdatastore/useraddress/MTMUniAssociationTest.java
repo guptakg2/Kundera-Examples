@@ -39,9 +39,14 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.impetus.kundera.examples.cli.CassandraCli;
+<<<<<<< HEAD
 import com.impetus.kundera.examples.cli.HBaseCli;
+=======
+import com.impetus.kundera.examples.crossdatastore.useraddress.entities.HabitatUni1ToM;
+>>>>>>> 042a0177dbbcdfadbed828241f3035f8dfdef57a
 import com.impetus.kundera.examples.crossdatastore.useraddress.entities.HabitatUniMToM;
 import com.impetus.kundera.examples.crossdatastore.useraddress.entities.PersonalData;
+import com.impetus.kundera.examples.crossdatastore.useraddress.entities.PersonnelUni1ToM;
 import com.impetus.kundera.examples.crossdatastore.useraddress.entities.PersonnelUniMToM;
 
 /**
@@ -56,11 +61,13 @@ public class MTMUniAssociationTest extends TwinAssociation
     @BeforeClass
     public static void init() throws Exception
     {
-        CassandraCli.cassandraSetUp();        
+        if(RUN_IN_EMBEDDED_MODE) {
+            CassandraCli.cassandraSetUp();
+        }        
         List<Class> clazzz = new ArrayList<Class>(2);
         clazzz.add(PersonnelUniMToM.class);
         clazzz.add(HabitatUniMToM.class);
-        init(clazzz, "twingo", "twissandra"/* , "twibase" */);
+        init(clazzz, ALL_PUs_UNDER_TEST);
     }
 
     /**
@@ -172,6 +179,57 @@ public class MTMUniAssociationTest extends TwinAssociation
         col.add(address2);
         col.add(address3);
     }
+    
+    
+
+    @Override
+    protected void update()
+    {
+        try
+        {
+            PersonnelUniMToM p1 = (PersonnelUniMToM) dao.findPerson(PersonnelUniMToM.class, "unimanytomany_1");
+            p1.setPersonName("Amry");
+            
+            for(HabitatUniMToM address : p1.getAddresses()) {
+                address.setStreet("Brand New Street");
+            }
+            
+            
+            dao.merge(p1);
+            
+            PersonnelUniMToM p2 = (PersonnelUniMToM) dao.findPerson(PersonnelUniMToM.class, "unimanytomany_2");
+            p2.setPersonName("Saurabh");
+            for(HabitatUniMToM address : p2.getAddresses()) {
+                address.setStreet("34, Dangerous Lane");
+            }
+            dao.merge(p2); 
+            
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            Assert.fail();
+        }
+    }
+
+    @Override
+    protected void remove()
+    {
+        try
+        {
+            
+            PersonnelUniMToM p1 = (PersonnelUniMToM) dao.findPerson(PersonnelUniMToM.class, "unimanytomany_1");
+            dao.removePerson(p1);          
+            
+            PersonnelUniMToM p2 = (PersonnelUniMToM) dao.findPerson(PersonnelUniMToM.class, "unimanytomany_2");
+            dao.removePerson(p2);          
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            Assert.fail();
+        }
+    }
 
     /**
      * Test merge.
@@ -193,7 +251,9 @@ public class MTMUniAssociationTest extends TwinAssociation
     {
 
         tearDownInternal();
-        CassandraCli.dropKeySpace("KunderaExamples");
+        if(AUTO_MANAGE_SCHEMA) {
+            CassandraCli.dropKeySpace("KunderaExamples");
+        }
     }
 
     @Override

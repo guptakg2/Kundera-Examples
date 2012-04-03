@@ -24,7 +24,7 @@ public class UserAddressDaoImpl extends BaseDao
 
     public void insert(Object person)
     {
-        EntityManager em = getEntityManager(persistenceUnit);
+        em = getEntityManager(persistenceUnit);
         em.persist(person);
         closeEntityManager();
     }
@@ -37,16 +37,23 @@ public class UserAddressDaoImpl extends BaseDao
 
     public Object findPerson(Class entityClass, String personId)
     {
-        EntityManager em = getEntityManager(persistenceUnit);
+        em = getEntityManager(persistenceUnit);
         Object personnel = em.find(entityClass, personId);
-        closeEntityManager();
+        //closeEntityManager();
         return personnel;
     }
 
     public void removePerson(Object personnel)
     {
-        EntityManager em = getEntityManager(persistenceUnit);
+        em = getEntityManager(persistenceUnit);
         em.remove(personnel);
+        closeEntityManager();
+    }
+    
+    public void removeAddress(Object address)
+    {
+        em = getEntityManager(persistenceUnit);
+        em.remove(address);
         closeEntityManager();
     }
 
@@ -72,8 +79,8 @@ public class UserAddressDaoImpl extends BaseDao
 
     public void merge(Object personnel)
     {
-        EntityManager em = getEntityManager(persistenceUnit);
+        em = getEntityManager(persistenceUnit);
         em.merge(personnel);
-        closeEntityManager();
+        //closeEntityManager();
     }
 }

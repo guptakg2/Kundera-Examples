@@ -49,7 +49,7 @@ public interface Twitter
      * @param linkAddress
      *            the link address
      */
-    void addExternalLink(String userId, String linkType, String linkAddress);
+    void addExternalLink(String userId, String linkId, String linkType, String linkAddress);
 
     /**
      * Adds a new tweet for a user
@@ -85,13 +85,19 @@ public interface Twitter
      */
     void addFollower(String userId, String followerUserId);
 
+    User findUserById(String userId);
+    
+    void removeUser(User user);
+    
+    void mergeUser(User user);
+    
     /**
      * Retrieves all tweets for a given user
      * 
      * @param userId
      *            the user id
      * @return the all tweets
-     */
+     */   
     List<User> getAllUsers();
     	
     
@@ -129,5 +135,10 @@ public interface Twitter
      * Close.
      */
     void close();
+    
+    void createEntityManager();
+    
+    void closeEntityManager(); 
+    
 
 }

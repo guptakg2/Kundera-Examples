@@ -11,7 +11,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "PERSONNEL", schema = "KunderaExamples@twingo")
+@Table(name = "PERSONNEL", schema = "test")
 public class PersonnelBi1To1FK {
 	@Id
 	@Column(name = "PERSON_ID")

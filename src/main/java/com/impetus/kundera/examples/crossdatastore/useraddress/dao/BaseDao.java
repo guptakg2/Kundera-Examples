@@ -13,11 +13,15 @@ public class BaseDao
 
     public EntityManager getEntityManager(String pu)
     {
-        if(emf == null) {
-        	emf = Persistence.createEntityManagerFactory(pu);
+        if (emf == null)
+        {
+            emf = Persistence.createEntityManagerFactory(pu);
+            em = emf.createEntityManager();
         }
-    	
-        em = emf.createEntityManager();
+
+        if(em == null) {
+            em = emf.createEntityManager();
+        }              
 
         return em;
     }
@@ -27,6 +31,7 @@ public class BaseDao
         if (em != null)
         {
             em.close();
+            em = null;
         }          
     }
     

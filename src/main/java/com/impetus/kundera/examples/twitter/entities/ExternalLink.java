@@ -20,8 +20,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import com.impetus.kundera.examples.twitter.utils.ExampleUtils;
-
 /**
  * Entity class for user's External link details
  * 
@@ -47,9 +45,9 @@ public class ExternalLink
     {
     }
 
-    public ExternalLink(String type, String address)
+    public ExternalLink(String extLinkId, String type, String address)
     {
-        this.extLinkId = ExampleUtils.getUniqueId();
+        this.extLinkId = extLinkId;
         this.linkType = type;
         this.linkAddress = address;
     }
